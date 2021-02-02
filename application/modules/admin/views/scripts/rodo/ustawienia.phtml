@@ -1,0 +1,24 @@
+<div class="title"><h1><?=$this->controlname;?><?=$this->pagename;?></h1></div>
+<div class="row-fluid">
+	<div class="span12">
+		<ul class="nav-tabs none">
+			<li><a href="<?=$this->baseUrl;?>/admin/rodo/"><span class="fa i-lista"></span>Lista klientów</a></li>
+			<li><a href="<?=$this->baseUrl;?>/admin/rodo/zgody/"><span class="fa i-lista"></span>Lista regułek</a></li>
+			<li class="active"><a href="<?=$this->baseUrl;?>/admin/rodo/ustawienia/"><span class="fa i-cog"></span>Ustawienia</a></li>
+            <li><a href="<?=$this->baseUrl;?>/admin/rodo/logs/"><span class="fa i-lista"></span>Logi</a></li>
+		</ul>
+		<div class="widget">
+		<div class="tab-content">
+			<form id="ustawienia" name="ustawienia" enctype="multipart/form-data" class="mainForm" action="" method="post">
+				<div class="formRow">
+					<label for="obowiazek">Obowiązek informacyjny<br /><span style="font-size:11px;color:#A8A8A8">Tekst nad regułkami</span></label>
+					<div class="formRight tip rowInfo"><textarea class="smalleditor" name="obowiazek" id="obowiazek" rows="7" style="width:648px;height:300px" cols="80"><?=$this->rodo->obowiazek;?></textarea></div>
+				</div>
+				
+				<div class="formSubmit"><input type="submit" name="submitUstawienia" id="submit" value="Zapisz" class="greyishBtn" /></div>
+			</form>
+		</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">$(document).ready(function(){tinymce();});</script>

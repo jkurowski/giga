@@ -1,0 +1,64 @@
+<div class="title"><h1><?=$this->controlname;?> - <?=$this->katalog->nazwa;?></h1></div>
+<div class="row-fluid">
+	<div class="span12">
+		<div class="widget">
+			<div class="table-header">
+			<form name="usuwamy" id="usuwamy" method="post" action="<?=$this->baseUrl;?>/admin/galeria/kilka/">
+			<ul id="thumblist" class="panele none">
+			<?php foreach($this->zdjecia as $zdjecia) : ?>
+			<li id="recordsArray_<?=$this->escape($zdjecia->id);?>" style="background:url('<?= $this->baseUrl.'/files/galeria/thumbs/'.$zdjecia->plik; ?>') no-repeat top center;background-size:cover">
+				<div class="options">
+					<input name="checkbox[]" type="checkbox" value="<?=$this->escape($zdjecia->id);?>" />
+					<a href="<?=$this->baseUrl;?>/admin/galeria/usun-obrazek/id/<?=$this->escape($zdjecia->id);?>/" class="confirm toolDelete tip" title="Usuń obrazek"></a>
+					<?php if($this->katalog->id == 1){?>
+					<a href="<?=$this->baseUrl;?>/admin/galeria/edytuj-obrazek/id/<?=$this->escape($zdjecia->id);?>/" class="toolEdit tip" title="Edytuj obrazek"></a>
+					<?php } ?>
+				</div>
+			</li>
+			<?php endforeach; ?>
+			<div class="clr"></div>
+			</ul>
+			</form>
+			</div>
+
+			<div class="table-footer">
+			<div id="jquery-wrapped-fine-uploader"></div>
+			<a href="javascript: submitform()" class="button greyishBtn">Usuń zaznaczone</a>
+			<a href="<?= $this->baseUrl;?>/admin/galeria/" class="button greyishBtn">Wróć do listy katalogów</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="<?php echo $this->baseUrl; ?>/public/js/fineuploader.js" type="text/javascript"></script>
+<script type="text/javascript" language="javascript">
+//<![CDATA[
+$(document).ready(function(){
+	$("#thumblist").sortujGal('<?php echo $this->baseUrl;?>/admin/galeria/ustaw/co/galeria_zdjecia/');
+	var fileCount = 0;
+	$('#jquery-wrapped-fine-uploader').fineUploader({
+		debug: true,
+		request: {
+			endpoint: '<?php echo $this->baseUrl; ?>/admin/galeria/upload/id/<?= $this->katalog->id;?>/'
+		}
+	}).on('error', function(event, id, name, reason) {
+	  })
+	  .on('submit', function(id, nameN){
+		fileCount++;
+	  })
+	  .on('complete', function(event, id, name, response){
+			if(response.success==true){
+				fileCount--;
+				if(fileCount == 0){
+					location.reload();
+				}
+			}
+	  });
+
+});
+function submitform()
+{
+	document.usuwamy.submit();
+}
+//]]>
+</script>

@@ -1,0 +1,129 @@
+<?php $menu = Zend_Registry::get('querymenu');$sidemenu = $menu->sidemenu(); ?>
+<div class="container">
+	<div class="row">
+<?php if($sidemenu ) { ?>
+		<div class="col-3 inwestmenu">
+			<div id="aside">
+				<ul class="list-unstyled sidemenu mb-0">
+					<?=$sidemenu;?>
+				</ul>
+			</div>
+		</div>
+<?php } ?>
+		<div class="<?php if($sidemenu ) { ?>col-9<?php } else {?>col-12<?php } ?> inwestdesc">
+			<?=replace($this->strona->tekst); ?>
+		</div>
+	</div>
+<?php if ($this->strona->id == '6') {?>
+<div class="container">
+	<div class="row">
+		<div class="col-12">
+			<h4>Nasze realizacje</h4>
+		</div>
+	</div>
+	<div class="row">
+<?php foreach($this->inwestycje as $i) { ?>
+		<div class="col-4 col-zrealizowana">
+			<a href="<?=$this->baseUrl;?>/zrealizowane/<?=$i->tag;?>/">
+			<div class="zrealizowana-item green-corners">
+				<img src="<?=$this->baseUrl; ?>/files/inwestycje/miniaturka/<?=$i->miniaturka;?>" alt="<?=$i->nazwa;?>" />
+				<div class="main-inwest-apla">
+					<h3><?=$i->nazwa;?></h3>
+					<p><?=$i->miasto;?></p>
+				</div>
+			</div>
+			</a>
+		</div>
+<?php } ?>
+	</div>
+</div>
+<?php } ?>
+
+<?php if ($this->strona->id == '2') {?>
+<form method="post" action="" id="kontakt" class="validateForm lightForm green-corners">
+	<div class="row">
+		<?php if($this->message == 1) :?>
+		<div id="formalert" class="col-12">
+			<div class="sendok mb-4"><p>Twoja wiadomość została wysłana. W najbliższym czasie skontaktujemy się z Państwem celem omówienia szczegółów!</p></div>
+		</div>
+		<?php endif; ?>
+		<?php if($this->message == 2) :?>
+		<div id="formalert" class="col-12">
+			<div class="senderror mb-4"><p>Uzupełnij wszystkie wymagane pola!</p></div>
+		</div>
+		<?php endif; ?>
+	</div>
+	<div class="row">
+		<div class="col-12 col-sm-6 col-md-4">
+			<label for="form_imie">Imię i nazwisko</label>
+			<input type="text" class="form-input validate[required]" data-prompt-position="topLeft:0" name="imie" id="form_imie">
+		</div>
+		<div class="col-12 col-sm-6 col-md-4">
+			<label for="form_tel">Numer telefonu</label>
+			<input type="text" class="form-input validate[required]" data-prompt-position="topLeft:0" name="telefon" id="form_tel">
+		</div>
+		<div class="col-12 col-sm-6 col-md-4">
+			<label for="form_mail">Adres e-mail</label>
+			<input type="text" class="form-input validate[required]" data-prompt-position="topLeft:0" name="email" id="form_mail">
+		</div>
+
+		<div class="col-12 col-sm-6 col-md-4">
+			<label for="form_miasto">Miasto</label>
+			<input type="text" class="form-input" name="miasto" id="form_miasto">
+		</div>
+		
+		<div class="col-12 col-sm-6 col-md-4">
+			<label for="form_ulica">Ulica</label>
+			<input type="text" class="form-input" name="ulica" id="form_ulica">
+		</div>
+		
+		<div class="col-12 col-sm-6 col-md-4">
+			<label for="form_ksiega">Numer księgi wieczystej</label>
+			<input type="text" class="form-input" name="ksiega" id="form_ksiega">
+		</div>
+		
+		<div class="col-12 col-sm-6 col-md-4">
+			<label for="form_cena">Oczekiwana cena</label>
+			<input type="text" class="form-input" name="cena" id="form_cena">
+		</div>
+		
+		<div class="col-12 col-sm-6 col-md-4">
+			<label for="form_data">Oczekiwana data sprzedaży</label>
+			<input type="text" class="form-input" name="data" id="form_data">
+		</div>
+		
+		<div class="col-12 col-md-4">
+			<label for="form_przeznaczenie">Przeznaczenie terenu</label>
+			<input type="text" class="form-input" name="przeznaczenie" id="form_przeznaczenie">
+		</div>
+		
+		<div class="col-12">
+			<label for="form_info">Dodatkowe informacje</label>
+			<textarea class="form-input" name="wiadomosc" id="form_info"></textarea>
+		</div>
+		<div class="col-12 obowiazek">
+			<?=$this->rodo->obowiazek;?>
+		</div>
+		
+		<div class="col-12 regulki">
+		<?php foreach($this->regulki as $regulka){?>
+				<label for="zgoda_<?=$regulka->id;?>" class="rules-text"><input name="zgoda_<?=$regulka->id;?>" id="zgoda_<?=$regulka->id;?>" value="1" type="checkbox" <?php if($regulka->wymagane == 1){;?>class="validate[required]" required<?php } ?> data-prompt-position="topLeft:0"><p><?=$regulka->tresc;?></p></label>
+				<div class="clr"></div>
+		<?php } ?> 
+		</div>
+	</div>
+	
+	<div class="row row-form-submit mt-5">
+		<div class="col-12 text-center">
+			<div class="input">
+				<script type="text/javascript">
+					document.write("<button type=\"submit\">WYŚLIJ WIADOMOŚĆ</button>");
+				</script>
+				<noscript><p><b>Do poprawnego działania, Java musi być włączona.</b><p></noscript>
+			</div>
+		</div>
+	</div>
+</form>
+<?php } ?>
+</div>
+

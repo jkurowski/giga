@@ -1,0 +1,59 @@
+<div class="title"><h1><?=$this->controlname;?> - Slider strony - Obrazek 1920px / 400px</h1></div>
+<div class="row-fluid">
+	<div class="span12">
+		<div class="widget">
+			<table width="100%" cellspacing="0" cellpadding="0" class="tableStatic adm" id="sortable">
+				<thead>
+					<tr>
+					<th width="50%">Tytuł</th>
+					<th width="47%">Miniaturka</th>
+					<th width="3%"></th>
+					</tr>
+				</thead>
+				<tbody class="content">
+				<?php foreach($this->slider as $pozycja) : ?>
+				<tr id="recordsArray_<?=$this->escape($pozycja->id);?>">
+				<td><?=$this->escape($pozycja->nazwa);?></td>
+				<td><img src="<?=$this->baseUrl;?>/files/sliderstron/<?=$this->escape($pozycja->plik);?>" alt="" style="width:400px"></td>
+				<td class="right"><a href="<?=$this->baseUrl;?>/admin/strony/usun-slider/id/<?=$this->escape($pozycja->id);?>/" class="actionBtn tip btnDelete confirm" title="Usuń obrazek"></a></td>
+				</tr>
+				<?php endforeach; ?>
+				</tbody>
+			</table>
+
+			<div class="table-footer">
+				<div id="jquery-wrapped-fine-uploader"></div>
+				<a href="<?= $this->baseUrl;?>/admin/strony/" class="button greyishBtn">Wróć do listy stron</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="<?php echo $this->baseUrl; ?>/public/js/fineuploader.js" type="text/javascript"></script>
+<script type="text/javascript" language="javascript">
+//<![CDATA[
+$(document).ready(function(){
+	$("#sortable tbody.content").sortuj('<?=$this->baseUrl;?>/admin/strony/ustawslider/');
+	var fileCount = 0;
+	$('#jquery-wrapped-fine-uploader').fineUploader({
+		debug: true,
+		request: {
+			endpoint: '<?php echo $this->baseUrl; ?>/admin/strony/upload/id/<?= $this->pageId;?>/'
+		}
+	}).on('error', function(event, id, name, reason) {
+	  })
+	  .on('submit', function(id, nameN){
+		fileCount++;
+	  })
+	  .on('complete', function(event, id, name, response){
+			if(response.success==true){
+				fileCount--;
+				if(fileCount == 0){
+					location.reload();
+				}
+			}
+	  });
+
+});
+//]]>
+</script>

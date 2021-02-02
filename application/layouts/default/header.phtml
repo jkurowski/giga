@@ -1,0 +1,26 @@
+<header class="clearfix">
+	<div class="header-holder">
+		<div id="header">
+			<div class="container-fluid p-0">
+				<div class="row no-gutters">
+					<div class="col-12">
+						<nav class="navbar">
+							<ul class="text-center list-unstyled m-0 d-flex w-100 justify-content-center">
+								<li><a href="<?=$this->baseUrl;?>/" class="animate100">O NAS</a></li>
+								<li><a href="<?=$this->baseUrl;?>/" class="animate100">MISJA I WARTOŚCI</a></li>
+								<li><a href="<?=$this->baseUrl;?>/" class="animate100">REALIZACJE</a></li>
+                                <li id="logo"><a href="<?=$this->baseUrl;?>/"><img src="<?=$this->gfxUrl();?>/logo.png" alt="<?= $this->header->nazwa; ?>"></a></li>
+								<li><a href="<?=$this->baseUrl;?>/" class="animate100">OFERTA</a></li>
+								<li><a href="<?=$this->baseUrl;?>/" class="animate100">AKTUALNOŚCI</a></li>
+								<li><a href="<?=$this->baseUrl;?>/" class="animate100">KONTAKT</a></li>
+							</ul>
+                            <?php $menu = Zend_Registry::get('querymenu'); //$menu->get_menu_html(0); ?>
+						</nav>	
+						<div class="mobilemenu"><a href="#" id="triggermenu">MENU</a></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+<div id="megamenu-opacity"></div>

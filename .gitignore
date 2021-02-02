@@ -1,0 +1,10 @@
+### ZendFramework template
+.idea/
+.idea
+application/configs/application.ini
+library/Zend/
+files/
+public/index.php
+public/editor/
+.htaccess
+application/layouts/default/inline.phtml

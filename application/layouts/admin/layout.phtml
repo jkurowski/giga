@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="pl">
+<head>
+	<meta charset="utf-8">
+	<title>kCMS - Admin - <?=$this->header->nazwa;?></title>
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="author" content="kCMS">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=no">
+	<meta name="robots" content="noindex, nofollow">
+
+	<!-- Style -->
+    <link rel="stylesheet" href="<?=$this->baseUrl;?>/public/styles/cms/admin.css" type="text/css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,700&amp;subset=latin,latin-ext" type="text/css">
+	<?php if($this->control == 'news' || $this->control == 'statystyki' || $this->control == 'inwestycje' || $this->control == 'promocje'){ echo '<link rel="stylesheet" href="'.$this->baseUrl.'/public/styles/cms/ui.css" type="text/css">';}?>
+
+	<!-- jQuery -->
+    <script src="<?=$this->baseUrl; ?>/public/js/jquery.js" charset="utf-8"></script>
+    <script src="<?=$this->baseUrl; ?>/public/editor/tiny_mce_gzip.js" charset="utf-8"></script>
+	<script src="<?=$this->baseUrl; ?>/public/js/validation.js" charset="utf-8"></script>
+	<script src="<?=$this->baseUrl; ?>/public/js/ui.js" charset="utf-8"></script>
+	<script src="<?=$this->baseUrl; ?>/public/js/pl.js" charset="utf-8"></script>
+    <script src="<?=$this->baseUrl; ?>/public/js/cms.js" charset="utf-8"></script>
+	
+<?php if($this->user->role == "user") { ?>
+	<script src="<?=$this->baseUrl; ?>/public/js/jquery-ui.js"></script>
+	<link rel="stylesheet" href="<?=$this->baseUrl;?>/public/styles/template/jquery-ui.css">
+<?php } ?>
+</head>
+<body>
+	
+	<nav id="sidebar">
+		<div class="sidebar-content logo">
+			<a href="<?=$this->baseUrl; ?>/admin/ustawienia/">kCMS</a>
+		</div>
+		<?=$this->render('menu.phtml');?>
+	</nav>
+
+	<header id="header-navbar">
+		<h2 style="float:left;margin:12px 0 0 10px">DeveloPRO - system zarządzania inwestycjami</h2>
+		<div class="user">
+			<ul class="none">
+				<li><span id="livedate">
+				<?php
+$dzien = date('d');
+$dzien_tyg = date('l');
+$miesiac = date('n');
+$rok = date('Y');
+
+$miesiac_pl = array(1 => 'stycznia', 'lutego', 'marca', 'kwietnia', 'maja', 'czerwca', 'lipca', 'sierpnia', 'września', 'października', 'listopada', 'grudnia');
+
+$dzien_tyg_pl = array('Monday' => 'poniedziałek', 'Tuesday' => 'wtorek', 'Wednesday' => 'środa', 'Thursday' => 'czwartek', 'Friday' => 'piątek', 'Saturday' => 'sobota', 'Sunday' => 'niedziela');
+
+echo $dzien_tyg_pl[$dzien_tyg].", ".$dzien." ".$miesiac_pl[$miesiac]." ".$rok."r.";
+?>
+				
+				</span></li>
+				<li><span id="liveclock"></span>
+<script>
+function show5(){
+if (!document.layers&&!document.all&&!document.getElementById)
+return
+var Digital=new Date()
+var hours=Digital.getHours()
+var minutes=Digital.getMinutes()
+var seconds=Digital.getSeconds()
+var dn=""
+if (hours==0)
+hours=12
+if (minutes<=9)
+minutes="0"+minutes
+if (seconds<=9)
+seconds="0"+seconds
+myclock=""+hours+":"+minutes+":"
+ +seconds+" "+dn+""
+if (document.layers){
+document.layers.liveclock.document.write(myclock)
+document.layers.liveclock.document.close()
+}
+else if (document.all)
+liveclock.innerHTML=myclock
+else if (document.getElementById)
+document.getElementById("liveclock").innerHTML=myclock
+setTimeout("show5()",1000)
+ }
+window.onload=show5
+ //-->
+</script> </li>
+				<li><?= $this->loggedInAs(); ?></li>
+<?php if($this->user->role == "admin") { ?><li><a title="Ustawienia" href="<?=$this->baseUrl;?>/admin/ustawienia/"><span class="fa u-ustawienia"></span> Ustawienia</a></li><?php } ?>
+				<li><a title="Idź do strony" href="<?= $this->baseUrl;?>/" target="_blank"><span class="fa u-idzdo"></span> Idź do strony</a></li>
+				<li><a title="Wyloguj" href="<?= $this->baseUrl;?>/admin/wyloguj/"><span class="fa u-wyloguj"></span> Wyloguj</a></li>
+			</ul>
+		</div>
+	</header>
+	
+	<main id="main">
+		<?php echo $this->layout()->content; ?>
+	</main>
+	
+</body>
+</html>

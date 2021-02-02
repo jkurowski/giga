@@ -1,0 +1,46 @@
+<div class="title"><h1><?=$this->controlname;?></h1></div>
+<div class="row-fluid">
+	<div class="span12">
+		<ul class="nav-tabs none">
+			<li><a href="<?=$this->baseUrl;?>/admin/galeria/"><span class="fa i-image"></span>Galerie</a></li>
+			<li class="active"><a href="<?=$this->baseUrl;?>/admin/galeria/katalog/"><span class="fa i-lista"></span>Katalogi galerii</a></li>
+		</ul>
+		<div class="widget">
+			<table width="100%" cellspacing="0" cellpadding="0" class="tableStatic adm" id="sortable">
+				<thead>
+					<tr>
+					<th width="80%">Nazwa</th>
+					<th width="10%"></th>
+					<th width="10%"></th>
+					</tr>
+				</thead>
+				<tbody class="content">
+				<?php foreach($this->lista as $pozycja) : ?>
+				<tr id="recordsArray_<?=$this->escape($pozycja->id);?>">
+				<td><?=$this->escape($pozycja->nazwa);?></td>
+				<td class="right">
+				<a href="<?=$this->baseUrl;?>/admin/galeria/katalog-edytuj/id/<?=$this->escape($pozycja->id);?>/" class="actionBtn tip btnEdit" title="Edytuj"></a>
+				<a href="<?=$this->baseUrl;?>/admin/galeria/katalog-usun/id/<?=$this->escape($pozycja->id);?>/" class="actionBtn tip btnDelete confirm" title="Usuń"></a>
+				</td>
+				<td class="right">
+<?php foreach($this->jezyk as $jezyk) : ?>
+			<a href="<?=$this->baseUrl;?>/admin/galeria/katalog-tlumaczenie/id/<?=$this->escape($pozycja->id);?>/lang/<?=$this->escape($jezyk->kod);?>/" class="actionBtn tip"  title="Edytuj tłumaczenie: <?=$this->escape($jezyk->nazwa);?>"><img src="<?=$this->baseUrl;?>/public/gfx/flags/<?=$this->escape($jezyk->flaga);?>"></a> 
+<?php endforeach; ?>
+				</td>
+				</tr>
+				<?php endforeach; ?>
+				</tbody>
+			</table>
+			<div class="table-footer">
+				<a href="<?=$this->baseUrl;?>/admin/galeria/katalog-nowy/" class="button greyishBtn">Dodaj katalog</a>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" language="javascript">
+//<![CDATA[
+$(document).ready(function(){
+	$("#sortable tbody.content").sortuj('<?=$this->baseUrl;?>/admin/galeria/ustaw/co/galeria_kat/');
+});
+//]]>
+</script>

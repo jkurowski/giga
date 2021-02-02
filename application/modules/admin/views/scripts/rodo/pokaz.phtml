@@ -1,0 +1,36 @@
+<div class="title"><h1>Regułki klienta: <?=$this->user->nazwa;?> - <?=$this->user->mail;?></h1></div>
+<div class="back"><a href="<?=$this->baseUrl;?>/admin/rodo/">Wróć do listy klientów</a></div>
+<table width="100%" cellspacing="0" cellpadding="0" class="tableStatic adm" id="sortable">
+	<thead>
+		<tr>
+			<th width="25%">Nazwa</th>
+			<th width="25%">Data podpisania</th>
+			<th width="25%">Termin wygaśnięcia</th>
+			<th width="20%">IP</th>
+			<th width="5%" class="center">Status</th>
+		</tr>
+	</thead>
+	<tbody>
+<?php foreach($this->lista as $pozycja){?>
+		<tr role="row" class="odd">
+			<td><?=$pozycja->nazwa;?></td>
+			<td><?php if($pozycja->termin){ echo date('Y-m-d', $pozycja->data_podpisania); }?></td>
+			<td><?php if($pozycja->termin){ echo date('Y-m-d', $pozycja->termin); }?></td>
+			<td><?=$pozycja->ip;?></td>
+			<td class="text-center"><?=status($pozycja->statusklient);?><?php if($pozycja->data_anulowania){ echo '<span class="small">('.date('Y-m-d', $pozycja->data_anulowania).')</span>'; }?></td>
+					</tr>
+<?php foreach($this->archiwum as $archiwum){?>
+<?php if($archiwum->id_regulka == $pozycja->idregulka){?>
+		<tr role="row" class="archiwum">
+			<td><span class="fa fa-paste"></span>&nbsp;(ADE)&nbsp;<?=$pozycja->nazwa;?></td>
+			<td><?php if($archiwum->termin){ echo date('Y-m-d', $archiwum->data_podpisania); }?></td>
+			<td><?php if($archiwum->termin){ echo date('Y-m-d', $archiwum->termin); }?></td>
+			<td><?=$archiwum->ip;?></td>
+			<td class="text-center"><?=status(0);?><?php if($archiwum->data_anulowania){ echo '<span class="small">('.date('Y-m-d', $archiwum->data_anulowania).')</span>'; }?></td>
+		</tr>
+<?php } ?>									
+<?php } ?>									
+<?php } ?>
+	</tbody>
+</table>
+<style>tr.archiwum > td {font-size:11px;padding:0 12px;background:#fffcb7 !important}tr.archiwum > td {border: 0;border-bottom:1px solid #eadd34;border-top:1px solid #eadd34}</style>

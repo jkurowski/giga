@@ -1,0 +1,39 @@
+<div class="title"><h1>Ustawienia strony</h1></div>
+<div class="row-fluid">
+	<div class="span12">
+		<ul class="nav-tabs none">
+			<li><a href="<?=$this->baseUrl;?>/admin/ustawienia/"><span class="fa i-cog"></span>Główne ustawienia strony</a></li>
+			<li><a href="<?=$this->baseUrl;?>/admin/ustawienia/social/"><span class="fa i-lista"></span>Portale społecznościowe</a></li>
+			<li class="active"><a href="<?=$this->baseUrl;?>/admin/ustawienia/mapa/"><span class="fa i-map"></span>Kontakt</a></li>
+			<li><a href="<?=$this->baseUrl;?>/admin/ustawienia/backup/"><span class="fa i-sql"></span>Kopia bazy</a></li>
+			<li><a href="<?=$this->baseUrl;?>/admin/ustawienia/baner/"><span class="fa i-image"></span>Baner na start</a></li>
+		</ul>
+		<div class="widget">
+		<div class="tab-content">
+			<form id="ustawienia" name="ustawienia" enctype="application/x-www-form-urlencoded" class="mainForm" action="" method="post">
+				<div class="formRow">
+					<label for="kontakt_adres">Boks - adres</label>
+					<div class="formRight tip rowInfo" data-original-title="Adres siedziby" data-placement="bottom-left"><input type="text" name="kontakt_adres" id="kontakt_adres" value="<?=$this->header->kontakt_adres;?>" size="67" class="validate[required]" /></div>
+				</div>
+				<div class="formRow">
+					<label for="kontakt_telefon">Boks - telefon</label>
+					<div class="formRight tip rowInfo" data-original-title="Numer telefonu" data-placement="bottom-left"><input type="text" name="kontakt_telefon" id="kontakt_telefon" value="<?=$this->header->kontakt_telefon;?>" size="67" class="validate[required]" /></div>
+				</div>
+				<div class="formRow">
+					<label for="kontakt_email">Boks - email</label>
+					<div class="formRight tip rowInfo" data-original-title="Adres poczty e-mail" data-placement="bottom-left"><input type="text" name="kontakt_email" id="kontakt_email" value="<?=$this->header->kontakt_email;?>" size="67" class="validate[required]" /></div>
+				</div>
+				<div class="formRow">
+					<label for="kontakt_godziny">Boks - godziny</label>
+					<div class="formRight tip rowInfo" data-original-title="Godziny otwarcia biura" data-placement="bottom-left"><input type="text" name="kontakt_godziny" id="kontakt_godziny" value="<?=$this->header->kontakt_godziny;?>" size="67" class="validate[required]" /></div>
+				</div>
+				<div class="formRow">
+					<label for="kontakt_map">Mapa</label>
+					<div class="formRight tip rowInfo" data-original-title="Kod mapy google" data-placement="bottom-left"><textarea name="kontakt_map" id="kontakt_map" class="validate[required]"><?=$this->header->kontakt_map;?></textarea></div>
+				</div>
+				<div class="formSubmit"><input type="submit" name="submitUstawienia" id="submit" value="Zapisz" class="greyishBtn" /></div>
+			</form>
+		</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,28 @@
+<div class="title"><h1><?=$this->controlname;?></h1></div>
+<div class="row-fluid">
+	<div class="span12">
+		<div class="widget">
+			<table width="100%" cellspacing="0" cellpadding="0" class="tableStatic adm" id="sortable">
+				<thead>
+					<tr>
+					<th width="90%">Adres IP</th>
+					<th width="10%"></th>
+					</tr>
+				</thead>
+				<tbody class="content">
+				<?php foreach($this->lista as $pozycja) : ?>
+				<tr id="recordsArray_<?=$this->escape($pozycja->id);?>">
+				<td><?=$this->escape($pozycja->ip);?></td>
+				<td class="right">
+				<a href="<?=$this->baseUrl;?>/admin/blokowanie/edytuj/id/<?=$this->escape($pozycja->id);?>/" class="actionBtn tip btnEdit" title="Edytuj"></a>
+				<a href="<?=$this->baseUrl;?>/admin/blokowanie/usun/id/<?=$this->escape($pozycja->id);?>/" class="actionBtn tip btnDelete confirm" title="Usuń"></a>
+				</tr>
+				<?php endforeach; ?>
+				</tbody>
+			</table>
+			<div class="table-footer">
+				<a href="<?=$this->baseUrl;?>/admin/blokowanie/nowy/" class="button greyishBtn">Dodaj adres</a>
+			</div>
+		</div>
+	</div>
+</div>

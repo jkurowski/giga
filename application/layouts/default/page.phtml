@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8">
+    <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+	
+<?php if($this->seo_tytul) {?>
+	<title><?= $this->seo_tytul; ?></title>
+<?php } else { ?>
+	<title><?= $this->header->nazwa; ?><?= $this->strona_tytul; ?></title>
+<?php } ?>
+<?php if($this->seo_opis) {?>
+	<meta name="description" content="<?= $this->seo_opis; ?>">
+<?php } else { ?>
+	<meta name="description" content="<?= $this->header->opis; ?>">
+<?php } ?>
+<?php if($this->seo_slowa) {?>
+	<meta name="keywords" content="<?= $this->seo_slowa; ?>">
+<?php } else { ?>
+	<meta name="keywords" content="<?= $this->header->klucze; ?>">
+<?php } ?>
+<?php if($this->header->autor){?>
+	<meta name="author" content="<?= $this->header->autor; ?>">
+<?php } ?>
+<?php if($this->nofollow == 1) {?>
+	<meta name="robots" content="noindex, nofollow">
+	<!-- Wyłączone z akcji -->
+<?php } else { ?>
+	<meta name="robots" content="<?= $this->header->robots; ?>">
+<?php } ?>
+<?php if($this->canonical) {?>
+	<meta name="canonical" content="<?=$this->canonical;?>">
+<?php } ?>
+
+<?php if($this->share == 1) {?>
+	<meta property="og:title" content="<?=$this->share_tytul;?>">
+	<meta property="og:image" content="<?=$this->share_image;?>">
+	<meta property="og:description" content="<?=str_replace('"', '', $this->share_desc);?>">
+	<meta property="og:type" content="article">
+	<meta property="og:image:width" content="600">
+	<meta property="og:image:height" content="315">
+	<meta property="og:url" content="<?=$this->share_url;?>">
+<?php } ?>
+
+	<!-- Wylaczenie numeru tel. -->
+	<meta name="format-detection" content="telephone=no">
+	
+	<!-- Prefetch -->
+	<link rel="dns-prefetch" href="//maps.google.com">
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+
+	<!-- Styles -->
+    <link rel="stylesheet" href="<?=$this->baseUrl;?>/public/styles/template/bootstrap.css">
+    <link rel="stylesheet" href="<?=$this->baseUrl;?>/public/styles/template/styles.css">
+	
+	<!-- jQuery -->
+    <script src="<?=$this->baseUrl; ?>/public/js/jquery.js" charset="utf-8"></script>
+	<script src="<?=$this->baseUrl; ?>/public/js/bootstrap.min.js" charset="utf-8"></script>
+    <script src="<?=$this->baseUrl; ?>/public/js/main.js" charset="utf-8"></script>
+	
+	<?php echo $this->header->head; ?>
+
+	<?= getRecaptchaBody(); ?>
+</head>
+<body id="pagebody"<?php if($this->user) { ?> class="is-admin"<?php } ?>>
+	<?=$this->render('header.phtml');?>
+
+	<div id="pageheader">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+				<?php if($this->strona_h1){ ?>
+					<h1><?=$this->strona_h1;?></h1>
+				<?php } else { ?>
+					<h1><?=$this->strona_nazwa;?></h1>
+				<?php } ?>
+                    <nav itemscope itemtype="https://schema.org/Breadcrumb" role="navigation">
+                        <ul class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+                            <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                                <a itemprop="item" href="<?=$this->baseUrl;?>/">
+                                    <span itemprop="name">Strona główna</span>
+                                </a>
+                                <meta itemprop="position" content="1" /></li>
+                            <li class="sep"></li>
+                            <?php $menu = Zend_Registry::get('querymenu'); if($this->breadcrumbs) {
+                                echo $this->breadcrumbs;
+                            } else {
+                                echo $menu->breadcrumbs($this->strona_id);
+                            }
+                            ?>
+                        </ul>
+                    </nav>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div id="page" class="<?php if($this->nobottom){?>nobottom<?php } ?><?php if($this->notop){?> notop<?php } ?><?=$this->pageclass;?> <?=$this->strona->tag;?>-page">
+		<div class="page-content">
+			<?= $this->layout()->content; ?>
+		</div>
+	</div>
+
+	<div class="page-footer">
+	<?=$this->render('footer.phtml');?>
+	</div>
+
+	<div id="cookies"><p><a href="" class="closecookies gradient">Zamknij</a><?= $this->header->cookies; ?></p></div>
+
+<?php if($this->validation) { ?>
+	<script src="<?=$this->baseUrl; ?>/public/js/validation.js" charset="utf-8"></script>
+	<script src="<?=$this->baseUrl; ?>/public/js/pl.js" charset="utf-8"></script>
+<?php } ?>
+
+    <script type="text/javascript">
+	WebFontConfig = {
+		google: {
+			families: ['Poppins:300,400,500,600,700:latin-ext'] 
+		}
+	};
+
+	(function(d) {
+	  var wf = d.createElement('script'), s = d.scripts[0];
+	  wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js';
+	  wf.async = true;
+	  s.parentNode.insertBefore(wf, s);
+	})(document);
+
+	$(document).ready(function(){
+<?php if($this->validation) { ?>
+		$(".validateForm").validationEngine({
+			validateNonVisibleFields: true,
+			updatePromptsPosition:true,
+			promptPosition : "topRight:-128px"
+		});
+<?php } ?>
+<?php if($this->message == 1) {?>
+		var aboveHeight = $('#header').outerHeight();
+		$('html, body').stop().animate({
+			scrollTop: $('#formalert').offset().top-aboveHeight
+		}, 1500, 'easeInOutExpo');
+<?php } ?>
+	});
+	</script>
+
+	<?= $this->header->footer; ?>
+</body>
+</html>
