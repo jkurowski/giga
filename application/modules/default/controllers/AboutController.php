@@ -1,6 +1,6 @@
 <?php
 
-class Default_RealizacjeController extends kCMS_Site
+class Default_AboutController extends kCMS_Site
 {
     /**
      * @var string
@@ -13,7 +13,7 @@ class Default_RealizacjeController extends kCMS_Site
 
     public function preDispatch() {
         $this->page_id = 2;
-        $this->page_class = ' realizacje-page';
+        $this->page_class = '';
     }
 
     public function indexAction() {

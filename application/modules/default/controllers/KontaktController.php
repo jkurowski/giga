@@ -48,6 +48,7 @@ class Default_KontaktController extends kCMS_Site
 				$this->view->validation = $this->validation;
 				$this->view->pageclass = $this->page_class;
 				$this->view->nobottom = 1;
+				$this->view->notop = 1;
 
 				if ($this->_request->isPost()) {
 
