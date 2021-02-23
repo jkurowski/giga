@@ -1,0 +1,23 @@
+<div id="mainnews" class="pt-0 pb-0">
+    <div class="container">
+        <div class="row">
+            <?php foreach($this->news as $wpis){?>
+            <div class="col-12 col-md-6 mb-5 mb-md-0 imagehover">
+                <div class="mainnews-entry">
+                    <a href="<?=$this->baseUrl;?>/aktualnosci/<?=$wpis->tag;?>/"><div class="image"><img src="<?=$this->filesUrl();?>/news/<?=$wpis->plik;?>" alt="<?=$wpis->tytul;?>"></div></a>
+                    <div class="mainnews-entry-text">
+                        <h2><a href="<?=$this->baseUrl;?>/aktualnosci/<?=$wpis->tag;?>/"><?=$wpis->tytul;?></a></h2>
+                        <p><?=previewParser($wpis->wprowadzenie, 230);?></p>
+                        <a href="<?=$this->baseUrl;?>/aktualnosci/<?=$wpis->tag;?>/" class="bttn bttn-small">CZYTAJ WIĘCEJ</a>
+                    </div>
+                </div>
+            </div>
+            <?php } ?>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <?= $this->paginationControl($this->news, 'Sliding', 'pagination.phtml'); ?>
+            </div>
+        </div>
+    </div>
+</div>

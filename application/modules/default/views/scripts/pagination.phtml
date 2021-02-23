@@ -1,0 +1,25 @@
+<?php if ($this->pageCount > 1): ?>
+<div class="pagination">
+<ul class="list-unstyled mb-0">
+        <?php if (isset($this->previous)): ?>
+              <li><a href="?strona=<?php echo $this->previous; ?>">«</a></li>
+        <?php else: ?>
+            <li class="disabled"><span>«</span></li>
+        <?php endif; ?>
+
+        <?php foreach ($this->pagesInRange as $page): ?>
+            <?php if ($page != $this->current): ?>
+                <li><a href="?strona=<?php echo $page; ?>"><?= $page; ?></a></li>
+            <?php else: ?>
+                <li class="navi_selected"><span><?= $page; ?></span></li>
+            <?php endif; ?>
+        <?php endforeach; ?>
+
+        <?php if (isset($this->next)): ?>
+              <li><a href="?strona=<?php echo $this->next; ?>">»</a></li>
+        <?php else: ?>
+              <li class="disabled"><span>»</span></li>
+        <?php endif; ?>
+</ul>
+</div>
+<?php endif; ?>

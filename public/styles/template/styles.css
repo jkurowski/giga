@@ -19,7 +19,7 @@ body {
 	font-weight: 400;
 	color:#000000
 }
-a:hover {text-decoration:none}
+a:hover {text-decoration:none;color:#e25625}
 a:focus {outline: none}
 img {display:block;max-width: 100%;height: auto}
 b, strong {font-weight: 600}
