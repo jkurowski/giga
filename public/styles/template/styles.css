@@ -223,9 +223,38 @@ header nav a {
 	align-items: center;
 	font-weight: 700;
 }
-header nav a.animate100:hover {
+header nav a.animate100:hover,
+header nav li:hover a.animate100
+{
 	background: #e25625;
 	color:white
+}
+header nav li {
+	position: relative;
+}
+header nav li ul {
+	position: absolute;
+	left: 0;
+	background: white;
+	width: 100%;
+	display: none;
+}
+header.fixed nav li ul {
+	background: #1e292d
+}
+header nav li ul a {
+	padding:10px 19px;
+	font-weight: 400;
+}
+header.fixed nav li ul a {
+	color:white
+}
+header.fixed nav li ul a:hover {
+	background: #e25625;
+	color:white
+}
+header nav li:hover ul {
+	display: block;
 }
 
 /* Slider
@@ -317,6 +346,34 @@ hr:before {
 }
 #mainboxes .apla p {
 	display: none;
+}
+
+/* Covid
+================================================== */
+.covid-circle {
+	width: 280px;
+	height: 280px;
+	background: #e25625;
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 40px;
+	color: white;
+	font-size: 27px;
+	text-align: center;
+	margin: auto
+}
+.covid-text {
+	background: #1e292d;
+	color: white;
+	padding: 20px;
+	margin:10px 0
+}
+.covid-text p {
+	margin: 0;
+	font-size: 17px;
+	line-height: 26px;
 }
 
 /* Kontakt
