@@ -171,24 +171,7 @@ $(document).ready(function(){
 	
 // Cookies
 	$(".closecookies").click(function(b){b.preventDefault();var a=$("#cookies").is(":hidden");if(a){$("#cookies").show()}else{$("#cookies").hide()}$.cookie("open",a,{expires:365,path:"/"})});var openToggle=getCookie("open");if(openToggle=="false"){$("#cookies").hide()}else{$("#cookies").show()};
-	
-// Tooltip
-	$('area[title]').each(function () {
-		var elem = $(this);
-		var clas = $(this).attr('class');
-		elem.qtip({
-			content: $(this).attr('title'),
-			position: {
-				my: 'bottom center',
-				at: 'bottom center',
-				target: 'mouse',
-				adjust: {x:0, y: -10} ,
-			},
-			style: {classes: clas,tip: {corner: true,mimic: false,width: 12, height: 8,border: true,offset: 0}},
-			hide: {fixed: false, effect: false, show: false},
-		});
-	});
-	
+
 // Karuzela z tekscie
 	if ( $( ".carouselWrapper" ).length ) {
 		$(".carouselWrapper ul").slick({
