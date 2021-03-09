@@ -1,6 +1,6 @@
 <?php
 
-class Default_AboutController extends kCMS_Site
+class Default_MisjaController extends kCMS_Site
 {
     /**
      * @var string
@@ -12,7 +12,7 @@ class Default_AboutController extends kCMS_Site
     private $page_id;
 
     public function preDispatch() {
-        $this->page_id = 7;
+        $this->page_id = 9;
         $this->page_class = '';
     }
 

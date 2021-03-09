@@ -256,6 +256,86 @@ header.fixed nav li ul a:hover {
 header nav li:hover ul {
 	display: block;
 }
+header nav li.o-nas-li ul {
+	width: 275px
+}
+
+
+/* Zrownowazony Rozwoj
+================================================== */
+.rozwoj-boks {
+	height: 100%;
+	-webkit-transition:all 200ms linear;
+	-moz-transition:all 200ms linear;
+	-o-transition:all 200ms linear;
+	transition:all 200ms linear
+}
+.rozwoj-boks-entry:after {
+	content: '';
+	display: block;
+	width: 0;
+	height: 3px;
+	background: #e25625;
+	top: 0;
+	left: 0;
+	right: 0;
+	position: absolute;
+	margin: auto;
+	-webkit-transition:all 200ms linear;
+	-moz-transition:all 200ms linear;
+	-o-transition:all 200ms linear;
+	transition:all 200ms linear;
+}
+.rozwoj-boks:hover {
+	-webkit-box-shadow: 0 0 25px 0 rgba(0,0,0,0.2);
+	-moz-box-shadow: 0 0 25px 0 rgba(0,0,0,0.2);
+	box-shadow: 0 0 25px 0 rgba(0,0,0,0.2);
+}
+.rozwoj-boks:hover .rozwoj-boks-entry:after {
+	width: 100%
+}
+.rozwoj-boks-entry {
+	padding: 25px;
+	text-align: center;
+	background: #f7f7f7;
+	position: relative
+}
+.rozwoj-boks-entry p {
+	font-size: 16px;
+	line-height: 23px;
+}
+.rozwoj-boks-entry h2 {
+	font-size: 32px;
+	margin-bottom: 20px;
+	height: 76px
+}
+
+.rozwoj-list li {
+	padding-top: 30px;
+	font-size: 18px;
+	line-height: 30px;
+	position: relative;
+	padding-left: 75px;
+	border-bottom: 1px dashed #aaa;
+	padding-bottom: 30px;
+}
+.rozwoj-list li:last-child {
+	border-bottom: 0;
+	padding-bottom: 0
+}
+.rozwoj-list li:before {
+	content: "\f058";
+	font-family: 'Line Awesome Free';
+	font-weight: 900;
+	font-size: 32px;
+	color: #e25625;
+	position: absolute;
+	left: 20px;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	height: 32px;
+}
 
 /* Slider
 ================================================== */

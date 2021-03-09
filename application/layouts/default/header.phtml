@@ -6,8 +6,12 @@
 					<div class="col-12">
 						<nav class="navbar">
 							<ul class="text-center list-unstyled m-0 d-flex w-100 justify-content-center">
-								<li><a href="<?=$this->baseUrl;?>/o-nas/" class="animate100">O NAS</a></li>
-								<li><a href="<?=$this->baseUrl;?>/" class="animate100">MISJA I WARTOŚCI</a></li>
+								<li class="o-nas-li"><a href="<?=$this->baseUrl;?>/o-nas/" class="animate100">O NAS</a>
+                                    <ul class="submenu list-unstyled mb-0">
+                                        <li><a href="<?=$this->baseUrl;?>/zrownowazony-rozwoj/">ZRÓWNOWAŻONY ROZWÓJ</a></li>
+                                    </ul>
+                                </li>
+								<li><a href="<?=$this->baseUrl;?>/misja-i-wartosci/" class="animate100">MISJA I WARTOŚCI</a></li>
 								<li><a href="<?=$this->baseUrl;?>/realizacje/" class="animate100">REALIZACJE</a></li>
                                 <li id="logo"><a href="<?=$this->baseUrl;?>/"><img src="<?=$this->gfxUrl();?>/logo.png" alt="<?= $this->header->nazwa; ?>"></a></li>
 								<li><a href="<?=$this->baseUrl;?>/" class="animate100">OFERTA</a></li>
