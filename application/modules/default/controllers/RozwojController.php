@@ -26,6 +26,7 @@ class Default_RozwojController extends kCMS_Site
         if(!$page) {
             errorPage();
         } else {
+            $boksy = $db->fetchAll($db->select()->from('boksy')->order('sort ASC'));
 
             $array = array(
                 'strona_nazwa' => $page->nazwa,
@@ -36,6 +37,7 @@ class Default_RozwojController extends kCMS_Site
                 'seo_slowa' => $page->meta_slowa,
                 'strona_id' => $this->page_id,
                 'strona' => $page,
+                'boksy' => $boksy,
                 'pageclass' => $this->page_class
             );
             $this->view->assign($array);
@@ -54,7 +56,11 @@ class Default_RozwojController extends kCMS_Site
             errorPage();
         } else {
 
-            $breadcrumbs = '<li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a itemprop="item" href="'.$this->baseUrl.'/'.$page->tag.'/"><span itemprop="name">'.$page->nazwa.'</span></a><meta itemprop="position" content="2" /></li><li class="sep"></li><li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><b itemprop="item">Kapitał ludzki</b><meta itemprop="position" content="3" /></li>';
+            $slug = $this->_request->getParam('slug');
+            $wpis = $db->fetchRow($db->select()->from('boksy')->where('slug = ?', $slug));
+            $boksy = $db->fetchAll($db->select()->from('boksy')->order('sort ASC'));
+
+            $breadcrumbs = '<li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a itemprop="item" href="'.$this->baseUrl.'/'.$page->tag.'/"><span itemprop="name">'.$page->nazwa.'</span></a><meta itemprop="position" content="2" /></li><li class="sep"></li><li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><b itemprop="item">'.$wpis->nazwa.'</b><meta itemprop="position" content="3" /></li>';
 
             $array = array(
                 'strona_nazwa' => $page->nazwa,
@@ -65,6 +71,8 @@ class Default_RozwojController extends kCMS_Site
                 'seo_slowa' => $page->meta_slowa,
                 'strona_id' => $this->page_id,
                 'strona' => $page,
+                'wpis' => $wpis,
+                'boksy' => $boksy,
                 'pageclass' => $this->page_class,
                 'breadcrumbs' => $breadcrumbs
             );

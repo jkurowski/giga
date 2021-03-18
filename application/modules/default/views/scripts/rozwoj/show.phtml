@@ -1,47 +1,21 @@
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <p>Kapitał Ludzki stanowiący o tym czym faktycznie jest GIGA, systematycznie  generuje i pielęgnuje sieć powiązań z innymi przedsiębiorstwami – pracownicy GIGA wykazują się dużą elastycznością w kontakcie z firmami zewnętrznymi, preferując dogadywanie się z podwykonawcami zamiast generować konflikt. Takie postępowanie przynosi ogromne korzyści – liczne przedsiębiorstwa nieprzerwanie kontynuują współpracę z GIGA od momentu jej powstania.</p>
-        </div>
-    </div>
-    <div class="row rozwoj-list pt-5">
-        <div class="col-12">
-            <ul class="list-unstyled mb-0">
-                <li>W firmie występuje płaska struktura organizacyjna, co oznacza, że pomysły wnoszone przez kadry mniej doświadczone nie zanikają na którymś ze szczebli poziomów zarządczych. Nawet początkujący pracownicy GIGA mogą się stać „promotorami zmiany”.</li>
-                <li>Analitycy GIGA stale dodają i aktualizują wpisy dotyczące poszczególnych dostawców oraz podwykonawców, mając na uwadze 4 główne kryteria: terminowość, jakość wykonanej pracy/jakość dostaw, utrzymywanie czystości / gospodarowanie odpadami, dobre praktyki (BHP)</li>
-                <li>Firma chętne odpowiada na potrzeby pracowników poprzez wprowadzanie wybranych benefitów, jeżeli stanowią one korzyść również dla GIGA. Jedną z inicjatyw, które została niedawno wprowadzona w firmie są kursy z języka angielskiego.</li>
-                <li>Nasi pracownicy otrzymują niezbędne szkolenia BHP, uwzględniające dobre praktyki pracy na wysokościach oraz używania maszyn i narzędzi, których nieodpowiednie użytkowanie może doprowadzić do uszczerbku na zdrowiu.</li>
-                <li>Tworzone są standardy bezpieczeństwa dla dostawców oraz podwykonawców.</li>
-                <li>Ochrona pracowników na budowie i przestrzeganie zasad BHP są dla nas szczególnie istotne. W przypadku podwykonawców, którzy działają w sposób mogący doprowadzić do wypadków na budowie, są oni informowani o potencjalnych zagrożeniach. W przypadku powtarzających się sygnałów świadczących o niefrasobliwości, są oni wpisywani na listę firm ignorujących zasady BHP</li>
-                <li>W firmie regularnie toczą się rozmowy oraz wysyłane są wiadomości inspirowane przez kadry kierownicze dotyczące sposobów zwiększenia bezpieczeństwa na budowie. Takie inicjatywy mają na celu wzbudzić zainteresowanie każdego pracownika tym tematem, aby aktywnie dostrzegał pojawiające się lub mogące pojawić się niebezpieczeństwa.</li>
-            </ul>
+            <?=replace($this->wpis->tekst); ?>
         </div>
     </div>
 
+
     <div class="row pt-5 mt-4">
-        <div class="col-4">
-            <div class="rozwoj-boks">
-                <div class="rozwoj-boks-entry">
-                    <h2 class="mt-0"><a href="">Odpowiedzialny rozwój</a></h2>
-                    <a href="" class="bttn mb-0">CZYTAJ WIĘCEJ</a>
+        <?php foreach($this->boksy as $b) {?>
+            <div class="col-4">
+                <div class="rozwoj-boks">
+                    <div class="rozwoj-boks-entry">
+                        <h2 class="mt-0"><a href="<?=$this->baseUrl;?>/zrownowazony-rozwoj/<?=$b->slug;?>/"><?=$b->nazwa;?></a></h2>
+                        <a href="<?=$this->baseUrl;?>/zrownowazony-rozwoj/<?=$b->slug;?>/" class="bttn mb-0">CZYTAJ WIĘCEJ</a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-4">
-            <div class="rozwoj-boks">
-                <div class="rozwoj-boks-entry">
-                    <h2 class="mt-0"><a href="<?=$this->baseUrl;?>/zrownowazony-rozwoj/">Zrównoważony Rozwój</a></h2>
-                    <a href="<?=$this->baseUrl;?>/zrownowazony-rozwoj/" class="bttn mb-0">CZYTAJ WIĘCEJ</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-4">
-            <div class="rozwoj-boks">
-                <div class="rozwoj-boks-entry">
-                    <h2 class="mt-0"><a href="">Ekologiczny rozwój</a></h2>
-                    <a href="" class="bttn mb-0">CZYTAJ WIĘCEJ</a>
-                </div>
-            </div>
-        </div>
+        <?php } ?>
     </div>
 </div>
