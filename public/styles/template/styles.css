@@ -679,6 +679,129 @@ div[class*='col-'].slick-slide {padding-left:15px;padding-right:15px}
 .breadcrumb .sep:before {color:#e25625;content: "/";margin:0 10px}
 .breadcrumb b, .breadcrumb a:hover {color:rgba(255,255,255,1)}
 
+/* Animacje
+================================================== */
+#animacja_2 {
+	width: 878px;
+	height: 830px;
+	background: url('../../gfx/template/animacja-2.png') no-repeat center center;
+	margin: 0 auto;
+	position: relative;
+}
+.number {
+	color: white;
+	position: absolute;
+	font-weight: bold;
+	display: flex;
+	width: 80px;
+	height: 74px;
+	align-items: center;
+	justify-content: center;
+	font-size: 50px;
+	text-align: center;
+}
+.number_1 {
+	margin: 0 auto;
+	left: 0;
+	right: 0;
+}
+.number_2 {
+	left: 111px;
+	top: 488px;
+}
+.number_3 {
+	right: 108px;
+	top: 488px;
+}
+.hexagon_text {
+	position: absolute;
+	width: 136px;
+	height: 200px;
+	text-align: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: white;
+}
+.hexagon_text h4 {
+	color: white;
+	margin:0 0 7px;
+	font-size: 26px;
+}
+.hexagon_text p {
+	font-size: 15px;
+	line-height: 18px;
+}
+.hexagon_text_1 {
+	top: 106px;
+	left: 83px;
+}
+.hexagon_text_2 {
+	right: 81px;
+	top: 106px;
+}
+.hexagon_text_3 {
+	bottom: 33px;
+	left: 0;
+	right: 0;
+	margin: auto;
+}
+.hexagon_text_3 {
+	bottom: 33px;
+	left: 0;
+	right: 0;
+	margin: auto;
+}
+.hexagon_text_4 {
+	top: 270px;
+	margin: auto;
+	left: 0;
+	right: 0;
+}
+.hexagon_text_4 h4 {
+	margin: 0;
+	font-size: 32px;
+}
+
+.hexagon_tooltip {
+	position: absolute;
+	width: 300px;
+	background: white;
+	border-radius: 5px;
+	-webkit-box-shadow: 0 0 33px 0 rgba(0,0,0,0.22);
+	-moz-box-shadow: 0 0 33px 0 rgba(0,0,0,0.22);
+	box-shadow: 0 0 33px 0 rgba(0,0,0,0.22);
+	padding: 20px;
+}
+.hexagon_tooltip h4 {
+	margin: 0 0 13px 0;
+	font-size: 21px;
+}
+.hexagon_tooltip p {
+	font-size: 14px;
+	line-height: 20px;
+}
+.hexagon_tooltip_1 {
+	left: 0;
+	right: 0;
+	top: 75px;
+	margin: auto;
+}
+.hexagon_tooltip_2 {
+	right: 0;
+	top: 565px;
+}
+.hexagon_tooltip_3 {
+	left: 0;
+	top: 565px;
+}
+
+.hexagon_tooltip, .number {
+	display: none;
+}
+
+
+
 /* Realizacje
 ================================================== */
 .projects-filter {

@@ -27,7 +27,53 @@
         </div>
 
         <div class="col-12 mt-5 mb-5">
-            <div style="width: 100%;height: 400px;background: #222;color:white;display: flex;justify-content: center;align-items: center">ANIMACJA</div>
+            <div id="animacja_2">
+                <span class="number number_1">1</span>
+                <span class="number number_2">3</span>
+                <span class="number number_3">2</span>
+
+                <div class="hexagon_text hexagon_text_1">
+                    <div>
+                        <h4>Potrzeba</h4>
+                        <p>Analiza potrzeb i wymagań projektowych</p>
+                    </div>
+                </div>
+
+                <div class="hexagon_text hexagon_text_2">
+                    <div>
+                        <h4>Przygotowanie</h4>
+                        <p>Określenie optymalnego sposobu realizacji</p>
+                    </div>
+                </div>
+
+                <div class="hexagon_text hexagon_text_3">
+                    <div>
+                        <h4>Realizacja</h4>
+                        <p>Rzetelna praca z zachowaniem zasad bezpieczeństwa</p>
+                    </div>
+                </div>
+
+                <div class="hexagon_text hexagon_text_4">
+                    <div>
+                        <h4>Generalny Wykonawca</h4>
+                    </div>
+                </div>
+
+                <div class="hexagon_tooltip hexagon_tooltip_1">
+                    <h4>Współpraca z klientem</h4>
+                    <p>Każdy projekt jest inny w związku z czym musi być dopasowany „na wymiar”. Chętnie dzielimy się doświadczeniem z partnerami proponując optymalne rozwiązania</p>
+                </div>
+
+                <div class="hexagon_tooltip hexagon_tooltip_2">
+                    <h4>Prace przygotowawcze</h4>
+                    <p>Dokładnie określamy harmonogram i wymagane nakłady. Dopasowujemy strukturę organizacyjną korzystając z wieloletniego, sprawdzonego modelu.</p>
+                </div>
+
+                <div class="hexagon_tooltip hexagon_tooltip_3">
+                    <h4>Dostarczanie jakości</h4>
+                    <p>Każda realizacja jest rzetelnie koordynowana, korzystając z doświadczonych inżynierów wykazujących się wysoką etyką pracy, dbających o pracowników i środowisko.</p>
+                </div>
+            </div>
         </div>
 
         <div class="col-12 mb-5">
@@ -58,3 +104,20 @@
         </div>
     </div>
 </div>
+
+<script src="<?=$this->baseUrl; ?>/public/js/jquery.waypoints.min.js" charset="utf-8"></script>
+<script>
+    const waypoint = new Waypoint({
+        element: document.getElementById('animacja_2'),
+        handler: function () {
+            $('.number_1, .hexagon_tooltip_1').fadeIn("slow");
+            setTimeout(function () {
+                $('.number_3, .hexagon_tooltip_2').fadeIn("slow");
+            }, 1000);
+            setTimeout(function () {
+                $('.number_2, .hexagon_tooltip_3').fadeIn("slow");
+            }, 2000);
+        },
+        offset: '70%'
+    });
+</script>
