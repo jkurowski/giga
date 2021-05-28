@@ -1,0 +1,12 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12 news-post">
+            <article id="post-<?=$this->news->id;?>" itemscope itemType="http://schema.org/BlogPosting">
+                <h1 class="mt-4 mb-4"><a href="<?=$this->baseUrl;?>/realizacje/<?=$this->news->slug;?>/" title="<?=$this->news->nazwa; ?>" itemprop="url"><span itemprop="name headline"><?=$this->news->nazwa; ?></span></a></h1>
+                <div itemprop="articleBody">
+                    <?=replace($this->news->tekst); ?>
+                </div>
+            </article>
+        </div>
+    </div>
+</div>
