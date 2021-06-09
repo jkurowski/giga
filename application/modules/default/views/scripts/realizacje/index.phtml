@@ -15,7 +15,7 @@
     </div>
     <div class="row">
 <?php foreach($this->realizacje as $realizacja) {?>
-        <div class="col-3">
+        <div class="col-3 mb-4">
             <a href="<?=$this->baseUrl;?>/realizacja/<?=$realizacja->slug;?>/">
                 <div class="project-item">
                     <img src="<?=$this->filesUrl();?>/realizacje/<?=$realizacja->obrazek;?>" alt="<?=$realizacja->nazwa;?>">
