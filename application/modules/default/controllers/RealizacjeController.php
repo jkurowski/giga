@@ -27,6 +27,16 @@ class Default_RealizacjeController extends kCMS_Site
             errorPage();
         } else {
 
+            $tag = $this->getRequest()->getParam('category');
+
+            $query = $db->select()->from('realizacje')->order('sort ASC');
+
+            if($tag) {
+                $query->where('category =?', $tag);
+            }
+
+            $realizacje = $db->fetchAll($query);
+
             $array = array(
                 'strona_nazwa' => $page->nazwa,
                 'strona_h1' => $page->nazwa,
@@ -36,7 +46,7 @@ class Default_RealizacjeController extends kCMS_Site
                 'seo_slowa' => $page->meta_slowa,
                 'strona_id' => $this->page_id,
                 'strona' => $page,
-                'realizacje' => $db->fetchAll($db->select()->from('realizacje')->order('sort ASC')),
+                'realizacje' => $realizacje,
                 'pageclass' => $this->page_class
             );
             $this->view->assign($array);

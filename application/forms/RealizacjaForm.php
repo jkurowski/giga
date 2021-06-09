@@ -9,6 +9,18 @@ class Form_RealizacjaForm extends Zend_Form
         $this->setAttrib('enctype', 'multipart/form-data');
         $this->setAttrib('class', 'mainForm');
 
+        $category = new Zend_Form_Element_Select('category');
+        $category->setLabel('Kategoria')
+            ->addMultiOption ('energetyka', 'Energetyka')
+            ->addMultiOption ('budownictwo-publiczne', 'Budownictwo publiczne')
+            ->addMultiOption ('budownictwo-przemyslowe', 'Budownictwo przemysłowe')
+            ->setDecorators(array(
+                'ViewHelper',
+                'Errors',
+                array(array('data' => 'HtmlTag'), array('tag' => 'div', 'class' => 'formRight')),
+                array('Label'),
+                array(array('row' => 'HtmlTag'), array('tag' => 'div', 'class' => 'formRow'))));
+
         $nazwa = new Zend_Form_Element_Text('nazwa');
         $nazwa->setLabel('Nazwa realizacji')
             ->setRequired(true)
@@ -99,6 +111,6 @@ class Form_RealizacjaForm extends Zend_Form
         $this->setTranslator($translate);
 
         $this->setDecorators(array('FormElements',array('HtmlTag'),'Form',));
-        $this->addElements(array($nazwa, $miasto, $meta_tytul, $meta_opis, $obrazek, $tekst, $submit));
+        $this->addElements(array($category, $nazwa, $miasto, $meta_tytul, $meta_opis, $obrazek, $tekst, $submit));
     }
 }
