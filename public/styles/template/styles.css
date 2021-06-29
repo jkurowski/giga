@@ -543,7 +543,9 @@ hr:before {
 /* Kontakt
 ================================================== */
 #kontaktForm {
-	padding:0
+	padding:0;
+	background: url('../../gfx/template/form-bg.jpg') no-repeat top center;
+	background-size: cover;
 }
 #kontaktInfo {
 	padding-bottom: 60px;
