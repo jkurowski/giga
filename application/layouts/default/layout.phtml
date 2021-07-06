@@ -40,7 +40,20 @@
 <?=$this->render('header.phtml');?>
 
 <div id="slider" class="clearfix">
-    <img src="<?=$this->filesUrl();?>/slider/slider.jpg" alt="">
+    <ul class="rslidess list-unstyled mb-0">
+        <?php foreach($this->slider as $panel){?>
+            <li>
+                <div class="apla">
+                    <div>
+                        <h3><?=$panel->tekst;?></h3>
+                        <h1><?=$panel->tytul;?></h1>
+                    </div>
+                </div>
+                <div class="opacity" style="background: rgb(0, 0, 0, <?=$panel->opacity;?>)"></div>
+                <img src="<?=$this->filesUrl();?>/slider/<?=$panel->plik;?>" alt="<?=$panel->tytul;?>">
+            </li>
+        <?php } ?>
+    </ul>
 </div>
 
 <div id="welcome">

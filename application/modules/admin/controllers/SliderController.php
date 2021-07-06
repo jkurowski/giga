@@ -5,7 +5,7 @@ class Admin_SliderController extends kCMS_Admin
 		public function preDispatch() {
 			$this->view->controlname = "Slider";
 			$this->sliderszerokosc = 1920;
-			$this->sliderwysokosc = 1080;
+			$this->sliderwysokosc = 782;
 		}
 		
 // Pokaz wszystkie panele
