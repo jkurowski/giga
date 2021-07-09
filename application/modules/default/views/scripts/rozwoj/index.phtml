@@ -6,8 +6,8 @@
     </div>
 
     <div class="row pt-5 mt-3">
-<?php foreach($this->boksy as $b) {?>
-        <div class="col-4">
+<?php foreach($this->boksy as $key => $b) {?>
+        <div class="col-4" data-aos="fade-up" data-aos-delay="<?= ($key*100)+50 ;?>">
             <div class="rozwoj-boks">
                 <a href="<?=$this->baseUrl;?>/zrownowazony-rozwoj/<?=$b->slug;?>/"><img src="<?=$this->filesUrl();?>/boksy/<?=$b->obrazek;?>" alt="<?=$b->nazwa;?>"></a>
                 <div class="rozwoj-boks-entry">
@@ -20,3 +20,4 @@
 <?php } ?>
     </div>
 </div>
+<script>AOS.init();</script>
