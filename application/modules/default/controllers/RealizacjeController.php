@@ -80,7 +80,7 @@ class Default_RealizacjeController extends kCMS_Site
             $this->view->assign($array);
         } else {
 
-            $page = $db->fetchRow($db->select()->from('strony')->where('id = ?', 2));
+            $page = $db->fetchRow($db->select()->from('strony')->where('id = ?', $this->page_id));
             if(!$page) {
                 errorPage();
                 $array = array(
@@ -102,7 +102,8 @@ class Default_RealizacjeController extends kCMS_Site
                 'seo_opis' => $page->meta_opis,
                 'seo_slowa' => $page->meta_slowa,
                 'breadcrumbs' => $breadcrumbs,
-                'news' => $news
+                'news' => $news,
+                'strona' => $page
             );
             $this->view->assign($array);
         }
