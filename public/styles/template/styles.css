@@ -795,6 +795,17 @@ div[class*='col-'].slick-slide {padding-left:15px;padding-right:15px}
 
 /* Animacje
 ================================================== */
+.misja-icon {
+	background: #e25625;
+	padding: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 20px;
+	width: 160px;
+	height: 160px;
+}
+
 #animacja_2 {
 	width: 878px;
 	height: 830px;
@@ -946,6 +957,12 @@ div[class*='col-'].slick-slide {padding-left:15px;padding-right:15px}
 	font-size: 22px;
 	border-radius: 6px;
 	margin: 142px 0;
+	position: relative;
+}
+.newproject img {
+	position: absolute;
+	width: 62px;
+	right: 18px;
 }
 .newproject-label {
 	background: white;
