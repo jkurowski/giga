@@ -64,8 +64,8 @@ class Default_RozwojController extends kCMS_Site
 
             $array = array(
                 'strona_nazwa' => $page->nazwa,
-                'strona_h1' => 'Kapitał ludzki',
-                'strona_tytul' => ' - '.$page->nazwa,
+                'strona_h1' => $wpis->nazwa,
+                'strona_tytul' => ' - '.$page->nazwa.' - '.$wpis->nazwa,
                 'seo_tytul' => $page->meta_tytul,
                 'seo_opis' => $page->meta_opis,
                 'seo_slowa' => $page->meta_slowa,

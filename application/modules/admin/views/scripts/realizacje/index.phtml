@@ -1,3 +1,10 @@
+<script type="text/javascript" language="javascript">
+    //<![CDATA[
+    $(document).ready(function(){
+        $(".content").sortuj('<?=$this->baseUrl;?>/admin/realizacje/ustaw/co/realizacje/');
+    });
+    //]]>
+</script>
 <div class="title"><h1><?=$this->controlname;?></h1></div>
 <div class="row-fluid">
     <div class="span12">
@@ -16,7 +23,7 @@
                 </thead>
                 <tbody class="content">
                 <?php foreach($this->lista as $news) : ?>
-                    <tr>
+                    <tr id="recordsArray_<?= $this->escape($news->id);?>">
                         <td><?=$this->escape($news->nazwa);?></td>
                         <td class="right">
                             <a href="<?=$this->baseUrl;?>/admin/realizacje/edytuj/id/<?=$this->escape($news->id);?>/" class="actionBtn tip btnEdit" title="Edytuj wpis"></a>

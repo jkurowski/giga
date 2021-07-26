@@ -404,21 +404,21 @@ header nav li.o-nas-li ul {
 #slider .apla {
 	position: absolute;
 	left: 0;
-	bottom: 0;
+	bottom: 40px;
 	margin: auto;
 	z-index: 900;
 	padding: 30px;
+	width: 1140px;
+	right: 0;
 }
 #slider .apla h1 {
 	font-size: 72px;
-	text-transform: uppercase;
 	color: white;
 	margin: 0;
 	font-weight: 700;
 }
 #slider .apla h3 {
 	font-size: 36px;
-	text-transform: uppercase;
 	color: white;
 	font-weight: 300;
 	margin: 0;
@@ -1109,6 +1109,7 @@ div[class*='col-'].slick-slide {padding-left:15px;padding-right:15px}
 	transform: translate(-50%, -50%) scale(0);
 	visibility: hidden;
 	transition: all 0.3s ease-out 0s;
+	transition-delay: 0.5s;
 }
 .realizacje-page .project-overlay .project-content {
 	position: relative;
@@ -1156,11 +1157,11 @@ div[class*='col-'].slick-slide {padding-left:15px;padding-right:15px}
 	top: 40%;
 	left: 50%;
 	transform: translate(-40%, -50%);
+	background: url("../../gfx/template/realiz-icon.png") no-repeat center;
+	width: 66px;
+	height: 66px;
 }
-.realizacje-page .project-item .icon i {
-	color:white;
-	font-size: 66px
-}
+
 
 /* O nas
 ================================================== */
