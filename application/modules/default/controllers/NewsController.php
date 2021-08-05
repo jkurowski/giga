@@ -109,8 +109,8 @@ class Default_NewsController extends kCMS_Site
                     'share' => 1,
                     'share_tytul' => $news->tytul,
                     'share_desc' => $news->wprowadzenie,
-                    'share_image' => $this->view->baseURL().'/files/news/share/'.$news->plik,
-                    'share_url' => $this->view->baseURL().'/'.$page->tag.'/'.$news->tag.'/',
+                    'share_image' => 'http://giga.4dl-dev.pl/files/news/share/'.$news->plik,
+                    'share_url' => 'http://giga.4dl-dev.pl/'.$page->tag.'/'.$news->tag.'/',
                     'breadcrumbs' => $breadcrumbs,
                     'news' => $news
                 );
