@@ -1,43 +1,25 @@
 <div class="container">
     <div class="row">
         <div class="col-12 pb-5">
-            <p>Firma <b>GIGA</b> zdaje sobie sprawę, że najlepszym sposobem na nieprzerwany rozwój jest dywersyfikacja swojej działalności na branże, w których może wykorzystać swoje cenne doświadczenie z zakresu budownictwa.</p>
+            <?=replace($this->strona->tekst); ?>
         </div>
     </div>
 </div>
 <div id="mainboxes" class="pl-5 pr-5 pb-0">
     <div class="container-fluid p-0">
         <div class="row no-gutters">
+<?php foreach($this->oferta as $o){ ?>
             <div class="col-4">
                 <div class="apla d-flex align-items-center justify-content-center">
                     <div class="text-center">
-                        <h3 class="m-0">GIGA Development</h3>
-                        <p>Bazując na wieloletnim doświadczeniu z zakresu budownictwa dla sektora prywatnego oraz publicznego, Grupa GIGA zdecydowała się na wejście na rynek Deweloperski.</p>
-                        <a href="<?=$this->baseUrl;?>/oferta/giga-development/" class="bttn mb-0">ZOBACZ WIĘCEJ</a>
+                        <h3 class="m-0"><?=$this->escape($o->nazwa);?></h3>
+                        <p><?=$this->escape($o->tekst);?></p>
+                        <a href="<?=$this->escape($o->link);?>" class="bttn mb-0">ZOBACZ WIĘCEJ</a>
                     </div>
                 </div>
-                <img src="<?=$this->filesUrl();?>/boksy/boks_development.jpg" alt="GIGA Development">
+                <img src="<?=$this->filesUrl();?>/oferta/<?=$this->escape($o->plik);?>" alt="<?=$this->escape($o->nazwa);?>">
             </div>
-            <div class="col-4">
-                <div class="apla d-flex align-items-center justify-content-center">
-                    <div class="text-center">
-                        <h3 class="m-0">GIGA Rental</h3>
-                        <p>GIGA Rental to inicjatywa mająca na celu budowę przestrzeni biurowych pod wynajem w najbardziej atrakcyjnych lokalizacjach.</p>
-                        <a href="<?=$this->baseUrl;?>/oferta/giga-rental/" class="bttn mb-0">ZOBACZ WIĘCEJ</a>
-                    </div>
-                </div>
-                <img src="<?=$this->filesUrl();?>/boksy/boks_rental.jpg" alt="GIGA Rental">
-            </div>
-            <div class="col-4">
-                <div class="apla d-flex align-items-center justify-content-center">
-                    <div class="text-center">
-                        <h3 class="m-0">GIGA Konsorcjum</h3>
-                        <p>Łączenie wiedzy, doświadczenia oraz zasobów partnerów konsorcjum pozwala wykonywać realizacje budowlane na najwyższym poziomie, zabezpieczając interesy każdej ze stron.</p>
-                        <a href="<?=$this->baseUrl;?>/oferta/giga-konsorcjum/" class="bttn mb-0">ZOBACZ WIĘCEJ</a>
-                    </div>
-                </div>
-                <img src="<?=$this->filesUrl();?>/boksy/boks_konsorcjum.jpg" alt="GIGA Konsorcjum">
-            </div>
+<?php } ?>
         </div>
     </div>
 </div>

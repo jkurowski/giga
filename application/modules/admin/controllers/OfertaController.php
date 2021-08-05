@@ -1,27 +1,26 @@
 <?php
 require_once 'kCMS/Thumbs/ThumbLib.inc.php';
-class Admin_BoksyController extends kCMS_Admin
+class Admin_OfertaController extends kCMS_Admin
 {
     public function preDispatch() {
-        $this->view->controlname = "Boksy";
+        $this->view->controlname = "Oferta";
     }
 
 // Pokaz wszystkie galerie
     public function indexAction() {
         $db = Zend_Registry::get('db');
-        $this->view->katalog = $db->fetchAll($db->select()->from('boksy')->order('sort ASC'));
+        $this->view->katalog = $db->fetchAll($db->select()->from('oferta')->order('sort ASC'));
     }
 
 // Dodaj
     public function nowaAction() {
         $db = Zend_Registry::get('db');
         $this->_helper->viewRenderer('form', null, true);
-        $this->view->pagename = " - Nowy boks";
-        $this->view->back = '<div class="back"><a href="'.$this->view->baseUrl.'/admin/boksy/">Wróć do listy</a></div>';
+        $this->view->pagename = " - Nowy wpis";
+        $this->view->back = '<div class="back"><a href="'.$this->view->baseUrl.'/admin/oferta/">Wróć do listy</a></div>';
 
-        $form = new Form_BoksForm();
+        $form = new Form_OfertaForm();
         $this->view->form = $form;
-        $this->view->tinymce = "1";
 
         //Akcja po wcisnieciu Submita
         if ($this->_request->getPost()) {
@@ -37,28 +36,26 @@ class Admin_BoksyController extends kCMS_Admin
                 $plik = date('mdhis').'-'.slugImg($formData['nazwa'], $obrazek);
             }
 
-            $formData['slug'] = slug($formData['nazwa']);
-
             //Sprawdzenie poprawnosci forma
             if ($form->isValid($formData)) {
 
-                $db->insert('boksy', $formData);
+                $db->insert('oferta', $formData);
                 $lastId = $db->lastInsertId();
 
                 if($_FILES['obrazek']['size'] > 0) {
-                    move_uploaded_file($_FILES['obrazek']['tmp_name'], FILES_PATH.'/boksy/'.$plik);
-                    $upfile = FILES_PATH.'/boksy/'.$plik;
+                    move_uploaded_file($_FILES['obrazek']['tmp_name'], FILES_PATH.'/oferta/'.$plik);
+                    $upfile = FILES_PATH.'/oferta/'.$plik;
                     chmod($upfile, 0755);
 
                     PhpThumbFactory::create($upfile)
-                        ->adaptiveResizeQuadrant(350, 400)
+                        ->adaptiveResizeQuadrant(850, 500)
                         ->save($upfile);
                     chmod($upfile, 0755);
 
-                    $db->update('boksy', array('obrazek' => $plik), 'id = ' . $lastId);
+                    $db->update('oferta', array('plik' => $plik), 'id = ' . $lastId);
                 }
 
-                $this->_redirect('/admin/boksy/');
+                $this->_redirect('/admin/oferta/');
 
             } else {
 
@@ -75,15 +72,14 @@ class Admin_BoksyController extends kCMS_Admin
         $db = Zend_Registry::get('db');
         $this->_helper->viewRenderer('form', null, true);
 
-        $this->view->back = '<div class="back"><a href="'.$this->view->baseUrl.'/admin/boksy/">Wróć do listy</a></div>';
+        $this->view->back = '<div class="back"><a href="'.$this->view->baseUrl.'/admin/oferta/">Wróć do listy</a></div>';
 
-        $form = new Form_BoksForm();
+        $form = new Form_OfertaForm();
         $this->view->form = $form;
-        $this->view->tinymce = "1";
 
         // Odczytanie id
         $id = (int)$this->_request->getParam('id');
-        $entry = $db->fetchRow($db->select()->from('boksy')->where('id = ?', $id));
+        $entry = $db->fetchRow($db->select()->from('oferta')->where('id = ?', $id));
 
         $this->view->pagename = " - Edytuj: ".$entry->nazwa;
 
@@ -107,29 +103,27 @@ class Admin_BoksyController extends kCMS_Admin
                 $plik = date('mdhis').'-'.slugImg($formData['nazwa'], $obrazek);
             }
 
-            $formData['slug'] = slug($formData['nazwa']);
-
             //Sprawdzenie poprawnosci forma
             if ($form->isValid($formData)) {
 
-                $db->update('boksy', $formData, 'id = '.$id);
+                $db->update('oferta', $formData, 'id = '.$id);
 
                 if($_FILES['obrazek']['size'] > 0) {
-                    unlink(FILES_PATH."/boksy/".$entry->obrazek);
+                    unlink(FILES_PATH."/oferta/".$entry->plik);
 
-                    move_uploaded_file($_FILES['obrazek']['tmp_name'], FILES_PATH.'/boksy/'.$plik);
-                    $upfile = FILES_PATH.'/boksy/'.$plik;
+                    move_uploaded_file($_FILES['obrazek']['tmp_name'], FILES_PATH.'/oferta/'.$plik);
+                    $upfile = FILES_PATH.'/oferta/'.$plik;
                     chmod($upfile, 0755);
 
                     PhpThumbFactory::create($upfile)
-                        ->adaptiveResizeQuadrant(350, 400)
+                        ->adaptiveResizeQuadrant(850, 500)
                         ->save($upfile);
                     chmod($upfile, 0755);
 
-                    $db->update('boksy', array('obrazek' => $plik), 'id = ' . $id);
+                    $db->update('oferta', array('plik' => $plik), 'id = ' . $id);
                 }
 
-                $this->_redirect('/admin/boksy/');
+                $this->_redirect('/admin/oferta/');
 
             } else {
 
@@ -142,16 +136,16 @@ class Admin_BoksyController extends kCMS_Admin
     }
 
 // Usun
-    public function usunKatalogAction() {
+    public function usunAction() {
         $db = Zend_Registry::get('db');
         $id = (int)$this->_request->getParam('id');
 
-        $katalog = $db->fetchRow($db->select()->from('boksy')->where('id = ?',$id));
-        unlink(FILES_PATH."/boksy/".$katalog->obrazek);
+        $katalog = $db->fetchRow($db->select()->from('oferta')->where('id = ?',$id));
+        unlink(FILES_PATH."/oferta/".$katalog->plik);
 
         $where = $db->quoteInto('id = ?', $id);
-        $db->delete('boksy', $where);
-        $this->_redirect('/admin/boksy/');
+        $db->delete('oferta', $where);
+        $this->_redirect('/admin/oferta/');
     }
 
 // Ustaw kolejność

@@ -117,11 +117,11 @@
 <?php } ?>
 
     <script type="text/javascript">
-	WebFontConfig = {
-		google: {
-			families: ['Poppins:300,400,500,600,700:latin-ext'] 
-		}
-	};
+        WebFontConfig = {
+            google: {
+                families: ['Ubuntu:300,400,500,700:latin-ext']
+            }
+        };
 
 	(function(d) {
 	  var wf = d.createElement('script'), s = d.scripts[0];
@@ -148,5 +148,9 @@
 	</script>
 
 	<?= $this->header->footer; ?>
+
+    <?php if(Zend_Auth::getInstance()->hasIdentity()){?>
+        <?=$this->render('inline/inline.phtml') ?>
+    <?php } ?>
 </body>
 </html>

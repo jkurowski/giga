@@ -1,15 +1,19 @@
 <div class="container">
-    <div class="row d-flex justify-content-center">
+    <div class="row d-flex justify-content-center inline">
         <div class="col-8">
             <hr>
         </div>
         <div class="col-12">
-            <h2 class="mt-0 text-center">Wartość firmy GIGA opiera się na optymalnym dostosowaniu struktury organizacyjnej w stosunku do skali danego projektu.</h2>
+            <h2 class="mt-0 text-center" data-modaltytul="3"><?=$this->getInline($this->inline, 3, 'modaltytul');?></h2>
         </div>
-        <div class="col-12 text-justify">
-            <p>Zdolność GIGA do odpowiedniego dopasowania struktury do realizacji inwestycji stanowi o przewadze konkurencyjnej przedsiębiorstwa - wymaga ona połączenia kapitału ludzkiego oraz bezbłędnego zastosowania wypracowanych od lat procedur. Wiąże się również nierozerwalnie z postawą firmy, która od pierwszego dnia istnienia działa jako most łączący inwestorów oraz firmy budowlane. W krótkim czasie takie podejście pozwoliło firmie GIGA występować w formie generalnego wykonawcy.</p>
+        <div class="col-12 text-justify" data-modaleditortext="3">
+            <?=$this->getInline($this->inline, 3, 'modaleditortext');?>
         </div>
+        <?=$this->inlineModal(3, 'modaltytul,modaleditortext', '');?>
+        <?php //'modaltytul', 'modaleditor', 'modaleditortext', 'modallink', 'obrazek', 'obrazek_alt', 'modallinkbutton' ?>
+    </div>
 
+    <div class="row d-flex justify-content-center">
         <div class="col-12 mt-5">
             <div id="animacja_1" class="container">
                 <div class="row row-relative">
@@ -80,17 +84,21 @@
         </div>
     </div>
 
-    <div class="row d-flex justify-content-center mt-5 pt-4">
+    <div class="row d-flex justify-content-center mt-5 pt-4 inline">
         <div class="col-8">
             <hr>
         </div>
         <div class="col-12">
-            <h2 class="mt-0 text-center">GIGA może podjąć się realizacji każdego przedsięwzięcia bez ograniczania się ze względu na łączną wartość lub poziom skomplikowania inwestycji – jest to możliwe dzięki wkomponowaniu pomiędzy procesy projektowania oraz wykonania również doradztwa budowlanego.</h2>
+            <h2 class="mt-0 text-center" data-modaleditor="4"><?=$this->getInline($this->inline, 4, 'modaleditor');?></h2>
         </div>
-        <div class="col-12 text-center">
-            <p>Giga od ponad 20 lat oferuje pełen zakres usług budowlanych począwszy od projektu, aż po wykończenie „pod klucz”. Obiekty wykonuje na postawie gotowej dokumentacji lub projektów własnych. Wspiera swoich Klientów w realizacji całego procesu inwestycyjnego aż po wykończenie obiektu i uzyskanie pozwolenia na użytkowanie.</p>
+        <div class="col-12 text-center" data-modaleditortext="4">
+            <?=$this->getInline($this->inline, 4, 'modaleditortext');?>
         </div>
+        <?=$this->inlineModal(4, 'modaleditor,modaleditortext', '');?>
+        <?php //'modaltytul', 'modaleditor', 'modaleditortext', 'modallink', 'obrazek', 'obrazek_alt', 'modallinkbutton' ?>
+    </div>
 
+    <div class="row">
         <div class="col-12 mt-5 mb-5">
             <div id="animacja_2">
                 <span class="number number_1">1</span>
@@ -141,32 +149,31 @@
             </div>
         </div>
 
-        <div class="col-12 mb-5">
-            <p>Pracownicy GIGA pomagają Klientowi w doborze optymalnych rozwiązań materiałowych oraz konstrukcyjnych pozwalających skrócić czas realizacji, a także wskazuje rzetelnych wykonawców specjalizujących się w branżach takich jak prefabrykacja konstrukcji sprężonej lub instalacji chłodniczych. Planując daną inwestycję korzystamy ze sprawdzonej bazy firm, które są liderami rynku w swoich branżach.</p>
+        <div class="col-12 mb-5 inline">
+            <p data-modaleditor="5"><?=$this->getInline($this->inline, 5, 'modaleditor');?></p>
+            <?=$this->inlineModal(5, 'modaleditor', '');?>
+            <?php //'modaltytul', 'modaleditor', 'modaleditortext', 'modallink', 'obrazek', 'obrazek_alt', 'modallinkbutton' ?>
         </div>
     </div>
 
-    <div class="row d-flex justify-content-center mt-5 pt-4">
+    <div class="row d-flex justify-content-center mt-5 pt-4 inline">
         <div class="col-8 mb-4">
             <hr>
         </div>
         <div class="col-12 pb-5">
-            <h2 class="mt-0 text-center">Istotną kwestią dla przedsiębiorstwa jest partnerska relacja z firmami współuczestniczącymi w realizacji projektów. Wiele spośród nich skorzystało na współpracy wymieniając się z GIGĄ zgromadzonym doświadczeniem.</h2>
+            <h2 class="mt-0 text-center" data-modaltytul="6"><?=$this->getInline($this->inline, 6, 'modaltytul');?></h2>
         </div>
         <div class="col-6 pr-5 d-flex align-items-center">
-            <div>
-                <p>Nasza firma zawarła konsorcja z największymi przedsiębiorstwami w Polsce, takimi jak:</p>
-                <ul>
-                    <li>Johnson Controls (lider na rynku chłodnictwa i wentylacji przemysłowej)</li>
-                    <li>Consolis (lider w produkcji prefabrykatów żelbetowych i betonu sprężonego)</li>
-                </ul>
-                <p>Łączenie wiedzy, doświadczenia oraz zasobów partnerów konsorcjum pozwala wykonywać realizacje na najwyższym poziomie, zabezpieczając interesy każdej ze stron.</p>
+            <div data-modaleditortext="6">
+                <?=$this->getInline($this->inline, 6, 'modaleditortext');?>
             </div>
         </div>
 
         <div class="col-6">
             <div><img src="<?=$this->filesUrl();?>/upload/mapa.jpg" alt="Mapa Polski"></div>
         </div>
+        <?=$this->inlineModal(6, 'modaltytul,modaleditortext', '');?>
+        <?php //'modaltytul', 'modaleditor', 'modaleditortext', 'modallink', 'obrazek', 'obrazek_alt', 'modallinkbutton' ?>
     </div>
 </div>
 

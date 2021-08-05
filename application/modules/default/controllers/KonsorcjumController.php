@@ -2,18 +2,14 @@
 
 class Default_KonsorcjumController extends kCMS_Site
 {
-    /**
-     * @var string
-     */
     private $page_class;
-    /**
-     * @var int
-     */
     private $page_id;
+    private $inlineModel;
 
     public function preDispatch() {
         $this->page_id = 6;
         $this->page_class = '';
+        $this->inlineModel = new Model_InlineModel();
     }
 
     public function indexAction() {
@@ -39,6 +35,7 @@ class Default_KonsorcjumController extends kCMS_Site
 //                'pageclass' => $this->page_class
 //            );
             $array = array(
+                'inline' => $this->inlineModel->getInlineList(2),
                 'strona_nazwa' => 'GIGA Konsorcjum',
                 'strona_h1' => 'GIGA Konsorcjum',
                 'strona_tytul' => ' - GIGA Konsorcjum',

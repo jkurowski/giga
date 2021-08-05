@@ -109,8 +109,8 @@ class Default_NewsController extends kCMS_Site
                     'share' => 1,
                     'share_tytul' => $news->tytul,
                     'share_desc' => $news->wprowadzenie,
-                    'share_image' => 'http://testy.4dl.pl/realinvestdev/files/news/share/'.$news->plik,
-                    'share_url' => 'http://testy.4dl.pl/realinvestdev/pl/'.$page->tag.'/'.$news->tag.'/',
+                    'share_image' => $this->view->baseURL().'/files/news/share/'.$news->plik,
+                    'share_url' => $this->view->baseURL().'/'.$page->tag.'/'.$news->tag.'/',
                     'breadcrumbs' => $breadcrumbs,
                     'news' => $news
                 );

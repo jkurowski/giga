@@ -12,7 +12,7 @@ class Default_RentalController extends kCMS_Site
     private $page_id;
 
     public function preDispatch() {
-        $this->page_id = 6;
+        $this->page_id = 11;
         $this->page_class = '';
     }
 
@@ -27,21 +27,10 @@ class Default_RentalController extends kCMS_Site
             errorPage();
         } else {
 
-//            $array = array(
-//                'strona_nazwa' => $page->nazwa,
-//                'strona_h1' => $page->nazwa,
-//                'strona_tytul' => ' - '.$page->nazwa,
-//                'seo_tytul' => $page->meta_tytul,
-//                'seo_opis' => $page->meta_opis,
-//                'seo_slowa' => $page->meta_slowa,
-//                'strona_id' => $this->page_id,
-//                'strona' => $page,
-//                'pageclass' => $this->page_class
-//            );
             $array = array(
-                'strona_nazwa' => 'GIGA Rental',
-                'strona_h1' => 'GIGA Rental',
-                'strona_tytul' => ' - GIGA Rental',
+                'strona_nazwa' => $page->nazwa,
+                'strona_h1' => $page->nazwa,
+                'strona_tytul' => ' - '.$page->nazwa,
                 'seo_tytul' => $page->meta_tytul,
                 'seo_opis' => $page->meta_opis,
                 'seo_slowa' => $page->meta_slowa,
@@ -49,6 +38,7 @@ class Default_RentalController extends kCMS_Site
                 'strona' => $page,
                 'pageclass' => $this->page_class
             );
+
             $this->view->assign($array);
 
         }

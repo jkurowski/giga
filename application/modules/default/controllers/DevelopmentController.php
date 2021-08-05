@@ -12,7 +12,7 @@ class Default_DevelopmentController extends kCMS_Site
     private $page_id;
 
     public function preDispatch() {
-        $this->page_id = 6;
+        $this->page_id = 10;
         $this->page_class = '';
     }
 
@@ -27,26 +27,18 @@ class Default_DevelopmentController extends kCMS_Site
             errorPage();
         } else {
 
-//            $array = array(
-//                'strona_nazwa' => $page->nazwa,
-//                'strona_h1' => $page->nazwa,
-//                'strona_tytul' => ' - '.$page->nazwa,
-//                'seo_tytul' => $page->meta_tytul,
-//                'seo_opis' => $page->meta_opis,
-//                'seo_slowa' => $page->meta_slowa,
-//                'strona_id' => $this->page_id,
-//                'strona' => $page,
-//                'pageclass' => $this->page_class
-//            );
+            $inwestycje = $db->fetchAll($db->select()->from('inwestycje')->order('sort ASC'));
+
             $array = array(
-                'strona_nazwa' => 'GIGA Development',
-                'strona_h1' => 'GIGA Development',
-                'strona_tytul' => ' - GIGA Development',
+                'strona_nazwa' => $page->nazwa,
+                'strona_h1' => $page->nazwa,
+                'strona_tytul' => ' - '.$page->nazwa,
                 'seo_tytul' => $page->meta_tytul,
                 'seo_opis' => $page->meta_opis,
                 'seo_slowa' => $page->meta_slowa,
                 'strona_id' => $this->page_id,
                 'strona' => $page,
+                'inwestycje' => $inwestycje,
                 'pageclass' => $this->page_class
             );
             $this->view->assign($array);

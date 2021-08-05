@@ -27,6 +27,8 @@ class Default_OfertaController extends kCMS_Site
             errorPage();
         } else {
 
+            $offer = $db->fetchAll($db->select()->from('oferta')->where('place_id =?', 2)->order('sort ASC'));
+
             $array = array(
                 'strona_nazwa' => $page->nazwa,
                 'strona_h1' => $page->nazwa,
@@ -36,6 +38,7 @@ class Default_OfertaController extends kCMS_Site
                 'seo_slowa' => $page->meta_slowa,
                 'strona_id' => $this->page_id,
                 'strona' => $page,
+                'oferta' => $offer,
                 'pageclass' => $this->page_class
             );
             $this->view->assign($array);

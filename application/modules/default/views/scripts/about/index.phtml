@@ -1,13 +1,17 @@
 <div class="container">
-    <div class="row">
+    <div class="row inline">
         <div class="col-12 text-justify">
-            <h4>Firma GIGA powstała ponad 20 lat temu i nieprzerwanie świadczy usługi z zakresu budownictwa, elektryki oraz energetyki. Unikalny sposób organizacji przedsiębiorstwa skupiający się na dwóch głównych aspektach, czyli efektywności produkcji oraz elastyczności organizacyjnej, umożliwiły stabilny/organiczny rozwój.</h4>
+            <h4 data-modaleditor="12"><?=$this->getInline($this->inline, 12, 'modaleditor');?></h4>
         </div>
+        <?=$this->inlineModal(12, 'modaleditor', '');?>
+        <?php //'modaltytul', 'modaleditor', 'modaleditortext', 'modallink', 'obrazek', 'obrazek_alt', 'modallinkbutton' ?>
     </div>
 
     <div class="row pt-3 pb-5 mt-5 mb-5">
-        <div class="col-6 d-flex align-items-center pr-5 text-justify">
-            <p>Od pierwszego dnia istnienia GIGA posiadała szeroką kadrę inżynierską wspieraną przez doświadczone brygady budowlane. Szybko gromadzona i stale ulepszana struktura organizacyjna, a także przemyślana digitalizacja, umożliwiły realizację projektów z większym zakresem prac oraz poziomem złożoności technicznej. Firma stale rozszerzała wachlarz świadczonych usług, dzięki czemu, w niedługim czasie, stała się generalnym wykonawcą obiektów przemysłowych oraz publicznych.</p>
+        <div class="col-6 d-flex align-items-center pr-5 text-justify inline">
+            <p data-modaleditor="13"><?=$this->getInline($this->inline, 13, 'modaleditor');?></p>
+            <?=$this->inlineModal(13, 'modaleditor', '');?>
+            <?php //'modaltytul', 'modaleditor', 'modaleditortext', 'modallink', 'obrazek', 'obrazek_alt', 'modallinkbutton' ?>
         </div>
         <div class="col-6">
             <div class="sliderWrapper image-border">
@@ -25,16 +29,18 @@
         </div>
     </div>
 
-    <div class="row d-flex justify-content-center text-center">
+    <div class="row d-flex justify-content-center text-center inline">
         <div class="col-8">
             <hr>
         </div>
         <div class="col-10">
-            <h2 class="mt-0">Współpraca z partnerami</h2>
+            <h2 class="mt-0" data-modaltytul="14"><?=$this->getInline($this->inline, 14, 'modaltytul');?></h2>
         </div>
         <div class="col-12 text-justify">
-            <p>GIGA od lat buduje oraz pielęgnuje sieć powiązań z firmami podwykonawczymi oraz partnerami w formie konsorcjów. O wyborze partnera budowlanego do danej realizacji decyduje jego rzetelność oraz spójność z wartościami wyznawanymi przez firmę. W portfolio przedsiębiorstw współpracujących z GIGA znajdują się zarówno duże korporacje o zasięgu europejskim, jak również firmy rodzinne działające lokalnie.</p>
+            <p data-modaleditor="14"><?=$this->getInline($this->inline, 14, 'modaleditor');?></p>
         </div>
+        <?=$this->inlineModal(14, 'modaltytul,modaleditor', '');?>
+        <?php //'modaltytul', 'modaleditor', 'modaleditortext', 'modallink', 'obrazek', 'obrazek_alt', 'modallinkbutton' ?>
     </div>
 
     <div class="row mt-5 pt-5">
@@ -53,58 +59,66 @@
         </div>
     </div>
 
-    <div class="row d-flex justify-content-center text-center mt-5 pt-5">
+    <div class="row d-flex justify-content-center text-center mt-5 pt-5 inline">
         <div class="col-8">
             <hr>
         </div>
         <div class="col-10">
-            <h2 class="mt-0">Strategia rozwoju</h2>
+            <h2 class="mt-0" data-modaltytul="15"><?=$this->getInline($this->inline, 15, 'modaltytul');?></h2>
         </div>
         <div class="col-12">
-            <p>Niezależnie od pozycji zajmowanej w spółce GIGA, pracownicy uczą się działać w sposób zorientowany na budowanie długotrwałego kapitału marki.​</p>
+            <p data-modaleditor="15"><?=$this->getInline($this->inline, 15, 'modaleditor');?></p>
         </div>
+        <?=$this->inlineModal(15, 'modaltytul,modaleditor', '');?>
+        <?php //'modaltytul', 'modaleditor', 'modaleditortext', 'modallink', 'obrazek', 'obrazek_alt', 'modallinkbutton' ?>
     </div>
 
-    <div class="row mt-5 pt-5">
+    <div class="row mt-5 pt-5 inline">
         <div class="col-6 d-flex align-items-center pr-5" data-aos="fade-right" data-aos-offset="350">
             <div>
-                <h3>(Bezcenny) Kapitał Ludzki</h3>
-                <p class="text-justify">stanowiący o tym czym faktycznie jest GIGA, systematycznie / nieustannie generuje i pielęgnuje sieć powiązań z innymi przedsiębiorstwami – pracownicy GIGA wykazują się dużą elastycznością w kontakcie z firmami zewnętrznymi, preferując dogadywanie się z podwykonawcami zamiast generować konflikt. Takie postępowanie przynosi ogromne korzyści – liczne przedsiębiorstwa nieprzerwanie kontynuują współpracę z GIGA od momentu jej powstania.</p>
+                <h3 data-modaltytul="16"><?=$this->getInline($this->inline, 16, 'modaltytul');?></h3>
+                <div data-modaleditortext="16"><?=$this->getInline($this->inline, 16, 'modaleditortext');?></div>
             </div>
         </div>
         <div class="col-6" data-aos="fade-left" data-aos-offset="350">
-            <img src="<?=$this->filesUrl();?>/upload/kapital-ludzki.jpg" class="image-border" alt="Kapitał Ludzki">
+            <img src="<?=$this->getInline($this->inline, 16, 'obrazek');?>" alt="<?=$this->getInline($this->inline, 16, 'obrazek_alt');?>" data-img="16" class="image-border">
         </div>
+        <?=$this->inlineModal(16, 'modaltytul,modaleditortext,obrazek,obrazek_alt', '540,420');?>
+        <?php //'modaltytul', 'modaleditor', 'modaleditortext', 'modallink', 'obrazek', 'obrazek_alt', 'modallinkbutton' ?>
     </div>
 
-    <div class="row flex-row-reverse mt-5 pt-5">
+    <div class="row flex-row-reverse mt-5 pt-5 inline">
         <div class="col-6 d-flex align-items-center pl-5" data-aos="fade-right" data-aos-offset="350">
             <div>
-                <h3>Odpowiedzialny rozwój</h3>
-                <p class="text-justify">to działanie w sposób koncentrujący się na jakości wykonywanej pracy oraz ograniczaniu podziałów społecznych. Kadry kierownicze GIGA pracują nieustannie / wytrwale każdego dnia, aby wypracowywać pozytywne synergie wynikające z podejmowanych przedsięwzięć. Mając do dyspozycji rozbudowane narzędzia analizy makro- i mikroekonomicznej identyfikują czynniki pozytywne oraz negatywne związane z danym projektem, aby w ten sposób podejmować decyzje korzystne ekonomiczne dla spółki, rozumiejąc ich wpływ na społeczeństwo.</p>
+                <h3 data-modaltytul="17"><?=$this->getInline($this->inline, 17, 'modaltytul');?></h3>
+                <div data-modaleditortext="17"><?=$this->getInline($this->inline, 17, 'modaleditortext');?></div>
             </div>
         </div>
         <div class="col-6" data-aos="fade-left" data-aos-offset="350">
-            <img src="<?=$this->filesUrl();?>/upload/odpowiedzialny-rozwoj.jpg" class="image-border" alt="Odpowiedzialny rozwój">
+            <img src="<?=$this->getInline($this->inline, 17, 'obrazek');?>" alt="<?=$this->getInline($this->inline, 17, 'obrazek_alt');?>" data-img="17" class="image-border">
         </div>
+        <?=$this->inlineModal(17, 'modaltytul,modaleditortext,obrazek,obrazek_alt', '540,420');?>
+        <?php //'modaltytul', 'modaleditor', 'modaleditortext', 'modallink', 'obrazek', 'obrazek_alt', 'modallinkbutton' ?>
     </div>
 
-    <div class="row mt-5 pt-5">
+    <div class="row mt-5 pt-5 inline">
         <div class="col-6 d-flex align-items-center pr-5" data-aos="fade-right" data-aos-offset="350">
             <div>
-                <h3>Ekologiczny rozwój</h3>
-                <p class="text-justify">rozwój ekologiczny związany jest z podejmowaniem konkretnych działań, które minimalizują negatywny wpływ na środowisko. Firma GIGA wyróżnia 3 główne dziedziny, które budują odpowiedzialność ekologiczną firmy. Dotyczą one ekologicznej organizacji projektu oraz placu budowy, segregacji odpadów wraz z recyklingiem, a także wyboru podwykonawców oraz uwrażliwianiu ich na ślad ekologiczny wynikający z podejmowanych działań.​</p>
+                <h3 data-modaltytul="18"><?=$this->getInline($this->inline, 18, 'modaltytul');?></h3>
+                <div data-modaleditortext="18"><?=$this->getInline($this->inline, 18, 'modaleditortext');?></div>
             </div>
         </div>
         <div class="col-6" data-aos="fade-left" data-aos-offset="350">
-            <img src="<?=$this->filesUrl();?>/upload/ekologiczny-rozwoj.jpg" class="image-border" alt="Ekologiczny rozwój">
+            <img src="<?=$this->getInline($this->inline, 18, 'obrazek');?>" alt="<?=$this->getInline($this->inline, 18, 'obrazek_alt');?>" data-img="18" class="image-border">
         </div>
+        <?=$this->inlineModal(18, 'modaltytul,modaleditortext,obrazek,obrazek_alt', '540,420');?>
+        <?php //'modaltytul', 'modaleditor', 'modaleditortext', 'modallink', 'obrazek', 'obrazek_alt', 'modallinkbutton' ?>
     </div>
 
     <div class="row mt-5">
         <div class="col-12 text-center">
             <p class="mb-0">Więcej informacji można uzyskać w zakładce:</p>
-            <a href="" class="bttn mb-0">ZRÓWNOWAŻONY ROZWÓJ</a>
+            <a href="/zrownowazony-rozwoj/" class="bttn mb-0">ZRÓWNOWAŻONY ROZWÓJ</a>
         </div>
     </div>
 

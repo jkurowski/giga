@@ -1,58 +1,72 @@
 <div class="container">
-    <div class="row d-flex justify-content-center">
+    <div class="row d-flex justify-content-center inline">
         <div class="col-8">
             <hr>
         </div>
         <div class="col-10">
-            <h2 class="mt-0 text-center">Misja</h2>
+            <h2 class="mt-0 text-center" data-modaltytul="7"><?=$this->getInline($this->inline, 7, 'modaltytul');?></h2>
         </div>
-        <div class="col-12 text-justify">
-            <p>Firma GIGA powstała w celu budowania obiektów dla instytucji publicznych oraz firm prywatnych z zachowaniem szczególnej troski o jakość wykonania oraz poszanowaniem środowiska naturalnego. Każdy członek spółki GIGA, poczynając od inżynierów oraz analityków, a kończąc na dyrektorach oraz zarządzie, dostrzega, że budowanie jest czymś więcej niż tylko zagadnieniem konstrukcyjno-inżynierskim.</p>
+        <div class="col-12 text-justify" data-modaleditortext="7">
+            <?=$this->getInline($this->inline, 7, 'modaleditortext');?>
         </div>
+        <?=$this->inlineModal(7, 'modaltytul,modaleditortext', '');?>
+        <?php //'modaltytul', 'modaleditor', 'modaleditortext', 'modallink', 'obrazek', 'obrazek_alt', 'modallinkbutton' ?>
     </div>
 
-    <div class="row pt-5">
-        <div class="col-6 d-flex align-items-center pr-5">
-            <div class="text-justify">
-                <p>Budownictwo polega nie tylko na wznoszeniu nowych konstrukcji, budowanie to także dążenie do osiągania trwałych oraz wartościowych relacji międzyludzkich pomagających tworzyć lepsze jutro</p>
+    <div class="pt-5">
+        <div class="row inline">
+            <div class="col-6 d-flex align-items-center pr-5">
+                <div class="text-justify" data-modaleditortext="9">
+                    <?=$this->getInline($this->inline, 9, 'modaleditortext');?>
+                </div>
             </div>
-        </div>
-        <div class="col-6">
-            <img src="<?=$this->filesUrl();?>/upload/misja-1.jpg" class="image-border" alt="">
+            <div class="col-6">
+                <img src="<?=$this->getInline($this->inline, 9, 'obrazek');?>" alt="<?=$this->getInline($this->inline, 9, 'obrazek_alt');?>" data-img="9" class="image-border">
+            </div>
+            <?=$this->inlineModal(9, 'modaleditortext,obrazek,obrazek_alt', '540,420');?>
+            <?php //'modaltytul', 'modaleditor', 'modaleditortext', 'modallink', 'obrazek', 'obrazek_alt', 'modallinkbutton' ?>
         </div>
     </div>
 
-    <div class="row d-flex justify-content-center mt-5 pt-5">
+    <div class="row d-flex justify-content-center mt-5 pt-5 inline">
         <div class="col-8">
             <hr>
         </div>
         <div class="col-10">
-            <h2 class="mt-0 text-center">Wizja</h2>
+            <h2 class="mt-0 text-center" data-modaltytul="8"><?=$this->getInline($this->inline, 8, 'modaltytul');?></h2>
         </div>
-        <div class="col-12 text-justify">
-            <p>GIGA od początku swojego istnienia dąży do wyznaczania trendów w dwóch głównych dziedzinach – <b>efektywności produkcji</b> oraz <b>rozwoju (wszechstronności) pracowników</b></p>
+        <div class="col-12 text-justify" data-modaleditortext="8">
+            <?=$this->getInline($this->inline, 8, 'modaleditortext');?>
         </div>
+        <?=$this->inlineModal(8, 'modaltytul,modaleditortext', '');?>
+        <?php //'modaltytul', 'modaleditor', 'modaleditortext', 'modallink', 'obrazek', 'obrazek_alt', 'modallinkbutton' ?>
     </div>
 
-    <div class="row flex-row-reverse mt-5">
+    <div class="row flex-row-reverse mt-5 inline">
         <div class="col-6 d-flex align-items-center pl-5" data-aos="fade-left" data-aos-offset="350">
-            <div class="text-justify">
-                <p>Efektywność produkcji rozumiemy jako stałe prace badawcze w zakresie optymalnego użycia materiałów a także minimalizacji odpadów powstających na budowie. Takie odpowiedzialne zarządzanie surowcami pomaga chronić środowisko naturalne. Jest to również optymalizacja operacyjna pozwalająca osiągać lepszą terminowość oraz stale podwyższać jakość realizacji.</p>
+            <div class="text-justify" data-modaleditortext="10">
+                <?=$this->getInline($this->inline, 10, 'modaleditortext');?>
             </div>
         </div>
         <div class="col-6" data-aos="fade-right" data-aos-offset="350">
-            <img src="<?=$this->filesUrl();?>/upload/misja-2.jpg" class="image-border" alt="">
+            <img src="<?=$this->getInline($this->inline, 10, 'obrazek');?>" alt="<?=$this->getInline($this->inline, 10, 'obrazek_alt');?>" data-img="10" class="image-border">
         </div>
+        <?=$this->inlineModal(10, 'modaleditortext,obrazek,obrazek_alt', '540,420');?>
+        <?php //'modaltytul', 'modaleditor', 'modaleditortext', 'modallink', 'obrazek', 'obrazek_alt', 'modallinkbutton' ?>
     </div>
 
-    <div class="row mt-5 pt-4">
-        <div class="col-6 d-flex align-items-center pr-5" data-aos="fade-left" data-aos-offset="350">
-            <div class="text-justify">
-                <p>Nasze przedsiębiorstwo dokłada ogromnych starań, aby stworzyć miejsce do pracy, z którym każdy pracownik będzie się utożsamiać i w którym w pełni wykorzysta swoje zdolności. Tworzymy warunki do poszerzania horyzontów naszych podopiecznych, dzięki ciągłemu wsłuchiwaniu się w ich potrzeby. Pozwalamy im rozwijać się w różnych dziedzinach oraz podwyższać ich kompetencje. Takie działanie pozwala uelastyczniać organizację na wypadek nieprzewidzianych zdarzeń.</p>
+    <div class="mt-5 pt-4">
+        <div class="row inline">
+            <div class="col-6 d-flex align-items-center pr-5" data-aos="fade-left" data-aos-offset="350">
+                <div class="text-justify" data-modaleditortext="11">
+                    <?=$this->getInline($this->inline, 11, 'modaleditortext');?>
+                </div>
             </div>
-        </div>
-        <div class="col-6" data-aos="fade-right" data-aos-offset="350">
-            <img src="<?=$this->filesUrl();?>/upload/misja-3.jpg" class="image-border" alt="">
+            <div class="col-6" data-aos="fade-right" data-aos-offset="350">
+                <img src="<?=$this->getInline($this->inline, 11, 'obrazek');?>" alt="<?=$this->getInline($this->inline, 11, 'obrazek_alt');?>" data-img="11" class="image-border">
+            </div>
+            <?=$this->inlineModal(11, 'modaleditortext,obrazek,obrazek_alt', '540,420');?>
+            <?php //'modaltytul', 'modaleditor', 'modaleditortext', 'modallink', 'obrazek', 'obrazek_alt', 'modallinkbutton' ?>
         </div>
     </div>
 

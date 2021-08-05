@@ -1,0 +1,40 @@
+<div class="title"><h1><?=$this->controlname;?></h1></div>
+<div class="row-fluid">
+    <div class="span12">
+        <div class="widget">
+            <div class="table-footer">
+                <a href="<?=$this->baseUrl();?>/admin/statystyki/maile/" class="button greyishBtn">Export adresów e-mail</a>
+            </div>
+            <div class="table-header">
+                <form action="" id="date-form" method="get">
+                    <label><span>Data początkowa:</span><input type="text" size="30" maxlength="30" id="data_start" name="data_start" value="<?=$this->data_start;?>" /></label>
+                    <label><span>Data końcowa:</span><input type="text" size="30" maxlength="30" id="data_end" name="data_end" value="<?=$this->data_end;?>" /></label>
+                    <label><input type="submit" class="greyishBtn" value="Pokaz"></label>
+                    <div class="clr"></div>
+                </form>
+            </div>
+            <div class="col-1">
+                <table width="100%" cellspacing="0" cellpadding="0" class="tableStatic adm" id="sortable">
+                    <thead>
+                    <tr>
+                        <th width="10%">Data</th>
+                        <th width="85%">Treść</th>
+                        <th width="5%"></th>
+                    </tr>
+                    </thead>
+                    <tbody class="content">
+                    <?php foreach($this->lista as $pozycja) : ?>
+                        <tr>
+                            <td><?=$this->escape($pozycja->data);?></td>
+                            <td><?=$this->escape($pozycja->tekst);?><?php if($pozycja->miejsce == 3){?> / Mieszkanie nr. <?=$this->escape($pozycja->mieszkanie);?><?php } ?>
+                                <hr>
+                                <div style="color:#979797"><?=$this->escape($pozycja->email);?> / <?=$this->escape($pozycja->telefon);?> / IP: <?=$this->escape($pozycja->ip);?></div></td>
+                            <td class="right"><a href="<?=$this->baseUrl();?>/admin/statystyki/usun-wiadomosc/id/<?=$this->escape($pozycja->id);?>/" class="actionBtn tip btnDelete confirm" title="Usuń"></a></td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

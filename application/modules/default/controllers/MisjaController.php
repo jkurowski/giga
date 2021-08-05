@@ -2,18 +2,15 @@
 
 class Default_MisjaController extends kCMS_Site
 {
-    /**
-     * @var string
-     */
+
     private $page_class;
-    /**
-     * @var int
-     */
     private $page_id;
+    private $inlineModel;
 
     public function preDispatch() {
         $this->page_id = 9;
         $this->page_class = '';
+        $this->inlineModel = new Model_InlineModel();
     }
 
     public function indexAction() {
@@ -28,6 +25,7 @@ class Default_MisjaController extends kCMS_Site
         } else {
 
             $array = array(
+                'inline' => $this->inlineModel->getInlineList(3),
                 'strona_nazwa' => $page->nazwa,
                 'strona_h1' => $page->nazwa,
                 'strona_tytul' => ' - '.$page->nazwa,
