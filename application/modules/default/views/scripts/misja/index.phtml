@@ -75,54 +75,65 @@
             <h2 class="mt-0 mb-5">System wartości:</h2>
         </div>
     </div>
-    <div class="row" data-aos="fade-up" data-aos-offset="300">
+
+    <div class="row inline" data-aos="fade-up" data-aos-offset="300">
         <div class="col-2">
             <div class="misja-icon">
-                <img src="<?=$this->gfxUrl();?>/solidnosc-icon.png" alt="Solidność">
+                <img src="<?=$this->getInline($this->inline, 19, 'obrazek');?>" alt="<?=$this->getInline($this->inline, 19, 'obrazek_alt');?>" data-img="19">
             </div>
         </div>
         <div class="col-10 text-justify d-flex align-items-center">
             <div>
-                <h3 class="mt-0 mb-2">Solidność</h3>
-                <p>Stabilna konstrukcja musi opierać się na solidnym fundamencie. W naszej firmie to przejrzyste zasady działania pozwalają nam osiągać wysoką jakość. Zespół GIGA od lat udowadnia swoją rzetelność, która motywuje inne firmy do naśladowania dobrych praktyk.</p>
+                <h3 class="mt-0 mb-2" data-modaltytul="19"><?=$this->getInline($this->inline, 19, 'modaltytul');?></h3>
+                <p data-modaleditor="19"><?=$this->getInline($this->inline, 19, 'modaleditor');?></p>
             </div>
         </div>
+        <?=$this->inlineModal(19, 'modaltytul,modaleditor,obrazek,obrazek_alt', '120,120');?>
+        <?php //'modaltytul', 'modaleditor', 'modaleditortext', 'modallink', 'obrazek', 'obrazek_alt', 'modallinkbutton' ?>
     </div>
+
     <div class="row mt-4" data-aos="fade-up" data-aos-offset="300">
         <div class="col-12">
             <hr>
         </div>
     </div>
-    <div class="row" data-aos="fade-up" data-aos-offset="300">
+
+    <div class="row inline" data-aos="fade-up" data-aos-offset="300">
         <div class="col-2">
             <div class="misja-icon">
-                <img src="<?=$this->gfxUrl();?>/kreatywnosc-icon.png" alt="Kreatywność">
+                <img src="<?=$this->getInline($this->inline, 20, 'obrazek');?>" alt="<?=$this->getInline($this->inline, 20, 'obrazek_alt');?>" data-img="20">
             </div>
         </div>
         <div class="col-10 text-justify d-flex align-items-center">
             <div>
-                <h3 class="mt-0 mb-2">Kreatywność</h3>
-                <p>Doceniamy osoby, które wykazują inicjatywę i pragną stale się doskonalić. Każdy pracownik może swoim działaniem pomóc organizacji, ponieważ strategiczne decyzje są równie ważne co bieżące działania. Wierzymy, że każdy pracownik może stać się promotorem zmiany na lepsze.</p>
+                <h3 class="mt-0 mb-2" data-modaltytul="20"><?=$this->getInline($this->inline, 20, 'modaltytul');?></h3>
+                <p data-modaleditor="20"><?=$this->getInline($this->inline, 20, 'modaleditor');?></p>
             </div>
         </div>
+        <?=$this->inlineModal(20, 'modaltytul,modaleditor,obrazek,obrazek_alt', '120,120');?>
+        <?php //'modaltytul', 'modaleditor', 'modaleditortext', 'modallink', 'obrazek', 'obrazek_alt', 'modallinkbutton' ?>
     </div>
+
     <div class="row mt-4" data-aos="fade-up" data-aos-offset="300">
         <div class="col-12">
             <hr>
         </div>
     </div>
-    <div class="row" data-aos="fade-up" data-aos-offset="300">
+
+    <div class="row inline" data-aos="fade-up" data-aos-offset="300">
         <div class="col-2">
             <div class="misja-icon">
-                <img src="<?=$this->gfxUrl();?>/odpowiedzialnosc-icon.png" alt="Odpowiedzialność">
+                <img src="<?=$this->getInline($this->inline, 21, 'obrazek');?>" alt="<?=$this->getInline($this->inline, 21, 'obrazek_alt');?>" data-img="21">
             </div>
         </div>
         <div class="col-10 text-justify d-flex align-items-center">
             <div>
-                <h3 class="mt-0 mb-2">Odpowiedzialność</h3>
-                <p>Każdy z nas z pasją wykonuje powierzone zadania, bo wszyscy dążymy do wspólnego celu. Jesteśmy uważni na pracę naszych współpracowników i gotowi do działania, gdy można pomóc całemu zespołowi. Podejmujemy decyzje z troską o środowisko naturalne, kierując się zasadą - „Przyszłe pokolenia powinny zastać Ziemię w takim samym lub lepszym stanie”.</p>
+                <h3 class="mt-0 mb-2" data-modaltytul="21"><?=$this->getInline($this->inline, 21, 'modaltytul');?></h3>
+                <p data-modaleditor="21"><?=$this->getInline($this->inline, 21, 'modaleditor');?></p>
             </div>
         </div>
+        <?=$this->inlineModal(21, 'modaltytul,modaleditor,obrazek,obrazek_alt', '120,120');?>
+        <?php //'modaltytul', 'modaleditor', 'modaleditortext', 'modallink', 'obrazek', 'obrazek_alt', 'modallinkbutton' ?>
     </div>
 
     <div class="row d-flex justify-content-center mt-5 pt-5">
@@ -135,27 +146,19 @@
     </div>
 </div>
 <div id="carousel" class="container">
+<?php foreach($this->opinie as $o){?>
     <div class="row">
         <div class="col-12">
-            <blockquote>Każdy inżynier aktywnie uczestniczy we wszystkich aspektach procesu inwestycyjnego, w tym rozliczenia robót i prognozy kosztów do momentu zakończenia inwestycji. Wspomaga w ten sposób dział rozliczenia produkcji, który nie zawsze ma bezpośredni i w związku z tym miarodajny wgląd do sytuacji na placu budowy.</blockquote>
+            <blockquote><?=$this->escape($o->tekst);?></blockquote>
             <div class="blockquote-person text-center">
-                <img src="https://www.internationalpublishers.org/templates/it_headlines/custom/images/about-ipa/committee-members/Roberto-Banchik-Square-crop.jpg" alt="">
-                <h3>Jakub</h3>
-                <p class="mb-3"><i>Młodszy inżynier</i></p>
+                <?php if($o->plik) {?><img src="<?=$this->baseUrl;?>/files/opinie/<?=$this->escape($o->plik);?>" alt="<?=$this->escape($o->imie);?> - <?=$this->escape($o->stanowisko);?>"><?php } ?>
+                <h3><?=$this->escape($o->imie);?></h3>
+                <p class="mb-3"><i><?=$this->escape($o->stanowisko);?></i></p>
+                <?php if($o->dodatkowe) {?><p class="small"><?=$this->escape($o->dodatkowe);?></p><?php } ?>
             </div>
         </div>
     </div>
-
-    <div class="row">
-        <div class="col-12">
-            <blockquote>Utrzymujemy poziom komunikacji zespołów z centrali i budów na najwyższym poziomie. Centrala firmy otrzymuje od Kierowników budów, wyczerpujący opis zaawansowania robót wraz z planowanymi kolejnymi działaniami, w związku z czym jest w stanie wygenerować raporty o wysokiej jakości informacyjnej dla zarządu. Dodatkowo cotygodniowe koordynacje zespołów z biura i budowy,  pozwalaj tworzyć dokumenty o odpowiednim zbilansowaniu techniczno-użytkowym.</blockquote>
-            <div class="blockquote-person text-center">
-                <img src="https://images.generated.photos/JN_VTgcC2WllGU94Ow99d-hjMb3ZAdUPlq_iHRc4lV0/rs:fit:512:512/wm:0.95:sowe:18:18:0.33/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzAyNzM4MTguanBn.jpg" alt="">
-                <h3>Magdalena</h3>
-                <p class="mb-3"><i>Kierownik biura GIGA</i></p>
-            </div>
-        </div>
-    </div>
+<?php } ?>
 </div>
 <script type="text/javascript">
     AOS.init();

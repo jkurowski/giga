@@ -16,14 +16,9 @@
         <div class="col-6">
             <div class="sliderWrapper image-border">
                 <ul>
-                    <li><img src="<?=$this->filesUrl();?>/upload/onas/onas-1.jpg" alt="Firma GIGA - pierwszy etap"></li>
-                    <li><img src="<?=$this->filesUrl();?>/upload/onas/onas-2.jpg" alt="Firma GIGA - drugi etap"></li>
-                    <li><img src="<?=$this->filesUrl();?>/upload/onas/onas-3.jpg" alt="Firma GIGA - trzeci etap"></li>
-                    <li><img src="<?=$this->filesUrl();?>/upload/onas/onas-4.jpg" alt="Firma GIGA - czwarty etap"></li>
-                    <li><img src="<?=$this->filesUrl();?>/upload/onas/onas-5.jpg" alt="Firma GIGA - piąty etap"></li>
-                    <li><img src="<?=$this->filesUrl();?>/upload/onas/onas-6.jpg" alt="Firma GIGA - szósty etap"></li>
-                    <li><img src="<?=$this->filesUrl();?>/upload/onas/onas-7.jpg" alt="Firma GIGA - siódmy etap"></li>
-                    <li><img src="<?=$this->filesUrl();?>/upload/onas/onas-8.jpg" alt="Firma GIGA - finał"></li>
+                <?php foreach($this->slider as $s) {?>
+                    <li><img src="<?=$this->filesUrl();?>/galeria/big/<?=$s->plik;?>" alt="Firma GIGA"></li>
+                <?php } ?>
                 </ul>
             </div>
         </div>
@@ -43,20 +38,15 @@
         <?php //'modaltytul', 'modaleditor', 'modaleditortext', 'modallink', 'obrazek', 'obrazek_alt', 'modallinkbutton' ?>
     </div>
 
-    <div class="row mt-5 pt-5">
+    <div class="row mt-5 pt-5 inline">
         <div class="col-6 pr-5 d-flex align-items-center" data-aos="fade-right" data-aos-offset="350">
-            <div class="text-justify">
-                <img src="http://marat.info.pl/img/logo.png" alt="Logo firmy „Marat”" class="client-logo">
-                <p>Jednym z wieloletnich partnerów realizacyjnych działającym na rynku polskim jest rodzinna firma budowlana „Marat”. Przedsiębiorstwo posiada nowoczesny Park Maszyn (żurawie, podnośniki itp.) pozwalający na sprawny montaż konstrukcji żelbetowych prefabrykowanych</p>
-                <p>&nbsp;</p>
-                <p>Swoimi doświadczeniami na temat współpracy z GIGA podzielił się Prezes firmy Pan <b>Tadeusz Marat</b>:</p>
-                <p>&nbsp;</p>
-                <p><i>GIGA to rzetelna firma, którą od lat wspieramy w realizacjach przemysłowych. Wyróżnia się na tle konkurencji dbałością o detale, dzięki czemu minimalizowana jest ilość elementów konstrukcyjnych, które wymagają utylizacji. Co niezwykle istotne, utrzymują ze swoimi podwykonawcami partnerskie stosunki.</i></p>
-            </div>
+            <div class="text-justify" data-modaleditortext="22"><?=$this->getInline($this->inline, 22, 'modaleditortext');?></div>
         </div>
         <div class="col-6" data-aos="fade-left" data-aos-offset="350">
-            <img src="<?=$this->filesUrl();?>/upload/marat.jpg" class="image-border" alt="Rodzinna firma budowlana „Marat”">
+            <img src="<?=$this->getInline($this->inline, 22, 'obrazek');?>" alt="<?=$this->getInline($this->inline, 22, 'obrazek_alt');?>" data-img="22" class="image-border">
         </div>
+        <?=$this->inlineModal(22, 'modaleditortext,obrazek,obrazek_alt', '540,660');?>
+        <?php //'modaltytul', 'modaleditor', 'modaleditortext', 'modallink', 'obrazek', 'obrazek_alt', 'modallinkbutton' ?>
     </div>
 
     <div class="row d-flex justify-content-center text-center mt-5 pt-5 inline">
@@ -121,21 +111,25 @@
             <a href="/zrownowazony-rozwoj/" class="bttn mb-0">ZRÓWNOWAŻONY ROZWÓJ</a>
         </div>
     </div>
-
-    <div class="row mt-5 pt-5">
-        <div class="col-12" data-aos="fade-up" data-aos-offset="350">
-            <blockquote>
-                Jestem niezmiernie dumny z postępu jaki wykonała firma GIGA w ciągu ponad 20-letnigo istnienia. Niezwykle ważny jest dla mnie fakt, iż GIGA pozostała wierna swoim ideałom założycielskim, które opierają się na rozwoju pracowników oraz długotrwałym budowaniu marki. Na każdym kroku spotykam ludzi, którzy wykazują się odpowiedzialną postawą w życiu zawodowym oraz prywatnym – jest to sukces związany z pozytywnym wpływem kultury organizacyjnej wytworzonej i stale kreowanej (wykreowanej) wewnątrz naszej firmy.
-            </blockquote>
-            <div class="blockquote-person text-center">
-                <img src="https://www.internationalpublishers.org/templates/it_headlines/custom/images/about-ipa/committee-members/Roberto-Banchik-Square-crop.jpg" alt="">
-                <h3>Robert Dąbrowski</h3>
-                <p class="mb-3"><i>Prezes Zarządu</i></p>
-                <p class="small">Absolwent Wydziału Elektrycznego Politechniki Warszawskiej o specjalności Maszyny Elektryczne</p>
-                <p class="small">MBA na Koźmiński Business School</p>
-            </div>
-
-        </div>
-    </div>
 </div>
-<script>AOS.init();</script>
+<div id="carousel" class="container mt-5 pt-5">
+    <?php foreach($this->opinie as $o){?>
+        <div class="row">
+            <div class="col-12">
+                <blockquote><?=$this->escape($o->tekst);?></blockquote>
+                <div class="blockquote-person text-center">
+                    <?php if($o->plik) {?><img src="<?=$this->baseUrl;?>/files/opinie/<?=$this->escape($o->plik);?>" alt="<?=$this->escape($o->imie);?> - <?=$this->escape($o->stanowisko);?>"><?php } ?>
+                    <h3><?=$this->escape($o->imie);?></h3>
+                    <p class="mb-3"><i><?=$this->escape($o->stanowisko);?></i></p>
+                    <?php if($o->dodatkowe) {?><p class="small"><?=$this->escape($o->dodatkowe);?></p><?php } ?>
+                </div>
+            </div>
+        </div>
+    <?php } ?>
+</div>
+<script type="text/javascript">
+    AOS.init();
+    $(document).ready(function(){
+        $('#carousel').slick();
+    });
+</script>

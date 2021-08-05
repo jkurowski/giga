@@ -19,6 +19,7 @@ class Default_MisjaController extends kCMS_Site
         $db->setFetchMode(Zend_Db::FETCH_OBJ);
 
         $page = $db->fetchRow($db->select()->from('strony')->where('id = ?', $this->page_id));
+        $opinie = $db->fetchAll($db->select()->from('opinie')->where('place_id = ?', 1)->order('sort ASC'));
 
         if(!$page) {
             errorPage();
@@ -34,6 +35,7 @@ class Default_MisjaController extends kCMS_Site
                 'seo_slowa' => $page->meta_slowa,
                 'strona_id' => $this->page_id,
                 'strona' => $page,
+                'opinie' => $opinie,
                 'pageclass' => $this->page_class
             );
             $this->view->assign($array);

@@ -19,6 +19,8 @@ class Default_AboutController extends kCMS_Site
         $db->setFetchMode(Zend_Db::FETCH_OBJ);
 
         $page = $db->fetchRow($db->select()->from('strony')->where('id = ?', $this->page_id));
+        $opinie = $db->fetchAll($db->select()->from('opinie')->where('place_id = ?', 2)->order('sort ASC'));
+        $slider = $db->fetchAll($db->select()->from('galeria_zdjecia')->order('sort ASC')->where('id_gal =?', 4));
 
         if(!$page) {
             errorPage();
@@ -34,6 +36,8 @@ class Default_AboutController extends kCMS_Site
                 'seo_slowa' => $page->meta_slowa,
                 'strona_id' => $this->page_id,
                 'strona' => $page,
+                'opinie' => $opinie,
+                'slider' => $slider,
                 'pageclass' => $this->page_class
             );
             $this->view->assign($array);
