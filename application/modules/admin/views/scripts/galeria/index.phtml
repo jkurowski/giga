@@ -25,7 +25,7 @@ $(document).ready(function(){
 					<td class="right">
 					<a href="<?= $this->baseUrl;?>/admin/galeria/pokaz/id/<?= $this->escape($katalog->id);?>/" class="actionBtn tip btnCatalog" title="Pokaż katalog" data-placement="top-right"></a>
 					<a href="<?= $this->baseUrl;?>/admin/galeria/edytuj/id/<?= $this->escape($katalog->id);?>/" class="actionBtn tip btnEdit" title="Edytuj katalog" data-placement="top-right"></a>
-					<?php if($katalog->id <> 1){?><a href="<?= $this->baseUrl;?>/admin/galeria/usun-katalog/id/<?= $this->escape($katalog->id);?>/" class="actionBtn tip btnDelete confirm" title="Usuń katalog" data-placement="top-right"></a><?php } ?>
+					<?php if($katalog->id <> 1 && $katalog->id <> 31){?><a href="<?= $this->baseUrl;?>/admin/galeria/usun-katalog/id/<?= $this->escape($katalog->id);?>/" class="actionBtn tip btnDelete confirm" title="Usuń katalog" data-placement="top-right"></a><?php } ?>
 					</td>
 					</tr>
 					<?php endforeach; ?>

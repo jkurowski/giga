@@ -20,7 +20,7 @@ class Default_AboutController extends kCMS_Site
 
         $page = $db->fetchRow($db->select()->from('strony')->where('id = ?', $this->page_id));
         $opinie = $db->fetchAll($db->select()->from('opinie')->where('place_id = ?', 2)->order('sort ASC'));
-        $slider = $db->fetchAll($db->select()->from('galeria_zdjecia')->order('sort ASC')->where('id_gal =?', 4));
+        $slider = $db->fetchAll($db->select()->from('galeria_zdjecia')->order('sort ASC')->where('id_gal =?', 31));
 
         if(!$page) {
             errorPage();
