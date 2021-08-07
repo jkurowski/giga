@@ -602,55 +602,54 @@ hr:before {
 	margin: auto;
 
 }
-.ctr-1:after,
-.ctl-1:after {
-	top: 220px;
+.ctr-1::after,
+.ctl-1::after {
+	top: 240px;
 }
 .ctl-1:after {
-	transform: rotate(50deg);
-	right: -265px;
+	transform: rotate(56deg);
+	right: -250px;
 }
 .ctr-1::after {
-	transform: rotate(-50deg);
-	left: -265px;
+	transform: rotate(-56deg);
+	left: -250px;
 }
-.ctr-2:after,
-.ctl-2:after {
-	top: 85px;
+.ctr-2::after,
+.ctl-2::after {
+	top: 114px;
 	width: 180px;
 }
 .ctl-2:after {
-	transform: rotate(25deg);
-	right: -170px;
+	transform: rotate(40deg);
+	right: -158px;
 }
-.ctr-2:after {
-	transform: rotate(-25deg);
-	left: -170px;
+.ctr-2::after {
+	transform: rotate(-40deg);
+	left: -158px;
 }
-.ctl-3:after,
-.ctr-3:after {
-	bottom: 140px;
-	width: 180px;
+.ctl-3::after, .ctr-3::after {
+	bottom: 164px;
+	width: 179px;
 }
 .ctl-3:after {
-	transform: rotate(155deg);
-	right: -170px;
+	transform: rotate(140deg);
+	right: -157px;
 }
-.ctr-3:after {
-	transform: rotate(-155deg);
-	left: -170px;
+.ctr-3::after {
+	transform: rotate(-140deg);
+	left: -157px;
 }
 .ctl-4:after,
 .ctr-4:after {
-	bottom: 220px;
+	bottom: 240px;
 }
 .ctl-4:after {
-	transform: rotate(130deg);
-	right: -265px;
+	transform: rotate(124deg);
+	right: -251px;
 }
-.ctr-4:after {
-	transform: rotate(-130deg);
-	left: -265px;
+.ctr-4::after {
+	transform: rotate(-124deg);
+	left: -251px;
 }
 
 /* Giga development
