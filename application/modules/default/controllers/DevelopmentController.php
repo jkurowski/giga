@@ -38,6 +38,7 @@ class Default_DevelopmentController extends kCMS_Site
                 'seo_slowa' => $page->meta_slowa,
                 'strona_id' => $this->page_id,
                 'strona' => $page,
+                'menutag' => 'oferta',
                 'inwestycje' => $inwestycje,
                 'pageclass' => $this->page_class
             );

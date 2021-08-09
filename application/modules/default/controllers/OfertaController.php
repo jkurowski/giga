@@ -39,6 +39,7 @@ class Default_OfertaController extends kCMS_Site
                 'strona_id' => $this->page_id,
                 'strona' => $page,
                 'oferta' => $offer,
+                'menutag' => 'oferta',
                 'pageclass' => $this->page_class
             );
             $this->view->assign($array);

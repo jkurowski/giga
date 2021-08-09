@@ -36,6 +36,7 @@ class Default_MisjaController extends kCMS_Site
                 'strona_id' => $this->page_id,
                 'strona' => $page,
                 'opinie' => $opinie,
+                'menutag' => 'misja-i-wartosci',
                 'pageclass' => $this->page_class
             );
             $this->view->assign($array);

@@ -36,6 +36,7 @@ class Default_CovidController extends kCMS_Site
                 'seo_slowa' => $page->meta_slowa,
                 'strona_id' => $this->page_id,
                 'strona' => $page,
+                'menutag' => 'aktualnosci',
                 'pageclass' => $this->page_class
             );
             $this->view->assign($array);

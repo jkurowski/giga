@@ -38,6 +38,7 @@ class Default_AboutController extends kCMS_Site
                 'strona' => $page,
                 'opinie' => $opinie,
                 'slider' => $slider,
+                'menutag' => 'o-nas',
                 'pageclass' => $this->page_class
             );
             $this->view->assign($array);

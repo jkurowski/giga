@@ -307,7 +307,8 @@ header nav li.o-nas-li ul {
 	color: white
 }
 #mainpage header nav a.animate100:hover:before,
-#mainpage header nav li:hover a.animate100:before {
+#mainpage header nav li:hover a.animate100:before,
+header nav li a.active:before {
 	background: #e25625;
 	content:"";
 	width: 100%;

@@ -47,6 +47,7 @@ class Default_RealizacjeController extends kCMS_Site
                 'strona_id' => $this->page_id,
                 'strona' => $page,
                 'realizacje' => $realizacje,
+                'menutag' => 'realizacje',
                 'pageclass' => $this->page_class
             );
             $this->view->assign($array);
@@ -102,6 +103,7 @@ class Default_RealizacjeController extends kCMS_Site
                 'seo_opis' => $page->meta_opis,
                 'seo_slowa' => $page->meta_slowa,
                 'breadcrumbs' => $breadcrumbs,
+                'menutag' => 'realizacje',
                 'news' => $news,
                 'strona' => $page
             );

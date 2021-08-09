@@ -37,6 +37,7 @@ class Default_RozwojController extends kCMS_Site
                 'seo_slowa' => $page->meta_slowa,
                 'strona_id' => $this->page_id,
                 'strona' => $page,
+                'menutag' => 'o-nas',
                 'boksy' => $boksy,
                 'pageclass' => $this->page_class
             );

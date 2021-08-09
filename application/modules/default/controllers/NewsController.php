@@ -53,6 +53,7 @@ class Default_NewsController extends kCMS_Site
                     'seo_opis' => $page->meta_opis,
                     'seo_slowa' => $page->meta_slowa,
                     'breadcrumbs' => $breadcrumbs,
+                    'menutag' => 'aktualnosci',
                     'news' => $paginator,
                 );
                 $this->view->assign($array);
@@ -108,6 +109,7 @@ class Default_NewsController extends kCMS_Site
                     'seo_slowa' => $page->meta_slowa,
                     'share' => 1,
                     'share_tytul' => $news->tytul,
+                    'menutag' => 'aktualnosci',
                     'share_desc' => $news->wprowadzenie,
                     'share_image' => 'http://giga.4dl-dev.pl/files/news/share/'.$news->plik,
                     'share_url' => 'http://giga.4dl-dev.pl/'.$page->tag.'/'.$news->tag.'/',
