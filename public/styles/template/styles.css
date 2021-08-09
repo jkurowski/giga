@@ -1252,8 +1252,13 @@ div[class*='col-'].slick-slide {padding-left:15px;padding-right:15px}
 	box-shadow: 0 0 10px 0 #707070;
 }
 .col-gallery-thumb a {overflow: hidden}
-.col-gallery-thumb div {position: absolute;background:rgba(255, 205, 0, 0.8);width: 100%;height: 100%}
-.col-gallery-thumb div:before {font-family:'FontAwesome', sans-serif;content:"\f002";position:absolute;top:0;bottom:0;left:0;right:0;margin:auto;width:40px;height:60px;font-size:40px;color:#fff}
+.col-gallery-thumb div {
+	position: absolute;
+	background: rgba(226, 86, 37, 0.6);
+	width: 100%;
+	height: 100%;
+}
+.col-gallery-thumb div:before {font-family:'FontAwesome';content:"\f002";position:absolute;top:0;bottom:0;left:0;right:0;margin:auto;width:40px;height:60px;font-size:40px;color:#fff}
 
 .sliderWrapper {position:relative}
 .sliderWrapper ul {display:none}
