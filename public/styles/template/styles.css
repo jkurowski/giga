@@ -1416,6 +1416,17 @@ html.swipebox-html.swipebox-touch{overflow:hidden!important}#swipebox-overlay im
 		right: 15px;
 		bottom: 20px
 	}
+	#about {
+		padding: 0 30px 50px;
+	}
+	#about h2 {
+		font-size: 21px;
+		line-height: 31px;
+	}
+	#about p {
+		font-size: 18px;
+		line-height: 26px;
+	}
 }
 
 @media (max-width: 1430px) {
@@ -1443,7 +1454,18 @@ html.swipebox-html.swipebox-touch{overflow:hidden!important}#swipebox-overlay im
 }
 
 @media (max-width: 1199.98px) {
-
+	#slider .apla {
+		bottom: 0
+	}
+	#slider .apla h3 {
+		font-size: 25px
+	}
+	#slider .apla h1 {
+		font-size: 52px
+	}
+	#slider .apla {
+		width: 100%;
+	}
 }
 
 @media (max-width: 1139.98px) {
@@ -1499,7 +1521,8 @@ html.swipebox-html.swipebox-touch{overflow:hidden!important}#swipebox-overlay im
 	}
 
 	.o-nas-page .image-border,
-	.misja-i-wartosci-page .image-border
+	.misja-i-wartosci-page .image-border,
+	#about img
 	{
 		width: 100%
 	}
@@ -1586,6 +1609,18 @@ html.swipebox-html.swipebox-touch{overflow:hidden!important}#swipebox-overlay im
 	.reakcja-na-covid-page .col-12.col-md-4.d-flex {
 		order:1
 	}
+	#welcome {
+		padding: 50px 0;
+	}
+	#slider .apla {
+		padding: 15px
+	}
+	#slider .apla h3 {
+		font-size: 19px;
+	}
+	#slider .apla h1 {
+		font-size: 36px;
+	}
 }
 
 @media (max-width: 575.98px) {
@@ -1642,7 +1677,7 @@ html.swipebox-html.swipebox-touch{overflow:hidden!important}#swipebox-overlay im
 	h2, h3, h4 {
 		margin: 15px 0;
 	}
-	h2, .giga-invest h2 {
+	h2, .giga-invest h2, #welcome h2 {
 		font-size: 26px;
 	}
 	h3 {
@@ -1715,6 +1750,39 @@ html.swipebox-html.swipebox-touch{overflow:hidden!important}#swipebox-overlay im
 		position: relative;
 		padding-left: 16px;
 	}
+	#welcome {
+		padding: 30px 15px;
+	}
+	#about {
+		padding: 0 15px 30px;
+	}
+	#about h2 {
+		font-size: 21px;
+		line-height: 26px;
+	}
+	#about p {
+		font-size: 16px;
+		line-height: 23px;
+	}
+	#slider .rslides_nav {
+		width: 40px;
+		height: 40px;
+		left: 10px
+	}
+	#slider .rslides_nav.next {
+		right: 10px;
+	}
+	#slider .rslides_nav i {
+		font-size: 41px;
+	}
+	#slider .apla h3 {
+		font-size: 14px;
+		text-align: center;
+	}
+	#slider .apla h1 {
+		font-size: 29px;
+		text-align: center;
+	}
 }
 
 @media (max-width: 420px) {
@@ -1738,9 +1806,9 @@ html.swipebox-html.swipebox-touch{overflow:hidden!important}#swipebox-overlay im
 		font-size: 28px;
 		margin-bottom: 15px;
 	}
-	h2,
-	.giga-invest h2 {
+	h2, .giga-invest h2, #welcome h2 {
 		font-size: 21px;
+		line-height: 26px;
 	}
 	#pageheader h1 {
 		font-size: 22px;
@@ -1755,6 +1823,19 @@ html.swipebox-html.swipebox-touch{overflow:hidden!important}#swipebox-overlay im
 		width: 70px;
 		height: 27px;
 		background-size: 30px auto;
+	}
+	#welcome p {
+		font-size: 15px;
+		line-height: 21px;
+	}
+	#slider .apla h3 {
+		font-size: 12px
+	}
+	#slider .apla h1 {
+		font-size: 22px
+	}
+	#slider .apla {
+		padding: 7px;
 	}
 }
 
