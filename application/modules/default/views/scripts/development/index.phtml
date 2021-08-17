@@ -2,11 +2,11 @@
     <?=replace($this->strona->tekst); ?>
 
     <?php foreach($this->inwestycje as $i) { ?>
-    <div class="row pt-5 mt-5 giga-invest-row">
-        <div class="col-7 pr-4">
+    <div class="row pt-3 pt-md-5 mt-3 mt-md-5 giga-invest-row">
+        <div class="col-12 col-lg-7 pr-3 pr-lg-4">
             <img src="<?=$this->filesUrl();?>/inwestycje/<?=$this->escape($i->plik);?>" alt="<?=$this->escape($i->nazwa);?>">
         </div>
-        <div class="col-5 d-flex align-items-center">
+        <div class="col-12 col-lg-5 d-flex align-items-center">
             <div class="giga-invest">
                 <h2><?=$this->escape($i->nazwa);?></h2>
                 <?=$i->tekst;?>

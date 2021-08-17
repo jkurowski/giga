@@ -2,11 +2,11 @@
 	<div class="container">
         <div class="contact-shadow">
             <div class="row">
-                <div class="col-4 col-text">
+                <div class="col-12 col-lg-4 col-text">
                     <h3 class="mt-0">Giga Sp. z o. o.</h3>
                     <?=$this->strona->tekst;?>
                 </div>
-                <div class="col-8 col-form">
+                <div class="col-12 col-lg-8 col-form">
                     <div class="row">
                         <?php if($this->message == 1) :?>
                         <div id="formalert" class="col-12">
@@ -21,15 +21,15 @@
                     </div>
                     <form method="post" action="" class="validateForm">
                         <div class="row">
-                            <div class="col-12 col-sm-4 col-input mt-2">
+                            <div class="col-12 col-md-4 col-input mt-4 mt-md-2">
                                 <label for="form_imie">Imię lub nazwa firmy</label>
                                 <input name="imie" id="form_imie" type="text" class="validate[required]" data-prompt-position="topLeft:0" required>
                             </div>
-                            <div class="col-12 col-sm-4 col-input mt-2">
+                            <div class="col-12 col-md-4 col-input mt-4 mt-md-2">
                                 <label for="form_email">E-mail</label>
                                 <input name="email" id="form_email" class="validate[required]" type="text" data-prompt-position="topLeft:0" required>
                             </div>
-                            <div class="col-12 col-sm-4 col-input mt-2">
+                            <div class="col-12 col-md-4 col-input mt-4 mt-md-2">
                                 <label for="form_telefon">Telefon</label>
                                 <input name="telefon" id="form_telefon" class="validate[required]" type="text" data-prompt-position="topLeft:0" required>
                             </div>

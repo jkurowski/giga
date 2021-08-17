@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <?php foreach($this->news as $wpis){?>
-            <div class="col-12 col-md-6 mb-5 imagehover">
+            <div class="col-12 col-md-6 mb-4 mb-sm-5 imagehover">
                 <div class="mainnews-entry">
                     <a href="<?=$this->baseUrl;?>/aktualnosci/<?=$wpis->tag;?>/"><div class="image"><img src="<?=$this->filesUrl();?>/news/<?=$wpis->plik;?>" alt="<?=$wpis->tytul;?>"></div></a>
                     <div class="mainnews-entry-text">
