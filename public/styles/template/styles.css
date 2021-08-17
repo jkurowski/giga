@@ -1453,6 +1453,23 @@ html.swipebox-html.swipebox-touch{overflow:hidden!important}#swipebox-overlay im
 	}
 }
 
+@media (max-width: 1340px) {
+	.header-holder, header nav a.animate100,
+	.fixed nav a.animate100
+	{
+		height: 95px
+	}
+	#logo, .fixed #logo {
+		width: 188px
+	}
+	header nav a {
+		padding: 0 20px
+	}
+	header nav li ul a {
+		font-size: 16px
+	}
+}
+
 @media (max-width: 1199.98px) {
 	#slider .apla {
 		bottom: 0
@@ -1473,6 +1490,27 @@ html.swipebox-html.swipebox-touch{overflow:hidden!important}#swipebox-overlay im
 		border-radius: 10px;
 		width: 130px;
 		height: 130px;
+	}
+	header nav a {
+		font-size: 16px;
+		padding: 0 15px
+	}
+	.header-holder, header nav a.animate100,
+	.fixed nav a.animate100 {
+		height: 65px;
+	}
+	#logo, .fixed #logo {
+		width: 100px;
+	}
+	header nav li ul a {
+		font-size: 13px;
+	}
+	header nav li.o-nas-li ul {
+		width: 210px
+	}
+	#mainpage header.fixed nav a,
+	#mainpage header nav .submenu a {
+		padding: 5px 15px;
 	}
 }
 
@@ -1549,6 +1587,99 @@ html.swipebox-html.swipebox-touch{overflow:hidden!important}#swipebox-overlay im
 		height: 310px;
 		border-radius: 10px;
 		font-size: 21px
+	}
+	.navbar li {
+		display: none;
+	}
+	.navbar li#logo {
+		display: inline-flex;
+	}
+	.header-holder {
+		height: 55px !important;
+	}
+	#mainpage .header-holder {
+		position: static
+	}
+	#mainpage header.fixed nav a,
+	#mainpage header nav .submenu a,
+	header nav a
+	{
+		padding: 0
+	}
+	#mainpage header.fixed nav a,
+	#mainpage header nav .submenu a,
+	header nav a,
+	.header-holder, header nav a.animate100,
+	.fixed nav a.animate100 {
+		height: auto
+	}
+	#logo, .fixed #logo {
+		width: 70px;
+	}
+	#mainpage #header {
+		background: white;
+	}
+	.navbar {
+		width: 95px;
+	}
+	.mobilemenu {
+		display: block;
+		position: absolute;
+		right: 11px;
+		top: 4px;
+	}
+
+	.openmenu .navbar {
+		width: 100%;
+		position: fixed;
+		background: white;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		padding-top: 55px;
+		align-items: start;
+	}
+	.openmenu .navbar li {
+		display: block;
+		width: 100%
+	}
+	.openmenu .navbar li a,
+	.openmenu #mainpage header.fixed nav a,
+	.openmenu #mainpage header nav .submenu a,
+	.openmenu header nav a
+	{
+		display: block;
+		padding: 10px 0 !important;
+	}
+	.openmenu .navbar li#logo {
+		display: none;
+	}
+	#mainpage header nav li a,
+	#mainpage header.fixed nav .submenu a,
+	#mainpage header nav a.animate100:hover,
+	#mainpage header nav li:hover a.animate100,
+	header.fixed nav li ul a
+	{
+		color: #4e4e4e !important;
+	}
+	#mainpage header.fixed nav a.animate100:hover,
+	#mainpage header.fixed nav li:hover a.animate100 {
+		background: #e25625;
+		color: white !important;
+	}
+	header nav li.o-nas-li ul,
+	header nav li ul
+	{
+		width: 100%;
+		position: static;
+		display: block;
+	}
+	header nav a {
+		justify-content: center;
+	}
+	header.fixed nav li ul {
+		background: white;
 	}
 }
 
