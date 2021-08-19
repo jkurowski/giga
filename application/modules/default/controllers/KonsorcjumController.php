@@ -36,9 +36,9 @@ class Default_KonsorcjumController extends kCMS_Site
 //            );
             $array = array(
                 'inline' => $this->inlineModel->getInlineList(2),
-                'strona_nazwa' => 'GIGA Konsorcjum',
-                'strona_h1' => 'GIGA Konsorcjum',
-                'strona_tytul' => ' - GIGA Konsorcjum',
+                'strona_nazwa' => 'GIGA Construction',
+                'strona_h1' => 'GIGA Construction',
+                'strona_tytul' => ' - GIGA Construction',
                 'seo_tytul' => $page->meta_tytul,
                 'seo_opis' => $page->meta_opis,
                 'seo_slowa' => $page->meta_slowa,
