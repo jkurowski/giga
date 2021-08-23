@@ -251,17 +251,17 @@ header nav li ul {
 	width: 100%;
 	display: none;
 }
-header.fixed nav li ul {
+header nav li ul {
 	background: #1e292d
 }
 header nav li ul a {
 	padding:10px 19px;
 	font-weight: 400;
 }
-header.fixed nav li ul a {
+header nav li ul a {
 	color:white
 }
-header.fixed nav li ul a:hover {
+header nav li ul a:hover {
 	background: #e25625;
 	color:white
 }
@@ -291,8 +291,7 @@ header nav li.o-nas-li ul {
 #mainpage header.fixed nav .submenu a {
 	color: #fff
 }
-#mainpage header.fixed nav a,
-#mainpage header nav .submenu a {
+#mainpage header.fixed nav a {
 	color:#4e4e4e;
 }
 #mainpage header nav a.animate100:hover,
@@ -1584,9 +1583,10 @@ html.swipebox-html.swipebox-touch{overflow:hidden!important}#swipebox-overlay im
 	}
 	.covid-circle {
 		width: 210px;
-		height: 310px;
+		height: 318px;
 		border-radius: 10px;
-		font-size: 21px
+		font-size: 21px;
+		margin-top: 305px;
 	}
 	.navbar li {
 		display: none;
@@ -1667,6 +1667,10 @@ html.swipebox-html.swipebox-touch{overflow:hidden!important}#swipebox-overlay im
 	#mainpage header.fixed nav li:hover a.animate100 {
 		background: #e25625;
 		color: white !important;
+	}
+	header nav li ul,
+	header nav li ul a:hover {
+		background: #fff
 	}
 	header nav li.o-nas-li ul,
 	header nav li ul
