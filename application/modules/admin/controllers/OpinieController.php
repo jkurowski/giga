@@ -18,6 +18,7 @@ class Admin_OpinieController extends kCMS_Admin
         $this->_helper->viewRenderer('form', null, true);
         $this->view->pagename = " - Nowy wpis";
         $this->view->back = '<div class="back"><a href="'.$this->view->baseUrl.'/admin/opinie/">Wróć do listy</a></div>';
+        $this->view->info = '<div class="info">Wymiary obrazka: szerokość <b>150 px</b> / wysokość <b>150 px</b></div>';
 
         $form = new Form_OpiniaForm();
         $this->view->form = $form;
@@ -73,6 +74,7 @@ class Admin_OpinieController extends kCMS_Admin
         $this->_helper->viewRenderer('form', null, true);
 
         $this->view->back = '<div class="back"><a href="'.$this->view->baseUrl.'/admin/opinie/">Wróć do listy</a></div>';
+        $this->view->info = '<div class="info">Wymiary obrazka: szerokość <b>150 px</b> / wysokość <b>150 px</b></div>';
 
         $form = new Form_OpiniaForm();
         $this->view->form = $form;
@@ -120,7 +122,7 @@ class Admin_OpinieController extends kCMS_Admin
                         ->save($upfile);
                     chmod($upfile, 0755);
 
-                    $db->update('opinie', array('opinie' => $plik), 'id = ' . $id);
+                    $db->update('opinie', array('plik' => $plik), 'id = ' . $id);
                 }
 
                 $this->_redirect('/admin/opinie/');
