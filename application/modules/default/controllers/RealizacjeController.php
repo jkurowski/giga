@@ -34,7 +34,7 @@ class Default_RealizacjeController extends kCMS_Site
             if($tag) {
                 $query->where('category =?', $tag);
             }
-
+            $query->where('status =?', 1);
             $realizacje = $db->fetchAll($query);
 
             $array = array(

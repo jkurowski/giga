@@ -55,32 +55,32 @@ class Default_KontaktController extends kCMS_Site
                 $ip = $_SERVER['REMOTE_ADDR'];
                 $adresip = $db->fetchRow($db->select()->from('blokowanie')->where('ip = ?', $ip));
 
+                $formData = $this->_request->getPost();
                 $grecaptcha = $this->_request->getPost('g-recaptcha-response');
-                // unset($formData['g-recaptcha-response']);
-                // if(getRecaptchaCheck($grecaptcha) === true){
-                if($adresip){  } else {
+                unset($formData['g-recaptcha-response']);
+                if(getRecaptchaCheck($grecaptcha) === true){
+                    if(!$adresip) {
 
-                    $formData = $this->_request->getPost();
-                    if($formData['imie'] && $formData['email'] && $formData['telefon']) {
+                        if($formData['imie'] && $formData['email'] && $formData['telefon']) {
 
-                        $imie = $this->_request->getPost('imie');
-                        $email = $this->_request->getPost('email');
-                        $telefon = $this->_request->getPost('telefon');
-                        $wiadomosc = $this->_request->getPost('wiadomosc');
-                        $useremail = $this->_request->getPost('useremail');
-                        $ip = $_SERVER['REMOTE_ADDR'];
-                        $datadodania = date("d.m.Y - H:i:s");
+                            $imie = $this->_request->getPost('imie');
+                            $email = $this->_request->getPost('email');
+                            $telefon = $this->_request->getPost('telefon');
+                            $wiadomosc = $this->_request->getPost('wiadomosc');
+                            $useremail = $this->_request->getPost('useremail');
+                            $ip = $_SERVER['REMOTE_ADDR'];
+                            $datadodania = date("d.m.Y - H:i:s");
 
-                        $ustawienia = $db->fetchRow($db->select()->from('ustawienia'));
+                            $ustawienia = $db->fetchRow($db->select()->from('ustawienia'));
 
-                        if(!$useremail) {
-                            $mail = new Zend_Mail('UTF-8');
-                            $mail
-                                ->setFrom($ustawienia->email, 'Zapytanie ze strony www')
-                                ->addTo($ustawienia->email, 'Adres odbiorcy')
-                                ->setReplyTo($email, $imie)
-                                ->setSubject($ustawienia->domena.' - Zapytanie ze strony www - Kontakt')
-                                ->setBodyHTML('
+                            if(!$useremail) {
+                                $mail = new Zend_Mail('UTF-8');
+                                $mail
+                                    ->setFrom($ustawienia->email, 'Zapytanie ze strony www')
+                                    ->addTo($ustawienia->email, 'Adres odbiorcy')
+                                    ->setReplyTo($email, $imie)
+                                    ->setSubject($ustawienia->domena.' - Zapytanie ze strony www - Kontakt')
+                                    ->setBodyHTML('
 									<div style="width:550px;border:1px solid #ececec;padding:0 20px;margin:0 auto;font-family:Arial;font-size:14px;line-height:27px">
 									<p style="text-align:center">'.$ustawienia->nazwa.'</p>
 									<p><b>Wiadomość wysłana: '. $datadodania .'</b></p>
@@ -92,7 +92,7 @@ class Default_KontaktController extends kCMS_Site
 									<hr style="border:0;border-bottom:1px solid #ececec" />
 									<p style="margin-top:0">'. $wiadomosc .'</p>
 									</div>')
-                                ->setBodyText($ustawienia->nazwa.'
+                                    ->setBodyText($ustawienia->nazwa.'
 									Wiadomość wysłana: '. $datadodania .'
 									Imię i nazwisko: '.$imie.'
 									E-mail: '. $email .'
@@ -101,43 +101,43 @@ class Default_KontaktController extends kCMS_Site
 
 									'. $wiadomosc);
 
-                            try {
-                                $mail->send();
-                            } catch (Zend_Exception $e) {
-                                echo $e->getMessage();
-                                exit;
+                                try {
+                                    $mail->send();
+                                } catch (Zend_Exception $e) {
+                                    //echo $e->getMessage();
+                                    exit;
+                                }
                             }
+
+                            $stat = array(
+                                'akcja' => 1,
+                                'miejsce' => 4,
+                                'data' => date("d.m.Y - H:i:s"),
+                                'timestamp' => date("d-m-Y"),
+                                'godz' => date("H"),
+                                'dzien' => date("d"),
+                                'msc' => date("m"),
+                                'rok' => date("Y"),
+                                'imie' => $imie,
+                                'tekst' => $wiadomosc,
+                                'email' => $email,
+                                'telefon' => $telefon,
+                                'ip' => $_SERVER['REMOTE_ADDR']
+                            );
+                            $db->insert('statystyki', $stat);
+
+                            $formData = $this->_request->getPost();
+                            $checkbox = preg_grep("/zgoda_([0-9])/i", array_keys($formData));
+                            $przegladarka = $_SERVER['HTTP_USER_AGENT'];
+                            historylog($imie, $email, $ip, $przegladarka, $checkbox);
+
+                            $this->view->message = 1;
+
+                        } else {
+                            $this->view->message = 2;
                         }
-
-                        $stat = array(
-                            'akcja' => 1,
-                            'miejsce' => 4,
-                            'data' => date("d.m.Y - H:i:s"),
-                            'timestamp' => date("d-m-Y"),
-                            'godz' => date("H"),
-                            'dzien' => date("d"),
-                            'msc' => date("m"),
-                            'rok' => date("Y"),
-                            'imie' => $imie,
-                            'tekst' => $wiadomosc,
-                            'email' => $email,
-                            'telefon' => $telefon,
-                            'ip' => $_SERVER['REMOTE_ADDR']
-                        );
-                        $db->insert('statystyki', $stat);
-
-                        $formData = $this->_request->getPost();
-                        $checkbox = preg_grep("/zgoda_([0-9])/i", array_keys($formData));
-                        $przegladarka = $_SERVER['HTTP_USER_AGENT'];
-                        historylog($imie, $email, $ip, $przegladarka, $checkbox);
-
-                        $this->view->message = 1;
-
-                    } else {
-                        $this->view->message = 2;
                     }
                 }
-                // }
             }
         }
     }
