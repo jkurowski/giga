@@ -1,13 +1,13 @@
 <div class="container-fluid">
     <div class="row d-flex justify-content-center text-center">
         <div class="col-12 text-center projects-filter">
-            <a href="<?=$this->baseUrl;?>/realizacje/">Wszystkie</a>
+            <a href="<?=$this->baseUrl;?>/<?=$this->lang;?>/realizacje/"><?=$this->translate('tl_filtr_wszystkie');?></a>
             <span>/</span>
-            <a href="<?=$this->baseUrl;?>/realizacje/energetyka/">Energetyka</a>
+            <a href="<?=$this->baseUrl;?>/<?=$this->lang;?>/realizacje/energetyka/"><?=$this->translate('tl_filtr_energetyka');?></a>
             <span>/</span>
-            <a href="<?=$this->baseUrl;?>/realizacje/budownictwo-publiczne/">Budownictwo publiczne</a>
+            <a href="<?=$this->baseUrl;?>/<?=$this->lang;?>/realizacje/budownictwo-publiczne/"><?=$this->translate('tl_filtr_publiczne');?></a>
             <span>/</span>
-            <a href="<?=$this->baseUrl;?>/realizacje/budownictwo-przemyslowe/">Budownictwo przemysłowe</a>
+            <a href="<?=$this->baseUrl;?>/<?=$this->lang;?>/realizacje/budownictwo-przemyslowe/"><?=$this->translate('tl_filtr_przemyslowe');?></a>
         </div>
         <div class="col-8">
             <hr>
@@ -16,14 +16,14 @@
     <div class="row">
 <?php foreach($this->realizacje as $realizacja) {?>
         <div class="col-lg-3 mb-4">
-            <a href="<?=$this->baseUrl;?>/realizacja/<?=$realizacja->slug;?>/">
+            <a href="<?=$this->baseUrl;?>/<?=$this->lang;?>/realizacja/<?=$realizacja->slug;?>/">
                 <div class="project-item">
-                    <img src="<?=$this->filesUrl();?>/realizacje/<?=$realizacja->obrazek;?>" alt="<?=$realizacja->nazwa;?>">
+                    <img src="<?=$this->filesUrl();?>/realizacje/<?=$realizacja->obrazek;?>" alt="<?php echo (isset($realizacja->nazwa)) ? $realizacja->nazwa : json_decode($realizacja->json)->nazwa;?>">
                     <div class="project-overlay">
                         <div class="project-content">
                             <div class="content">
-                                <h4><?=$realizacja->nazwa;?></h4>
-                                <p class="p-name"><?=$realizacja->miasto;?></p>
+                                <h4><?php echo (isset($realizacja->nazwa)) ? $realizacja->nazwa : json_decode($realizacja->json)->nazwa;?></h4>
+                                <p class="p-name"><?php echo (isset($realizacja->miasto)) ? $realizacja->miasto : json_decode($realizacja->json)->miasto;?></p>
                             </div>
                         </div>
                     </div>

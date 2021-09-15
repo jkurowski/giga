@@ -107,8 +107,8 @@
 
     <div class="row mt-0 mt-lg-5">
         <div class="col-12 text-center">
-            <p class="mb-0">Więcej informacji można uzyskać w zakładce:</p>
-            <a href="/zrownowazony-rozwoj/" class="bttn mb-0">ZRÓWNOWAŻONY ROZWÓJ</a>
+            <p class="mb-0"><?=$this->translate('tl_wiecej_informacji');?></p>
+            <a href="<?=$this->baseUrl;?>/<?=$this->lang;?>/zrownowazony-rozwoj/" class="bttn mb-0"><?=$this->translate('tl_zrownowazony_rozwoj');?></a>
         </div>
     </div>
 </div>
@@ -116,12 +116,12 @@
     <?php foreach($this->opinie as $o){?>
         <div class="row">
             <div class="col-12">
-                <blockquote><?=$this->escape($o->tekst);?></blockquote>
+                <blockquote><?php echo (isset($o->tekst)) ? $o->tekst : json_decode($o->json)->tekst;?></blockquote>
                 <div class="blockquote-person text-center">
-                    <?php if($o->plik) {?><img src="<?=$this->baseUrl;?>/files/opinie/<?=$this->escape($o->plik);?>" alt="<?=$this->escape($o->imie);?> - <?=$this->escape($o->stanowisko);?>"><?php } ?>
-                    <h3><?=$this->escape($o->imie);?></h3>
-                    <p class="mb-3"><i><?=$this->escape($o->stanowisko);?></i></p>
-                    <?php if($o->dodatkowe) {?><p class="small"><?=$this->escape($o->dodatkowe);?></p><?php } ?>
+                    <?php if($o->plik) {?><img src="<?=$this->baseUrl;?>/files/opinie/<?=$this->escape($o->plik);?>" alt="<?php echo (isset($o->imie)) ? $o->imie : json_decode($o->json)->imie;?> - <?php echo (isset($o->stanowisko)) ? $o->stanowisko : json_decode($o->json)->stanowisko;?>"><?php } ?>
+                    <h3><?php echo (isset($o->imie)) ? $o->imie : json_decode($o->json)->imie;?></h3>
+                    <p class="mb-3"><i><?php echo (isset($o->stanowisko)) ? $o->stanowisko : json_decode($o->json)->stanowisko;?></i></p>
+                    <p class="small"><?php echo (isset($o->dodatkowe)) ? $o->dodatkowe : json_decode($o->json)->dodatkowe;?></p>
                 </div>
             </div>
         </div>

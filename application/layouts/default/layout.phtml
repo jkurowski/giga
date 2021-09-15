@@ -4,24 +4,24 @@
     <meta charset="utf-8">
     <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-    <title><?= $this->header->nazwa; ?></title>
-    <meta name="description" content="<?= $this->header->opis ?>">
-    <meta name="keywords" content="<?= $this->header->klucze; ?>">
-    <?php if($this->header->autor){?>
-        <meta name="author" content="<?= $this->header->autor; ?>">
+    <title><?= $this->main_meta_tytul; ?></title>
+    <meta name="description" content="<?= $this->main_meta_opis ?>">
+    <meta name="keywords" content="<?= $this->meta_slowa; ?>">
+    <?php if($this->header['autor']){?>
+        <meta name="author" content="<?= $this->header['autor']; ?>">
     <?php } ?>
-    <meta name="robots" content="<?= $this->header->robots; ?>">
+    <meta name="robots" content="<?= $this->header['robots']; ?>">
 
     <link href="favicon.ico" rel="icon" type="image/x-icon">
 
-    <?php if($this->header->share_plik) {?>
-        <meta property="og:title" content="<?=$this->header->share_tytul;?>">
-        <meta property="og:image" content="<?= $this->header->domena; ?>files/share/<?=$this->header->share_plik;?>">
-        <meta property="og:description" content="<?=$this->header->share_opis;?>">
+    <?php if($this->header['share_plik']) {?>
+        <meta property="og:title" content="<?= $this->main_meta_tytul; ?>">
+        <meta property="og:image" content="<?= $this->header['domena']; ?>files/share/<?=$this->header['share_plik'];?>">
+        <meta property="og:description" content="<?=$this->header['share_opis'];?>">
         <meta property="og:type" content="website">
         <meta property="og:image:width" content="600">
         <meta property="og:image:height" content="315">
-        <meta property="og:url" content="<?= $this->header->domena; ?>">
+        <meta property="og:url" content="<?= $this->header['domena']; ?>">
     <?php } ?>
 
     <!-- Wylaczenie numeru tel. -->
@@ -33,7 +33,7 @@
     <link rel="stylesheet" href="<?=$this->cssUrl();?>/bootstrap.css">
     <link rel="stylesheet" href="<?=$this->cssUrl();?>/styles.css">
     <style>body,html{height: 100%}</style>
-    <?= $this->header->head; ?>
+    <?= $this->header['head']; ?>
 </head>
 <body id="mainpage" class="<?php if(Zend_Auth::getInstance()->hasIdentity()) { ?> is-admin<?php } ?>">
 
@@ -81,12 +81,12 @@
                 <div class="col-4">
                     <div class="apla d-flex align-items-center justify-content-center">
                         <div class="text-center">
-                            <h3 class="m-0"><?=$this->escape($o->nazwa);?></h3>
-                            <p><?=$this->escape($o->tekst);?></p>
-                            <a href="<?=$this->escape($o->link);?>" class="bttn mb-0">ZOBACZ WIĘCEJ</a>
+                            <h3 class="m-0"><?php echo (isset($o->nazwa)) ? $o->nazwa : json_decode($o->json)->nazwa;?></h3>
+                            <p><?php echo (isset($o->tekst)) ? $o->tekst : json_decode($o->json)->tekst;?></p>
+                            <a href="<?php echo (isset($o->link)) ? $o->link : json_decode($o->json)->link;?>" class="bttn mb-0"><?=$this->translate('tl_zobacz_więcej');?></a>
                         </div>
                     </div>
-                    <img src="<?=$this->filesUrl();?>/oferta/<?=$this->escape($o->plik);?>" alt="<?=$this->escape($o->nazwa);?>">
+                    <img src="<?=$this->filesUrl();?>/oferta/<?=$this->escape($o->plik);?>" alt="<?php echo (isset($o->nazwa)) ? $o->nazwa : json_decode($o->json)->nazwa;?>">
                 </div>
             <?php } ?>
         </div>
@@ -111,7 +111,7 @@
                 <div>
                     <h2 data-modaltytul="2"><?=$this->getInline($this->inline, 2, 'modaltytul');?></h2>
                     <p data-modaleditor="2"><?=$this->getInline($this->inline, 2, 'modaleditor');?></p>
-                    <a href="<?=$this->baseUrl;?>/realizacje/" class="bttn mb-0">ZOBACZ REALIZACJE</a>
+                    <a href="<?=$this->baseUrl;?>/<?=$this->lang;?>/realizacje/" class="bttn mb-0"><?=$this->translate('tl_zobacz_realizacje');?></a>
                 </div>
             </div>
             <?=$this->inlineModal(2, 'modaltytul,modaleditor,obrazek,obrazek_alt', '860,600');?>
@@ -144,14 +144,14 @@
     })(document);
 
     $(document).ready(function(){
-        $(".rslidess").responsiveSlides({auto:true, pager:false, nav:true, timeout:8000, random:false, speed: 300});
+        $(".rslidess").responsiveSlides({auto:<?=$this->slider_ustawienia->slider_auto; ?>, pager:false, nav:<?=$this->slider_ustawienia->slider_nav; ?>, timeout:<?=$this->slider_ustawienia->slider_timeout; ?>, random:false, speed: <?=$this->slider_ustawienia->slider_speed; ?>});
 
-        <?php if($this->header->popup_status == 1){; ?>
-        <?php if($this->header->popup_tryb == 1){; ?>
+        <?php if($this->header['popup_status'] == 1){; ?>
+        <?php if($this->header['popup_tryb'] == 1){; ?>
         $.cookie('popup', null);
         $.magnificPopup.open({
             items: {
-                src: '<div class="white-popup"><?= str_replace (array("\r\n", "\n", "\r"), ' ', $this->header->popup_tekst); ?></div>',
+                src: '<div class="white-popup"><?= str_replace (array("\r\n", "\n", "\r"), ' ', $this->header['popup_tekst']); ?></div>',
                 type: 'inline'
             }
         });
@@ -162,7 +162,7 @@
         if ($.cookie('popup') == null){
             $.magnificPopup.open({
                 items: {
-                    src: '<div class="white-popup"><?= str_replace (array("\r\n", "\n", "\r"), ' ', $this->header->popup_tekst); ?></div>',
+                    src: '<div class="white-popup"><?= str_replace (array("\r\n", "\n", "\r"), ' ', $this->header['popup_tekst']); ?></div>',
                     type: 'inline'
                 }
             });
@@ -177,7 +177,7 @@
         <?php } ?>
     });
 </script>
-<?= $this->header->footer; ?>
+<?= $this->header['footer']; ?>
 
 <?php if(Zend_Auth::getInstance()->hasIdentity()){?>
     <?=$this->render('inline/inline.phtml') ?>

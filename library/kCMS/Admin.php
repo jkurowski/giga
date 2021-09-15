@@ -3,16 +3,38 @@ require_once 'Zend/Controller/Action.php';
 abstract class kCMS_Admin extends Zend_Controller_Action {
 
     public function init() {
+        try {
+            $db = Zend_Registry::get('db');
+        } catch (Zend_Exception $e) {
 
-		$front = Zend_Controller_Front::getInstance();
-		$request = $front->getRequest();
-		$this->view->paramsname = $request->getParams();
-		$this->view->baseUrl = $this->baseUrl = $this->_request->getBaseUrl();
-		$controller = $this->view->control = $request->getControllerName();
-		$this->view->user = Zend_Auth::getInstance()->getIdentity();
-		$db = Zend_Registry::get('db');
+        }
 
-		$this->view->header = $db->fetchRow($db->select()->from('ustawienia'));
+        $configApp = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'translated');
+        if($configApp->app->translate) {
+            $locale = Zend_Registry::get('Zend_Locale')->getLanguage();
+            $this->canbetranslate = 1;
+            Zend_Registry::set('canbetranslate', 1);
+        } else {
+            $locale = 'pl';
+            $this->canbetranslate = 0;
+            Zend_Registry::set('canbetranslate', 0);
+        }
+
+        $header = $db->fetchRow($db->select()->from('ustawienia'));
+        $langsQuery = $db->select()
+            ->from('tlumaczenie', array('id', 'nazwa', 'flaga', 'kod'))
+            ->order( 'id ASC' )
+            ->where('status =?', 1)
+            ->where('kod !=?', 'pl');
+        $langs = $db->fetchAll($langsQuery);
+
+        $sitearray = array(
+            'header' => $header,
+            'langs' => $langs,
+            'lang' => $locale,
+            'canbetranslate' => $this->canbetranslate
+        );
+        $this->view->assign($sitearray);
 		
         function previewParser($string, $len) {
             $pattern_clear = array(
@@ -33,33 +55,7 @@ abstract class kCMS_Admin extends Zend_Controller_Action {
             }
             return $result;
         }
-		
-		function zlotowka($value) {
-			
-			if (preg_match("/zĹ‚/i", $value)) {
-				$value = str_replace('zĹ‚', '', trim($value));
-				$value = number_format($value , 0, ',', '.');
-				$value = $value.' zł';
-			} else {
-				$value = $value;
-			}
-	
-			return $value;
-		}
-		
-		function zlotowka2($value) {
-			
-			if (preg_match("/zĹ‚/i", $value)) {
-				$value = str_replace('zĹ‚', '', trim($value));
-				$value = number_format($value , 0, ',', '.');
-			} else {
-				$value = number_format($value , 0, ',', '.');
-				$value = $value;
-			}
-	
-			return $value;
-		}
-		
+
         function status($status) {
             if($status == 1)
 				{ $result = "<span class=\"online\"></span>"; }

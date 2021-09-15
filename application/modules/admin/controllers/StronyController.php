@@ -2,538 +2,504 @@
 
 class Admin_StronyController extends kCMS_Admin
 {
-		public function preDispatch() {
-			$this->view->controlname = "Zarządzanie stronami";
-		}
+    private $redirect;
+    private $table;
+    private $imgWidth;
+    private $imgHeight;
+
+    public function preDispatch() {
+        $controlname = "Zarządzanie stronami";
+        $this->imgWidth = 1920;
+        $this->imgHeight = 300;
+        $this->redirect = 'admin/strony';
+        $this->table = 'strony';
+        $back = '<div class="back"><a href="'.$this->view->baseUrl().'/admin/strony/">Wróć do listy stron</a></div>';
+        $info = '<div class="info">Wymiary obrazka: '.$this->imgWidth.' szerokości / '.$this->imgHeight.' wysokości</div>';
+        $array = array(
+            'controlname' => $controlname,
+            'back' => $back,
+            'info' => $info,
+        );
+        $this->view->assign($array);
+    }
 // Pokaz wszystkie srony
-		public function indexAction() {
-			$db = Zend_Registry::get('db');
-			$this->view->strony = $db->fetchAll($db->select()->from('strony')->order('sort ASC')->order('nazwa ASC'));
-		}
+    public function indexAction() {}
+
 // Dodaj nową stronę
-		public function nowaStronaAction() {
-			$db = Zend_Registry::get('db');
-			$this->_helper->viewRenderer('form', null, true);
-			$this->view->pagename = " - Nowa strona";
-			$this->view->tinymce = "1";
-			$this->view->back = '<div class="back"><a href="'.$this->view->baseUrl.'/admin/strony/">Wróć do listy stron</a></div>';
-			$this->view->info = '<div class="info">Wymiary obrazka: 1920px szerokości / 350px wysokości</div>';
+    public function nowaStronaAction() {
+        $db = Zend_Registry::get('db');
+        $this->_helper->viewRenderer('form', null, true);
+        $this->view->pagename = " - Nowa strona";
+        $this->view->tinymce = "1";
 
-			$form = new Form_StronaForm();
-			$this->view->form = $form;
-			
-			$form->getElement('meta_slowa')->getDecorator('label')->setOption('escape', false);
-			$form->getElement('meta_tytul')->getDecorator('label')->setOption('escape', false);
-			$form->getElement('meta_opis')->getDecorator('label')->setOption('escape', false);
-			$form->removeElement('link');
-			$form->removeElement('target');
-			//$form->removeElement('menu');
-			//$form->removeElement('id_parent');
-			//$form->removeElement('meta_slowa');
-			//$form->removeElement('meta_tytul');
-			//$form->removeElement('meta_opis');
-			//$form->removeElement('tekst');
+        $form = new Form_StronaForm();
+        $this->view->form = $form;
 
-			// Polskie tlumaczenie errorów
-			$polish = kCMS_Polish::getPolishTranslation();
-			$translate = new Zend_Translate('array', $polish, 'pl');
-			$form->setTranslator($translate);
+        $form->removeElement('link');
+        $form->removeElement('target');
 
-				//Akcja po wcisnieciu Submita
-				if ($this->_request->getPost()) {
+        //Akcja po wcisnieciu Submita
+        if ($this->_request->getPost()) {
 
-					//Odczytanie wartosci z inputów
-					$menu = $this->_request->getPost('menu');
-					$id_parent = $this->_request->getPost('id_parent');
-					$nazwa = $this->_request->getPost('nazwa');
-					$tag = zmiana($nazwa);
-					$tekst = $this->_request->getPost('tekst');
-					$meta_tytul = $this->_request->getPost('meta_tytul');
-					$meta_opis = $this->_request->getPost('meta_opis');
-					$meta_slowa = $this->_request->getPost('meta_slowa');
-					$datadodania = date("d.m.Y - H:i:s");
-					
-					$obrazek = $_FILES['obrazek']['name'];
-					$plik = zmiana($nazwa).'.'.zmiennazwe($obrazek);
-					
-					$formData = $this->_request->getPost();
+            //Odczytanie wartosci z inputów
+            $formData = $this->_request->getPost();
 
-					//Sprawdzenie poprawnosci forma
-					if ($form->isValid($formData)) {
-					
-					$parenttag = $db->fetchRow($db->select()->from('strony')->where('id = ?', $id_parent));
-					$parenttag = $parenttag->tag;
-					
-					//Pomyslnie
-					$data = array(
-						'menu' => $menu,
-						'id_parent' => $id_parent,
-						'nazwa' => $nazwa,
-						'tekst' => $tekst,
-						'typ' => 0,
-						'tag' => $tag,
-						'tag_parent' => $parenttag,
-						'meta_slowa' => $meta_slowa,
-						'meta_opis' => $meta_opis,
-						'meta_tytul' => $meta_tytul,
-						'data' => $datadodania);
-						
-					$db->insert('strony', $data);
-					$lastId = $db->lastInsertId();
-					
-					// Generowanie URI
-					$menu = new kCMS_MenuBuilder();
-					$uri = $menu->urigenerate($lastId);
-					
-					$dataUri = array('uri' => $uri);
-					$db->update('strony', $dataUri, 'id = '.$lastId);
-					
-					if($obrazek) {
-						move_uploaded_file($_FILES['obrazek']['tmp_name'], FILES_PATH.'/header/'.$plik);
-						$pc = FILES_PATH.'/header/'.$plik;
-						chmod($pc, 0755);
-						require_once 'kCMS/Thumbs/ThumbLib.inc.php';
-						$thumb = PhpThumbFactory::create($pc)->adaptiveResizeQuadrant(1920, 130)->save($pc);
-						
-						$dataImg = array('plik' => $plik);
-						
-						$db->update('strony', $dataImg, 'id = '.$lastId);
-					}
-					
-					$this->_redirect('/admin/strony/');
+            //Sprawdzenie poprawnosci forma
+            if ($form->isValid($formData)) {
 
-				} else {
-						
-					//Wyswietl bledy	
-					$this->view->message = '<div class="error">Formularz zawiera błędy</div>';
-					$form->populate($formData);
+                unset($formData['MAX_FILE_SIZE']);
+                unset($formData['obrazek']);
+                unset($formData['submit']);
 
-				}
-			}
-		}
+                $obrazek = $_FILES['obrazek']['name'];
+                if($_FILES['obrazek']['size'] > 0) {
+                    $plik = slugImg($formData['nazwa'], $obrazek);
+                }
+                $formData['tag'] = slug($formData['nazwa']);
+
+                $parentQuery = $db->select()->from('strony')->where('id = ?', $formData['id_parent']);
+                $parent = $db->fetchRow($parentQuery);
+                $formData['tag_parent'] = $parent->tag;
+                $formData['typ'] = 0; // Strona
+
+                $db->insert('strony', $formData);
+                $lastId = $db->lastInsertId();
+
+                // Generowanie URI
+                $menu = new kCMS_MenuBuilder();
+                if($parent->link == '#'){
+                    $uri = $formData['tag'];
+                } else {
+                    $uri = $menu->urigenerate($lastId);
+                }
+
+                $dataUri = array('uri' => $uri);
+                $db->update('strony', $dataUri, 'id = '.$lastId);
+
+                if($_FILES['obrazek']['size'] > 0) {
+                    move_uploaded_file($_FILES['obrazek']['tmp_name'], FILES_PATH.'/header/'.$plik);
+                    $upload = FILES_PATH.'/header/'.$plik;
+                    chmod($upload, 0755);
+                    require_once 'kCMS/Thumbs/ThumbLib.inc.php';
+                    PhpThumbFactory::create($upload)
+                        ->adaptiveResizeQuadrant($this->imgWidth, $this->imgHeight)
+                        ->save($upload);
+                    chmod($upload, 0755);
+                    $dataImg = array('plik' => $plik);
+                    $db->update('strony', $dataImg, 'id = '.$lastId);
+                }
+
+                $this->redirect('/admin/strony/');
+
+            } else {
+
+                //Wyswietl bledy
+                $this->view->message = '<div class="error">Formularz zawiera błędy</div>';
+
+            }
+        }
+    }
+
 // Edytuj stronę
-		public function edytujAction() {
-			$db = Zend_Registry::get('db');
-			$this->_helper->viewRenderer('form', null, true);
-			$this->view->tinymce = "1";
+    public function edytujAction() {
+        $db = Zend_Registry::get('db');
+        $this->_helper->viewRenderer('form', null, true);
+        $this->view->tinymce = "1";
 
-			// Odczytanie id
-			$id = (int)$this->getRequest()->getParam('id');
-			$this->view->back = '<div class="back"><a href="'.$this->view->baseUrl.'/admin/strony/">Wróć do listy stron</a></div>';
-			$this->view->info = '<div class="info">Wymiary obrazka: 1920px szerokości / 350px wysokości</div>';
-			
-			$strony = $db->fetchRow($db->select()->from('strony')->where('id = ?', $id));
-			$this->view->pagename = " - Edytuj stronę: ".$strony->nazwa;
+        // Odczytanie id
+        $id = (int)$this->getRequest()->getParam('id');
+        $pageQuery = $db->select()->from('strony')->where('id = ?', $id);
+        $page = $db->fetchRow($pageQuery);
+        $this->view->pagename = " - Edytuj: ".$page->nazwa;
 
-			$form = new Form_StronaForm();
-			$this->view->form = $form;
-			
-			$form->getElement('meta_slowa')->getDecorator('label')->setOption('escape', false);
-			$form->getElement('meta_tytul')->getDecorator('label')->setOption('escape', false);
-			$form->getElement('meta_opis')->getDecorator('label')->setOption('escape', false);
-			$form->removeElement('link');
-			$form->removeElement('target');
-			//$form->removeElement('menu');
-			//$form->removeElement('id_parent');
-			//$form->removeElement('meta_slowa');
-			//$form->removeElement('meta_tytul');
-			//$form->removeElement('meta_opis');
-			//$form->removeElement('tekst');
+        $form = new Form_StronaForm();
+        $this->view->form = $form;
+        $form->removeElement('link');
+        $form->removeElement('target');
 
-			// Polskie tlumaczenie errorów
-			$polish = kCMS_Polish::getPolishTranslation();
-			$translate = new Zend_Translate('array', $polish, 'pl');
-			$form->setTranslator($translate);
-			
-			if($strony->lock == 1) {
-				$form->nazwa->setAttrib('readonly', 'true');
-				$form->menu->setAttrib('disabled', 'disabled');
-				$form->id_parent->setAttrib('disabled', 'disabled');
-			}
+        if($page->lock == 1) {
+            $form->nazwa->setAttrib('readonly', 'true');
+            $form->menu->setAttrib('disabled', 'disabled');
+            $form->id_parent->setAttrib('disabled', 'disabled');
+        }
 
-			// Załadowanie do forma
-			$form->menu->setvalue($strony->menu);
-			$form->id_parent->setvalue($strony->id_parent);
-			$form->nazwa->setvalue($strony->nazwa);
-			// $form->obrazek->setvalue($strony->plik);
-			$form->tekst->setvalue($strony->tekst);
-			$form->meta_slowa->setvalue($strony->meta_slowa);
-			$form->meta_opis->setvalue($strony->meta_opis);
-			$form->meta_tytul->setvalue($strony->meta_tytul);
+        // Załadowanie do forma
+        $array = json_decode(json_encode($page), true);
+        if($array){
+            $form->populate($array);
+        }
+        //Akcja po wcisnieciu Submita
+        if ($this->_request->getPost()) {
 
-				//Akcja po wcisnieciu Submita
-				if ($this->_request->getPost()) {
+            //Odczytanie wartosci z inputów
+            $formData = $this->_request->getPost();
 
-					//Odczytanie wartosci z inputów
-					$menu = $this->_request->getPost('menu');
-					$id_parent = $this->_request->getPost('id_parent');
-					$nazwa = $this->_request->getPost('nazwa');
-					$tag = zmiana($nazwa);
-					$tekst = $this->_request->getPost('tekst');
-					$meta_tytul = $this->_request->getPost('meta_tytul');
-					$meta_opis = $this->_request->getPost('meta_opis');
-					$meta_slowa = $this->_request->getPost('meta_slowa');
-					$datadodania = date("d.m.Y - H:i:s");
-					
-					$obrazek = $_FILES['obrazek']['name'];
-					$plik = zmiana($nazwa).'.'.zmiennazwe($obrazek);
-					
-					$formData = $this->_request->getPost();
+            //Sprawdzenie poprawnosci forma
+            if ($form->isValid($formData)) {
+                if($page->lock == 1) {
+                    $formData['id_parent'] = $page->id_parent;
+                    if($page->menu == 0) {
+                        $formData['menu'] = 0;
+                    }
+                    if($page->menu == 1) {
+                        $formData['menu'] = 1;
+                    }
+                    if($page->menu == 2) {
+                        $formData['menu'] = 2;
+                    }
+                }
 
-					//Sprawdzenie poprawnosci forma
-					if ($form->isValid($formData)) {
-					
-					if($strony->lock == 1) {
-						$id_parent = $strony->id_parent;
-						if($strony->menu == 0) {$menu = 0;}
-						if($strony->menu == 1) {$menu = 1;}
-						if($strony->menu == 2) {$menu = 2;}
-					} else {
-						$id_parent = $this->_request->getPost('id_parent');
-						$menu = $menu;
-					}
-					
-					$parenttag = $db->fetchRow($db->select()->from('strony')->where('id = ?', $id_parent));
-					$parenttag = $parenttag->tag;
-					
-					//Pomyslnie
-					$data = array(
-						'menu' => $menu,
-						'id_parent' => $id_parent,
-						'nazwa' => $nazwa,
-						'tekst' => $tekst,
-						'typ' => 0,
-						'tag' => $tag,
-						'tag_parent' => $parenttag,
-						'meta_slowa' => $meta_slowa,
-						'meta_opis' => $meta_opis,
-						'meta_tytul' => $meta_tytul,
-						'data' => $datadodania);
-						
-					$db->update('strony', $data, 'id = '.$id);
-					
-					// Generowanie URI
-					$menu = new kCMS_MenuBuilder();
-					$uri = $menu->urigenerate($id);
-					$menu->mapTree($id);
-					
-					$dataUri = array('uri' => $uri);
-					$db->update('strony', $dataUri, 'id = '.$id);
-					
-					if($obrazek) {
-						unlink(FILES_PATH."/header/".$strony->plik);
-						move_uploaded_file($_FILES['obrazek']['tmp_name'], FILES_PATH.'/header/'.$plik);
-						$pc = FILES_PATH.'/header/'.$plik;
-						chmod($pc, 0755);
-						require_once 'kCMS/Thumbs/ThumbLib.inc.php';
-						$thumb = PhpThumbFactory::create($pc)->adaptiveResizeQuadrant(1920, 130)->save($pc);
-						
-						$dataImg = array('plik' => $plik);
-						
-						$db->update('strony', $dataImg, 'id = '.$id);
-					}
-					
-					$this->_redirect('/admin/strony/');
+                unset($formData['MAX_FILE_SIZE']);
+                unset($formData['obrazek']);
+                unset($formData['submit']);
 
-				} else {
-						
-					//Wyswietl bledy	
-					$this->view->message = '<div class="error">Formularz zawiera błędy</div>';
-					$form->populate($formData);
+                $obrazek = $_FILES['obrazek']['name'];
+                if($_FILES['obrazek']['size'] > 0) {
+                    $plik = slugImg($formData['nazwa'], $obrazek);
+                }
+                $formData['tag'] = slug($formData['nazwa']);
 
-				}
-			}
-		}
+                $parentQuery = $db->select()->from('strony')->where('id = ?', $formData['id_parent']);
+                $parent = $db->fetchRow($parentQuery);
+                $formData['tag_parent'] = $parent->tag;
+                $formData['typ'] = 0; // Strona
+
+                $db->update('strony', $formData, 'id = '.$id);
+
+                // Generowanie URI
+                $menu = new kCMS_MenuBuilder();
+                if($parent->link == '#'){
+                    $uri = $formData['tag'];
+                } else {
+                    $uri = $menu->urigenerate($id);
+                }
+
+                $dataUri = array('uri' => $uri);
+                $db->update('strony', $dataUri, 'id = '.$id);
+
+                if($page->lock <> 1) {
+                    $menu->mapTree($id);
+                }
+
+                if($_FILES['obrazek']['size'] > 0) {
+                    move_uploaded_file($_FILES['obrazek']['tmp_name'], FILES_PATH.'/header/'.$plik);
+                    $upload = FILES_PATH.'/header/'.$plik;
+                    chmod($upload, 0755);
+                    require_once 'kCMS/Thumbs/ThumbLib.inc.php';
+                    PhpThumbFactory::create($upload)
+                        ->adaptiveResizeQuadrant($this->imgWidth, $this->imgHeight)
+                        ->save($upload);
+                    chmod($upload, 0755);
+                    $dataImg = array('plik' => $plik);
+                    $db->update('strony', $dataImg, 'id = '.$id);
+                }
+
+                $this->redirect('/admin/strony/');
+
+            } else {
+
+                //Wyswietl bledy
+                $this->view->message = '<div class="error">Formularz zawiera błędy</div>';
+
+            }
+        }
+    }
 
 // Dodaj nowy link
-		public function nowyLinkAction() {
-			$db = Zend_Registry::get('db');
-			$this->_helper->viewRenderer('form', null, true);
-			$this->view->pagename = " - Dodaj link";
-			$this->view->back = '<div class="back"><a href="'.$this->view->baseUrl.'/admin/strony/">Wróć do listy stron</a></div>';
-			$this->view->info = '<div class="info">Wymiary obrazka: 1920px szerokości / 350px wysokości</div>';
-			
-			$form = new Form_StronaForm();
-			$this->view->form = $form;
-			
-			$this->view->linkform = 1;
-			
-			$form->getElement('meta_slowa')->getDecorator('label')->setOption('escape', false);
-			$form->getElement('meta_tytul')->getDecorator('label')->setOption('escape', false);
-			$form->getElement('meta_opis')->getDecorator('label')->setOption('escape', false);
-			//$form->removeElement('link');
-			//$form->removeElement('menu');
-			//$form->removeElement('id_parent');
-			// $form->removeElement('meta_slowa');
-			// $form->removeElement('meta_tytul');
-			// $form->removeElement('meta_opis');
-			$form->removeElement('tekst');
-			
-			// Polskie tlumaczenie errorów
-			$polish = kCMS_Polish::getPolishTranslation();
-			$translate = new Zend_Translate('array', $polish, 'pl');
-			$form->setTranslator($translate);
+    public function nowyLinkAction() {
+        $db = Zend_Registry::get('db');
+        $this->_helper->viewRenderer('form', null, true);
+        $this->view->pagename = " - Nowy adres URL";
+        $this->view->linkform = 1;
 
-				//Akcja po wcisnieciu Submita
-				if ($this->_request->getPost()) {
+        $form = new Form_StronaForm();
+        $this->view->form = $form;
 
-					//Odczytanie wartosci z inputów
-					$menu = $this->_request->getPost('menu');
-					$id_parent = $this->_request->getPost('id_parent');
-					$nazwa = $this->_request->getPost('nazwa');
-					$target = $this->_request->getPost('target');
-					$tag = zmiana($nazwa);
-					//$tekst = $this->_request->getPost('tekst');
-					$link = $this->_request->getPost('link');
-					//$meta_tytul = $this->_request->getPost('meta_tytul');
-					//$meta_opis = $this->_request->getPost('meta_opis');
-					//$meta_slowa = $this->_request->getPost('meta_slowa');
-					$datadodania = date("d.m.Y - H:i:s");
-										
-					$obrazek = $_FILES['obrazek']['name'];
-					$plik = zmiana($nazwa).'.'.zmiennazwe($obrazek);
-					$formData = $this->_request->getPost();
-					
-					//Sprawdzenie poprawnosci forma
-					if ($form->isValid($formData)) {
-					
-					$parenttag = $db->fetchRow($db->select()->from('strony')->where('id = ?', $id_parent));
-					$parenttag = $parenttag->tag;
-					
-					//Pomyslnie
-					$data = array(
-						'menu' => $menu,
-						'id_parent' => $id_parent,
-						'nazwa' => $nazwa,
-						//'tekst' => $tekst,
-						'link' => $link,
-						'link_target' => $target,
-						'typ' => 3,
-						'tag' => $tag,
-						'tag_parent' => $parenttag,
-						'meta_slowa' => $meta_slowa,
-						'meta_opis' => $meta_opis,
-						'meta_tytul' => $meta_tytul,
-						'data' => $datadodania);
-						
-					$db->insert('strony', $data);
-					$lastId = $db->lastInsertId();
-					
-					// Generowanie URI
-					$menu = new kCMS_MenuBuilder();
-					$uri = $menu->urigenerate($lastId);
-					
-					if($target == '_self'){
-						$dataUri = array('uri' => $link);
-					} else {
-						$dataUri = array('uri' => $uri);
-					}
+        $form->removeElement('tekst');
 
-					$db->update('strony', $dataUri, 'id = '.$lastId);
-					
-					if($obrazek) {
-						move_uploaded_file($_FILES['obrazek']['tmp_name'], FILES_PATH.'/header/'.$plik);
-						$pc = FILES_PATH.'/header/'.$plik;
-						chmod($pc, 0755);
-						require_once 'kCMS/Thumbs/ThumbLib.inc.php';
-						$thumb = PhpThumbFactory::create($pc)->adaptiveResizeQuadrant(1920, 130)->save($pc);
-						
-						$dataImg = array('plik' => $plik);
-						
-						$db->update('strony', $dataImg, 'id = '.$lastId);
-					}
-					$this->_redirect('/admin/strony/');
+        //Akcja po wcisnieciu Submita
+        if ($this->_request->getPost()) {
 
-				} else {
-						
-					//Wyswietl bledy	
-					$this->view->message = '<div class="error">Formularz zawiera błędy</div>';
-					$form->populate($formData);
+            //Odczytanie wartosci z inputów
+            $formData = $this->_request->getPost();
 
-				}
-			}
-		}
+            //Sprawdzenie poprawnosci forma
+            if ($form->isValid($formData)) {
+
+                unset($formData['MAX_FILE_SIZE']);
+                unset($formData['obrazek']);
+                unset($formData['submit']);
+
+                $obrazek = $_FILES['obrazek']['name'];
+                if($_FILES['obrazek']['size'] > 0) {
+                    $plik = slugImg($formData['nazwa'], $obrazek);
+                }
+                $formData['tag'] = slug($formData['nazwa']);
+
+                $parentQuery = $db->select()->from('strony')->where('id = ?', $formData['id_parent']);
+                $parent = $db->fetchRow($parentQuery);
+                $formData['tag_parent'] = $parent->tag;
+                $formData['typ'] = 3; // Link
+
+                $db->insert('strony', $formData);
+                $lastId = $db->lastInsertId();
+
+                // Generowanie URI
+                $menu = new kCMS_MenuBuilder();
+                $uri = $menu->urigenerate($lastId);
+
+                if($formData['link_target'] == '_self'){
+                    $dataUri = array('uri' => $formData['link']);
+                } else {
+                    $dataUri = array('uri' => $uri);
+                }
+
+                $db->update('strony', $dataUri, 'id = '.$lastId);
+
+                if($_FILES['obrazek']['size'] > 0) {
+                    move_uploaded_file($_FILES['obrazek']['tmp_name'], FILES_PATH.'/header/'.$plik);
+                    $upload = FILES_PATH.'/header/'.$plik;
+                    chmod($upload, 0755);
+                    require_once 'kCMS/Thumbs/ThumbLib.inc.php';
+                    PhpThumbFactory::create($upload)
+                        ->adaptiveResizeQuadrant($this->imgWidth, $this->imgHeight)
+                        ->save($upload);
+                    chmod($upload, 0755);
+                    $dataImg = array('plik' => $plik);
+                    $db->update('strony', $dataImg, 'id = '.$lastId);
+                }
+
+                $this->redirect('/admin/strony/');
+
+            } else {
+
+                //Wyswietl bledy
+                $this->view->message = '<div class="error">Formularz zawiera błędy</div>';
+
+            }
+        }
+    }
 
 // Edytuj link
-		public function edytujlinkAction() {
-			$db = Zend_Registry::get('db');
-			$this->_helper->viewRenderer('form', null, true);
+    public function edytujlinkAction() {
+        $db = Zend_Registry::get('db');
+        $this->_helper->viewRenderer('form', null, true);
+        // Odczytanie id
+        $id = (int)$this->getRequest()->getParam('id');
+        $pageQuery = $db->select()->from('strony')->where('id = ?', $id);
+        $page = $db->fetchRow($pageQuery);
+        $this->view->pagename = " - Edytuj: ".$page->nazwa;
 
-			// Odczytanie id
-			$id = (int)$this->getRequest()->getParam('id');
-			$this->view->back = '<div class="back"><a href="'.$this->view->baseUrl.'/admin/strony/">Wróć do listy stron</a></div>';
-			$this->view->info = '<div class="info">Wymiary obrazka: 1920px szerokości / 350px wysokości</div>';
-			
-			$strony = $db->fetchRow($db->select()->from('strony')->where('id = ?', $id));
-			$this->view->pagename = " - Edytuj link: ".$strony->nazwa;
+        $form = new Form_StronaForm();
+        $this->view->form = $form;
+        $form->removeElement('tekst');
 
-			$form = new Form_StronaForm();
-			$this->view->form = $form;
-			
-			$form->getElement('meta_slowa')->getDecorator('label')->setOption('escape', false);
-			$form->getElement('meta_tytul')->getDecorator('label')->setOption('escape', false);
-			$form->getElement('meta_opis')->getDecorator('label')->setOption('escape', false);
-			//$form->removeElement('link');
-			//$form->removeElement('menu');
-			//$form->removeElement('id_parent');
-			// $form->removeElement('meta_slowa');
-			// $form->removeElement('meta_tytul');
-			// $form->removeElement('meta_opis');
-			$form->removeElement('tekst');
-			
-			// Polskie tlumaczenie errorów
-			$polish = kCMS_Polish::getPolishTranslation();
-			$translate = new Zend_Translate('array', $polish, 'pl');
-			$form->setTranslator($translate);
+        // Zablokowana strona
+        if($page->lock == 1) {
+            $form->nazwa->setAttrib('readonly', 'true');
+            $form->menu->setAttrib('disabled', 'disabled');
+            $form->id_parent->setAttrib('disabled', 'disabled');
+        }
 
-			// Zablokowana strona
-			if($strony->lock == 1) {
-				$form->nazwa->setAttrib('readonly', 'true');
-				$form->menu->setAttrib('disabled', 'disabled');
-				$form->id_parent->setAttrib('disabled', 'disabled');
-			}
-			
-			// Załadowanie do forma
-			$form->menu->setvalue($strony->menu);
-			$form->id_parent->setvalue($strony->id_parent);
-			$form->nazwa->setvalue($strony->nazwa);
-			//$form->tekst->setvalue($strony->tekst);
-			// $form->obrazek->setvalue($strony->plik);
-			$form->link->setvalue($strony->link);
-			$form->target->setvalue($strony->link_target);
-			$form->meta_slowa->setvalue($strony->meta_slowa);
-			$form->meta_opis->setvalue($strony->meta_opis);
-			$form->meta_tytul->setvalue($strony->meta_tytul);
+        // Załadowanie do forma
+        $array = json_decode(json_encode($page), true);
+        if($array){
+            $form->populate($array);
+        }
+        //Akcja po wcisnieciu Submita
+        if ($this->_request->getPost()) {
 
-				//Akcja po wcisnieciu Submita
-				if ($this->_request->getPost()) {
+            //Odczytanie wartosci z inputów
+            $formData = $this->_request->getPost();
 
-			
-					//Odczytanie wartosci z inputów
-					$menu = $this->_request->getPost('menu');
-					$id_parent = $this->_request->getPost('id_parent');
-					$nazwa = $this->_request->getPost('nazwa');
-					$target = $this->_request->getPost('target');
-					$tag = zmiana($nazwa);
-					$tekst = $this->_request->getPost('tekst');
-					$link = $this->_request->getPost('link');
-					$meta_tytul = $this->_request->getPost('meta_tytul');
-					$meta_opis = $this->_request->getPost('meta_opis');
-					$meta_slowa = $this->_request->getPost('meta_slowa');
-					$datadodania = date("d.m.Y - H:i:s");
-					
-					$obrazek = $_FILES['obrazek']['name'];
-					$plik = zmiana($nazwa).'.'.zmiennazwe($obrazek);
-					
-					$formData = $this->_request->getPost();
-					
-					//Sprawdzenie poprawnosci forma
-					if ($form->isValid($formData)) {
+            //Sprawdzenie poprawnosci forma
+            if ($form->isValid($formData)) {
+                if($page->lock == 1) {
+                    $formData['id_parent'] = $page->id_parent;
+                    if($page->menu == 0) {
+                        $formData['menu'] = 0;
+                    }
+                    if($page->menu == 1) {
+                        $formData['menu'] = 1;
+                    }
+                    if($page->menu == 2) {
+                        $formData['menu'] = 2;
+                    }
+                }
 
-					if($strony->lock == 1) {
-						$id_parent = $strony->id_parent;
-						if($strony->menu == 0) {$menu = 0;}
-						if($strony->menu == 1) {$menu = 1;}
-						if($strony->menu == 2) {$menu = 2;}
-					} else {
-						$id_parent = $this->_request->getPost('id_parent');
-						$menu = $menu;
-					}
-					
-					$parenttag = $db->fetchRow($db->select()->from('strony')->where('id = ?', $id_parent));
-					$parenttag = $parenttag->tag;
-					
-					//Pomyslnie
-					$data = array(
-						'menu' => $menu,
-						'id_parent' => $id_parent,
-						'nazwa' => $nazwa,
-						//'tekst' => $tekst,
-						'link' => $link,
-						'link_target' => $target,
-						'typ' => 3,
-						'tag' => $tag,
-						'tag_parent' => $parenttag,
-						'meta_slowa' => $meta_slowa,
-						'meta_opis' => $meta_opis,
-						'meta_tytul' => $meta_tytul,
-						'data' => $datadodania);
+                unset($formData['MAX_FILE_SIZE']);
+                unset($formData['obrazek']);
+                unset($formData['submit']);
 
-					$where['id = ?'] = $id;
-					$db->update('strony', $data, $where);
-					
-					// Generowanie URI
-					$menu = new kCMS_MenuBuilder();
-					$uri = $menu->urigenerate($id);
-					$menu->mapTree($id);
-					
-					if($target == '_self'){
-						$dataUri = array('uri' => $link);
-					} else {
-						$dataUri = array('uri' => $uri);
-					}
+                $obrazek = $_FILES['obrazek']['name'];
+                if($_FILES['obrazek']['size'] > 0) {
+                    $plik = slugImg($formData['nazwa'], $obrazek);
+                }
+                $formData['tag'] = slug($formData['nazwa']);
 
-					$db->update('strony', $dataUri, 'id = '.$id);
-					
-					if($obrazek) {
-						unlink(FILES_PATH."/header/".$strony->plik);
-						move_uploaded_file($_FILES['obrazek']['tmp_name'], FILES_PATH.'/header/'.$plik);
-						$pc = FILES_PATH.'/header/'.$plik;
-						chmod($pc, 0755);
-						require_once 'kCMS/Thumbs/ThumbLib.inc.php';
-						$thumb = PhpThumbFactory::create($pc)->adaptiveResizeQuadrant(1920, 130)->save($pc);
-						
-						$dataImg = array('plik' => $plik);
-						
-						$db->update('strony', $dataImg, 'id = '.$id);
-					}
-					
-					$this->_redirect('/admin/strony/');
+                $parentQuery = $db->select()->from('strony')->where('id = ?', $formData['id_parent']);
+                $parent = $db->fetchRow($parentQuery);
+                $formData['tag_parent'] = $parent->tag;
+                $formData['typ'] = 3; // Link
 
-				} else {
-						
-					//Wyswietl bledy	
-					$this->view->message = '<div class="error">Formularz zawiera błędy</div>';
-					$form->populate($formData);
+                $db->update('strony', $formData, 'id = '.$id);
 
-				}
-			}
-		}
+                // Generowanie URI
+                $menu = new kCMS_MenuBuilder();
+                $uri = $menu->urigenerate($id);
+
+                if($formData['link_target'] == '_self'){
+                    $dataUri = array('uri' => $formData['link']);
+                } else {
+                    $dataUri = array('uri' => $uri);
+                }
+
+                $db->update('strony', $dataUri, 'id = '.$id);
+                if ($page->lock <> 1 && $formData['link'] <> '#') {
+                    $menu->mapTree($id);
+                }
+
+                if($_FILES['obrazek']['size'] > 0) {
+                    move_uploaded_file($_FILES['obrazek']['tmp_name'], FILES_PATH.'/header/'.$plik);
+                    $upload = FILES_PATH.'/header/'.$plik;
+                    chmod($upload, 0755);
+                    require_once 'kCMS/Thumbs/ThumbLib.inc.php';
+                    PhpThumbFactory::create($upload)
+                        ->adaptiveResizeQuadrant($this->imgWidth, $this->imgHeight)
+                        ->save($upload);
+                    chmod($upload, 0755);
+                    $dataImg = array('plik' => $plik);
+                    $db->update('strony', $dataImg, 'id = '.$id);
+                }
+
+                $this->redirect('/admin/strony/');
+
+            } else {
+
+                //Wyswietl bledy
+                $this->view->message = '<div class="error">Formularz zawiera błędy</div>';
+
+            }
+        }
+    }
+
+// Edytuj języki
+    public function tlumaczenieAction() {
+        $db = Zend_Registry::get('db');
+        $this->_helper->viewRenderer('form', null, true);
+        $this->view->back = '<div class="back"><a href="/'.$this->redirect.'">Wróć do listy stron</a></div>';
+
+        // Odczytanie id
+        $id = (int)$this->getRequest()->getParam('id');
+        $lang = $this->getRequest()->getParam('lang');
+        if(!$id || !$lang){
+            $this->_redirect($this->redirect);
+        }
+
+        $wpis = $db->fetchRow($db->select()->from($this->table)->where('id = ?', $id));
+        $tlumaczenieQuery = $db->select()
+            ->from('tlumaczenie_wpisy')
+            ->where('module = ?', 'menu')
+            ->where('id_wpis = ?', $id)
+            ->where('lang = ?', $lang);
+        $tlumaczenie = $db->fetchRow($tlumaczenieQuery);
+
+        // Laduj form
+        $form = new Form_StronaForm();
+        $this->view->form = $form;
+
+        if($tlumaczenie) {
+            $array = json_decode($tlumaczenie->json, true);
+            $form->populate($array);
+        }
+
+        $this->view->pagename = " - Edytuj tłumaczenie: ".$wpis->nazwa;
+
+        if($wpis->typ == 3) {
+            // Link
+            $form->removeElement('tekst');
+            $form->removeElement('menu');
+            $form->removeElement('id_parent');
+            $form->removeElement('target');
+            $form->removeElement('link');
+            $form->removeElement('obrazek');
+        } else {
+            // Strona tekstowa
+            $form->removeElement('menu');
+            $form->removeElement('id_parent');
+            $form->removeElement('target');
+            $form->removeElement('link');
+            $form->removeElement('obrazek');
+            $this->view->tinymce = "1";
+        }
+
+        //Akcja po wcisnieciu Submita
+        if ($this->_request->getPost()) {
+
+            $formData = $this->_request->getPost();
+
+            //Sprawdzenie poprawnosci forma
+            if ($form->isValid($formData)) {
+
+                $translateModel = new Model_TranslateModel();
+                $translateModel->saveTranslate($formData, 'menu', $wpis->id, $lang);
+                $this->redirect($this->redirect);
+
+            } else {
+
+                //Wyswietl bledy
+                $this->view->message = '<div class="error">Formularz zawiera błędy</div>';
+                $form->populate($formData);
+
+            }
+        }
+    }
+
 // Usun wpis do stron
-		public function usunAction() {
-			$db = Zend_Registry::get('db');
-			$id = (int)$this->_request->getParam('id');
-			
-			$strony = $db->fetchRow($db->select()->from('strony')->where('id = ?', $id));
-			unlink(FILES_PATH."/header/".$strony->plik);
-			
-			$where = $db->quoteInto('id = ?', $id);
-			$db->delete('strony', $where);
-			
-			$this->_redirect('/admin/strony/');
-		}
+    public function usunAction() {
+        $db = Zend_Registry::get('db');
+        $id = (int)$this->_request->getParam('id');
+
+        // Generowanie URI
+        $menu = new kCMS_MenuBuilder();
+        $menu->deletemapTree($id);
+
+        $pageQuery = $db->select()->from('strony')->where('id = ?', $id);
+        $page = $db->fetchRow($pageQuery);
+        unlink(FILES_PATH."/header/".$page->plik);
+
+        $where = $db->quoteInto('id = ?', $id);
+        $db->delete('strony', $where);
+
+        $where_tl = array('module = ?' => 'menu', 'id_wpis = ?' => $id);
+        $db->delete('tlumaczenie_wpisy', $where_tl);
+
+        $this->redirect('/admin/strony/');
+    }
+
 // Zablokuj strone
-		public function lockAction() {
-			$db = Zend_Registry::get('db');
-			$id = (int)$this->_request->getParam('id');
-			$strona = $db->fetchRow($db->select()->from('strony')->where('id = ?', $id));
-			
-			if($strona->lock == 1) { $lock = 0; } else { $lock = 1; }
-			
-			$data = array('lock' => $lock);
-			$db->update('strony', $data, 'id = '.$id);
-			$this->_redirect('/admin/strony/');
-		}
-      
+    public function lockAction() {
+        $db = Zend_Registry::get('db');
+        $id = (int)$this->_request->getParam('id');
+        $pageQuery = $db->select()->from('strony')->where('id = ?', $id);
+        $page = $db->fetchRow($pageQuery);
+
+        ($page->lock == 1) ? $lock = 0 : $lock = 1;
+
+        $data = array('lock' => $lock);
+        $db->update('strony', $data, 'id = '.$id);
+        $this->redirect('/admin/strony/');
+    }
+
 // Ustaw kolejność
-		public function ustawAction() {
-			$db = Zend_Registry::get('db');
-			$updateRecordsArray = $_POST['recordsArray'];
-			$listingCounter = 1;
-			foreach ($updateRecordsArray as $recordIDValue) {
-				$data = array('sort' => $listingCounter);
-				$db->update('strony', $data, 'id = '.$recordIDValue);
-				$listingCounter = $listingCounter + 1;
-				}
-		}
+    public function ustawAction() {
+        $db = Zend_Registry::get('db');
+        $updateRecordsArray = $_POST['recordsArray'];
+        $listingCounter = 1;
+        foreach ($updateRecordsArray as $recordIDValue) {
+            $data = array('sort' => $listingCounter);
+            $db->update('strony', $data, 'id = '.$recordIDValue);
+            $listingCounter = $listingCounter + 1;
+        }
+    }
 }

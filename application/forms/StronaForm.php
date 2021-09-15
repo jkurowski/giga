@@ -73,41 +73,41 @@ class Form_StronaForm extends Zend_Form
 
         $meta_slowa = new Zend_Form_Element_Text('meta_slowa');
         $meta_slowa->setLabel('Słowa kluczowe<br /><span style="font-size:11px;color:#A8A8A8">Meta tag - Keywords</span>')
-		->setRequired(false)
-		->setAttrib('size', 83)
-		->setFilters(array('StripTags', 'StringTrim'))
-		->addValidator('NotEmpty')
-		->setDecorators(array(
-		'ViewHelper',
-		'Errors',
-		array(array('data' => 'HtmlTag'), array('tag' => 'div', 'class' => 'formRight')),
-		array('Label', array('class' => 'sublabel')),
-		array(array('row' => 'HtmlTag'), array('tag' => 'div', 'class' => 'formRow'))));
+            ->setRequired(false)
+            ->setAttrib('size', 83)
+            ->setFilters(array('StripTags', 'StringTrim'))
+            ->addValidator('NotEmpty')
+            ->setDecorators(array(
+                'ViewHelper',
+                'Errors',
+                array(array('data' => 'HtmlTag'), array('tag' => 'div', 'class' => 'formRight')),
+                array('Label', array('class' => 'sublabel', 'escape' => false)),
+                array(array('row' => 'HtmlTag'), array('tag' => 'div', 'class' => 'formRow'))));
 
         $meta_tytul = new Zend_Form_Element_Text('meta_tytul');
         $meta_tytul->setLabel('Nagłówek<br /><span style="font-size:11px;color:#A8A8A8">Meta tag - Title</span>')
-		->setRequired(false)
-		->setAttrib('size', 83)
-		->setFilters(array('StripTags', 'StringTrim'))
-		->setDecorators(array(
-		'ViewHelper',
-		'Errors',
-		array(array('data' => 'HtmlTag'), array('tag' => 'div', 'class' => 'formRight')),
-		array('Label', array('class' => 'sublabel')),
-		array(array('row' => 'HtmlTag'), array('tag' => 'div', 'class' => 'formRow'))));
+            ->setRequired(false)
+            ->setAttrib('size', 83)
+            ->setFilters(array('StripTags', 'StringTrim'))
+            ->setDecorators(array(
+                'ViewHelper',
+                'Errors',
+                array(array('data' => 'HtmlTag'), array('tag' => 'div', 'class' => 'formRight')),
+                array('Label', array('class' => 'sublabel', 'escape' => false)),
+                array(array('row' => 'HtmlTag'), array('tag' => 'div', 'class' => 'formRow'))));
 
         $meta_opis = new Zend_Form_Element_Text('meta_opis');
         $meta_opis->setLabel('Opis strony<br /><span style="font-size:11px;color:#A8A8A8">Meta tag - Description</span>')
-		->setRequired(false)
-		->setAttrib('size', 123)
-		->setFilters(array('StripTags', 'StringTrim'))
-		->addValidator('NotEmpty')
-		->setDecorators(array(
-		'ViewHelper',
-		'Errors',
-		array(array('data' => 'HtmlTag'), array('tag' => 'div', 'class' => 'formRight')),
-		array('Label', array('class' => 'sublabel')),
-		array(array('row' => 'HtmlTag'), array('tag' => 'div', 'class' => 'formRow'))));
+            ->setRequired(false)
+            ->setAttrib('size', 123)
+            ->setFilters(array('StripTags', 'StringTrim'))
+            ->addValidator('NotEmpty')
+            ->setDecorators(array(
+                'ViewHelper',
+                'Errors',
+                array(array('data' => 'HtmlTag'), array('tag' => 'div', 'class' => 'formRight')),
+                array('Label', array('class' => 'sublabel', 'escape' => false)),
+                array(array('row' => 'HtmlTag'), array('tag' => 'div', 'class' => 'formRow'))));
 
         $link = new Zend_Form_Element_Text('link');
         $link->setLabel('Link')

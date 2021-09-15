@@ -2,18 +2,16 @@
 
 class Default_RozwojController extends kCMS_Site
 {
-    /**
-     * @var string
-     */
     private $page_class;
-    /**
-     * @var int
-     */
     private $page_id;
+    private $meta_title;
+    private $meta_slowa;
+    private $meta_opis;
+    private $wpis_nazwa;
 
     public function preDispatch() {
         $this->page_id = 8;
-        $this->page_class = '';
+        $this->page_class = 'rozwoj';
     }
 
     public function indexAction() {
@@ -21,25 +19,48 @@ class Default_RozwojController extends kCMS_Site
         $db = Zend_Registry::get('db');
         $db->setFetchMode(Zend_Db::FETCH_OBJ);
 
-        $page = $db->fetchRow($db->select()->from('strony')->where('id = ?', $this->page_id));
+        $pageModel = new Model_MenuModel();
+        $page = $pageModel->getPageById($this->page_id);
 
         if(!$page) {
             errorPage();
         } else {
-            $boksy = $db->fetchAll($db->select()->from('boksy')->order('sort ASC'));
+            $boxModel = new Model_BoxModel();
+            $boksy = $boxModel->getAll();
+
+            $pageName = (isset($page->nazwa)) ? $page->nazwa : json_decode($page->json)->nazwa;
+            $breadcrumbs = '<li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><b itemprop="item">'.$pageName .'</b><meta itemprop="position" content="2" /></li>';
+
+            if(isset($page->meta_tytul)) {
+                $this->meta_title = $page->meta_tytul;
+            } elseif (isset(json_decode($page->json)->meta_tytul)) {
+                $this->meta_title = json_decode($page->json)->meta_tytul;
+            }
+            if(isset($page->meta_slowa)) {
+                $this->meta_slowa = $page->meta_slowa;
+            } elseif (isset(json_decode($page->json)->meta_slowa)) {
+                $this->meta_slowa = json_decode($page->json)->meta_slowa;
+            }
+            if(isset($page->meta_opis)) {
+                $this->meta_opis = $page->meta_opis;
+            } elseif (isset(json_decode($page->json)->meta_opis)) {
+                $this->meta_opis = json_decode($page->json)->meta_opis;
+            }
 
             $array = array(
-                'strona_nazwa' => $page->nazwa,
-                'strona_h1' => $page->nazwa,
-                'strona_tytul' => ' - '.$page->nazwa,
-                'seo_tytul' => $page->meta_tytul,
-                'seo_opis' => $page->meta_opis,
-                'seo_slowa' => $page->meta_slowa,
+                'strona_nazwa' => $pageName,
+                'strona_h1' => $pageName,
+                'strona_tytul' => ' - '.$pageName,
+                'seo_tytul' => $this->meta_title,
+                'seo_opis' => $this->meta_opis,
+                'seo_slowa' => $this->meta_slowa,
                 'strona_id' => $this->page_id,
                 'strona' => $page,
+                'content' => (isset($page->tekst)) ? $page->tekst : json_decode($page->json)->tekst,
                 'menutag' => 'o-nas',
                 'boksy' => $boksy,
-                'pageclass' => $this->page_class
+                'pageclass' => $this->page_class,
+                'breadcrumbs' => $breadcrumbs
             );
             $this->view->assign($array);
 
@@ -51,25 +72,51 @@ class Default_RozwojController extends kCMS_Site
         $db = Zend_Registry::get('db');
         $db->setFetchMode(Zend_Db::FETCH_OBJ);
 
-        $page = $db->fetchRow($db->select()->from('strony')->where('id = ?', $this->page_id));
+        $pageModel = new Model_MenuModel();
+        $page = $pageModel->getPageById($this->page_id);
 
         if(!$page) {
             errorPage();
         } else {
 
             $slug = $this->_request->getParam('slug');
-            $wpis = $db->fetchRow($db->select()->from('boksy')->where('slug = ?', $slug));
-            $boksy = $db->fetchAll($db->select()->from('boksy')->order('sort ASC'));
+            $boxModel = new Model_BoxModel();
+            $boksy = $boxModel->getAll();
+            $wpis = $boxModel->getBySlug($slug);
+            $locale = Zend_Registry::get('Zend_Locale')->getLanguage();
 
-            $breadcrumbs = '<li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a itemprop="item" href="'.$this->baseUrl.'/'.$page->tag.'/"><span itemprop="name">'.$page->nazwa.'</span></a><meta itemprop="position" content="2" /></li><li class="sep"></li><li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><b itemprop="item">'.$wpis->nazwa.'</b><meta itemprop="position" content="3" /></li>';
+            $pageName = (isset($page->nazwa)) ? $page->nazwa : json_decode($page->json)->nazwa;
+            if(isset($wpis->nazwa)) {
+                $this->wpis_nazwa = $wpis->nazwa;
+            } elseif (isset(json_decode($wpis->json)->nazwa)) {
+                $this->wpis_nazwa = json_decode($wpis->json)->nazwa;
+            }
+
+            $breadcrumbs = '<li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a itemprop="item" href="/'.$locale.'/zrownowazony-rozwoj/"><span itemprop="name">'.$pageName.'</span></a><meta itemprop="position" content="2" /></li><li class="sep"></li><li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><b itemprop="item">'.$this->wpis_nazwa.'</b><meta itemprop="position" content="3" /></li>';
+
+            if(isset($page->meta_tytul)) {
+                $this->meta_title = $page->meta_tytul;
+            } elseif (isset(json_decode($page->json)->meta_tytul)) {
+                $this->meta_title = json_decode($page->json)->meta_tytul;
+            }
+            if(isset($page->meta_slowa)) {
+                $this->meta_slowa = $page->meta_slowa;
+            } elseif (isset(json_decode($page->json)->meta_slowa)) {
+                $this->meta_slowa = json_decode($page->json)->meta_slowa;
+            }
+            if(isset($page->meta_opis)) {
+                $this->meta_opis = $page->meta_opis;
+            } elseif (isset(json_decode($page->json)->meta_opis)) {
+                $this->meta_opis = json_decode($page->json)->meta_opis;
+            }
 
             $array = array(
-                'strona_nazwa' => $page->nazwa,
-                'strona_h1' => $wpis->nazwa,
-                'strona_tytul' => ' - '.$page->nazwa.' - '.$wpis->nazwa,
-                'seo_tytul' => $page->meta_tytul,
-                'seo_opis' => $page->meta_opis,
-                'seo_slowa' => $page->meta_slowa,
+                'strona_nazwa' => $pageName,
+                'strona_h1' => $pageName,
+                'strona_tytul' => ' - '.$pageName.' - '.$this->wpis_nazwa,
+                'seo_tytul' => $this->meta_title,
+                'seo_opis' => $this->meta_opis,
+                'seo_slowa' => $this->meta_slowa,
                 'strona_id' => $this->page_id,
                 'strona' => $page,
                 'wpis' => $wpis,

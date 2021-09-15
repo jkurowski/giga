@@ -72,7 +72,7 @@
 
     <div class="row d-flex justify-content-center mt-0 mt-lg-5 pt-5">
         <div class="col-12">
-            <h2 class="mt-0 mb-5">System wartości:</h2>
+            <h2 class="mt-0 mb-5"><?=$this->translate('tl_system_wartosci');?>:</h2>
         </div>
     </div>
 
@@ -138,7 +138,7 @@
 
     <div class="row d-flex justify-content-center mt-5 pt-5">
         <div class="col-12 col-lg-10">
-            <h2 class="mt-0 text-center">Jak nasze dążenia są realizowane?</h2>
+            <h2 class="mt-0 text-center"><?=$this->translate('tl_nasze_dazenia');?></h2>
         </div>
         <div class="col-8">
             <hr>
@@ -149,12 +149,11 @@
 <?php foreach($this->opinie as $o){?>
     <div class="row">
         <div class="col-12">
-            <blockquote><?=$this->escape($o->tekst);?></blockquote>
+            <blockquote><?php echo (isset($o->tekst)) ? $o->tekst : json_decode($o->json)->tekst;?></blockquote>
             <div class="blockquote-person text-center">
-                <?php if($o->plik) {?><img src="<?=$this->baseUrl;?>/files/opinie/<?=$this->escape($o->plik);?>" alt="<?=$this->escape($o->imie);?> - <?=$this->escape($o->stanowisko);?>"><?php } ?>
-                <h3><?=$this->escape($o->imie);?></h3>
-                <p class="mb-3"><i><?=$this->escape($o->stanowisko);?></i></p>
-                <?php if($o->dodatkowe) {?><p class="small"><?=$this->escape($o->dodatkowe);?></p><?php } ?>
+                <?php if($o->plik) {?><img src="<?=$this->baseUrl;?>/files/opinie/<?=$this->escape($o->plik);?>" alt="<?php echo (isset($o->imie)) ? $o->imie : json_decode($o->json)->imie;?> - <?php echo (isset($o->stanowisko)) ? $o->stanowisko : json_decode($o->json)->stanowisko;?>"><?php } ?>
+                <h3><?php echo (isset($o->imie)) ? $o->imie : json_decode($o->json)->imie;?></h3>
+                <p class="mb-3"><i><?php echo (isset($o->stanowisko)) ? $o->stanowisko : json_decode($o->json)->stanowisko;?></i></p>
             </div>
         </div>
     </div>

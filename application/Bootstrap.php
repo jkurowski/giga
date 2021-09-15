@@ -12,10 +12,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             } catch( Exception $e ) {
                 print_r('Błąd połączenia z bazą');
                 http_response_code(404);
-
-                echo '<pre>';
-                print_r($e);
-                echo '</pre>';
+//
+//                echo '<pre>';
+//                print_r($e);
+//                echo '</pre>';
 
                 die;
             }
@@ -47,9 +47,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$this->bootstrap('frontcontroller');
 		$frontController = Zend_Controller_Front::getInstance();
 		$frontController->registerPlugin(new Zend_Controller_Plugin_ErrorHandler(array(
-				'module' => 'default',
-				'controller' => 'error',
-				'action' => 'error'
+            'language'   => 'pl',
+            'module' => 'default',
+            'controller' => 'error',
+            'action' => 'error'
 		)));
 
 		// Konfiguracja bazy danych
@@ -65,22 +66,68 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$db->setFetchMode(Zend_Db::FETCH_OBJ);
 		$db->query("SET NAMES 'utf8'");
 	    Zend_Registry::set('db', $db);
+        Zend_Locale::setDefault('pl');
+        Zend_Registry::set('Zend_Locale', 'pl_PL');
 
-		$router = $frontController->getRouter();
-		$admin = new Zend_Controller_Router_Route( 'admin/:controller/:action/*',
-                    array(
-                    'module'     => 'admin',
+        $configApp = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'translated');
+        $router = $frontController->getRouter();
+
+        $request = new Zend_Controller_Request_Http();
+        $router->route($request);
+        $controllerName = $request->getParams();
+
+        if($configApp->app->translate) {
+            $lang = new Zend_Controller_Router_Route(':language/',
+                array(
+                    'language' => 'pl',
+                    'module' => 'default'
+                )
+            );
+
+            $pages = new Zend_Controller_Router_Route_Regex('(pl|en|de)/(.*)',
+                array(
+                    'module' => 'default',
+                    'controller' => 'menu',
+                    'action' => 'index',
+                ),
+                array(
+                    1 => 'language',
+                    2 => 'uri'
+                ),
+                '%s/%s'
+            );
+
+            $admin = new Zend_Controller_Router_Route('admin/:controller/:action/*',
+                array(
+                    'language' => 'pl',
+                    'module' => 'admin',
                     'controller' => 'index',
-                    'action'     => 'index'
-                    )
-                );
+                    'action' => 'index'
+                )
+            );
+            $router->addRoute('lang_default', $lang);
+            $router->addRoute('admin', $admin);
+            $router->addRoute('page', $pages);
 
-        try {
-            $route = new Zend_Config_Ini(APPLICATION_PATH . '/configs/route.ini', null);
-        } catch (Zend_Config_Exception $e) {
+        } else {
+            $admin = new Zend_Controller_Router_Route('admin/:controller/:action/*',
+                array(
+                    'module' => 'admin',
+                    'controller' => 'index',
+                    'action' => 'index'
+                )
+            );
+            $router->addRoute('admin', $admin);
         }
-        $router->addConfig($route,'routes');
-		$router->addRoute('admin', $admin);
+//
+//        echo '<pre>';
+//        print_r($controllerName);
+//        echo '</pre>';
+
+        if (!in_array('admin', $controllerName)) {
+            $route = new Zend_Config_Ini(APPLICATION_PATH . '/configs/route.ini', null);
+            $router->addConfig($route, 'routes');
+        }
 
 		Zend_Layout::startMvc(array(
 			'layoutPath' => APPLICATION_PATH . '/layouts/default/',
@@ -100,9 +147,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$helper->setAcl();
 		$frontController->registerPlugin(new kCMS_Controller_Plugin_Acl());
 
-        $router = new Zend_Controller_Router_Rewrite();
-        $request = new Zend_Controller_Request_Http();
-        $router->route($request);
+        if($configApp->app->translate) {
+            $language = new kCMS_Language();
+            $frontController->registerPlugin($language);
+        }
 
 		$layoutModulePlugin = new kCMS_LayoutPlugin();
 		$layoutModulePlugin->registerModuleLayout('admin', APPLICATION_PATH . '/layouts/admin/');

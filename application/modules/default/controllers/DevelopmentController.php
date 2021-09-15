@@ -21,26 +21,31 @@ class Default_DevelopmentController extends kCMS_Site
         $db = Zend_Registry::get('db');
         $db->setFetchMode(Zend_Db::FETCH_OBJ);
 
-        $page = $db->fetchRow($db->select()->from('strony')->where('id = ?', $this->page_id));
+        $pageModel = new Model_MenuModel();
+        $page = $pageModel->getPageById($this->page_id);
 
         if(!$page) {
             errorPage();
         } else {
+            $pageName = (isset($page->nazwa)) ? $page->nazwa : json_decode($page->json)->nazwa;
+            $breadcrumbs = '<li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><b itemprop="item">'.$pageName .'</b><meta itemprop="position" content="2" /></li>';
 
-            $inwestycje = $db->fetchAll($db->select()->from('inwestycje')->order('sort ASC'));
+            //$inwestycje = $db->fetchAll($db->select()->from('inwestycje')->order('sort ASC'));
+
+            $investmentModel = new Model_InvestmentModel();
+            $inwestycje = $investmentModel->getAll();
 
             $array = array(
-                'strona_nazwa' => $page->nazwa,
-                'strona_h1' => $page->nazwa,
-                'strona_tytul' => ' - '.$page->nazwa,
-                'seo_tytul' => $page->meta_tytul,
-                'seo_opis' => $page->meta_opis,
-                'seo_slowa' => $page->meta_slowa,
+                'pageclass' => ' covid',
                 'strona_id' => $this->page_id,
-                'strona' => $page,
-                'menutag' => 'oferta',
-                'inwestycje' => $inwestycje,
-                'pageclass' => $this->page_class
+                'strona_h1' => $pageName,
+                'strona_tytul' => ' - '.$pageName,
+                'seo_tytul' => (isset($page->meta_tytul)) ? $page->meta_tytul : json_decode($page->json)->meta_tytul,
+                'seo_opis' => (isset($page->meta_opis)) ? $page->meta_opis : json_decode($page->json)->meta_opis,
+                'seo_slowa' => (isset($page->meta_slowa)) ? $page->meta_slowa : json_decode($page->json)->meta_slowa,
+                'content' => (isset($page->tekst)) ? $page->tekst : json_decode($page->json)->tekst,
+                'breadcrumbs' => $breadcrumbs,
+                'inwestycje' => $inwestycje
             );
             $this->view->assign($array);
 

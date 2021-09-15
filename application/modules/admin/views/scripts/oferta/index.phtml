@@ -11,10 +11,11 @@
                 <thead>
                 <tr>
                     <th width="20%">Nazwa</th>
-                    <th width="20%">Miejsce</th>
+                    <th width="10%">Miejsce</th>
                     <th width="30%">Tekst</th>
                     <th width="20%">Plik</th>
                     <th width="10%"></th>
+                    <?php if($this->canbetranslate){?><th width="10%"></th><?php } ?>
                 </tr>
                 </thead>
                 <tbody class="content">
@@ -28,6 +29,13 @@
                             <a href="<?=$this->baseUrl;?>/admin/oferta/edytuj/id/<?=$this->escape($p->id);?>/" class="actionBtn tip btnEdit" title="Edytuj"></a>
                             <a href="<?=$this->baseUrl;?>/admin/oferta/usun/id/<?=$this->escape($p->id);?>/" class="actionBtn tip btnDelete confirm" title="Usuń"></a>
                         </td>
+                        <?php if($this->canbetranslate){?>
+                            <td class="right">
+                                <?php foreach($this->langs as $l) { ?>
+                                    <a href="<?=$this->baseUrl();?>/admin/oferta/tlumaczenie/id/<?=$this->escape($p->id);?>/lang/<?=$this->escape($l->kod);?>/" class="actionBtn tip" title="Edytuj tłumaczenie: <?=$this->escape($l->nazwa);?>"><img src="<?=$this->baseUrl();?>/public/gfx/flags/<?=$this->escape($l->flaga);?>"></a>
+                                <?php } ?>
+                            </td>
+                        <?php } ?>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>

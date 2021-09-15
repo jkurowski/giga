@@ -1,17 +1,17 @@
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <?=replace($this->wpis->tekst); ?>
+            <?php echo (isset($this->wpis->tekst)) ? $this->wpis->tekst : json_decode($this->wpis->json)->tekst;?>
         </div>
     </div>
 
     <div class="row pt-5 mt-4">
-        <?php foreach($this->boksy as $b) {?>
+        <?php foreach($this->boksy as $o) {?>
             <div class="mb-4 mb-lg-0 col-12 col-lg-4">
                 <div class="rozwoj-boks">
                     <div class="rozwoj-boks-entry">
-                        <h2 class="mt-0"><a href="<?=$this->baseUrl;?>/zrownowazony-rozwoj/<?=$b->slug;?>/"><?=$b->nazwa;?></a></h2>
-                        <a href="<?=$this->baseUrl;?>/zrownowazony-rozwoj/<?=$b->slug;?>/" class="bttn mb-0">CZYTAJ WIĘCEJ</a>
+                        <h2 class="mt-0"><a href="<?=$this->baseUrl;?>/<?=$this->lang;?>/zrownowazony-rozwoj/<?=$o->slug;?>/"><?php echo (isset($o->nazwa)) ? $o->nazwa : json_decode($o->json)->nazwa;?></a></h2>
+                        <a href="<?=$this->baseUrl;?>/<?=$this->lang;?>/zrownowazony-rozwoj/<?=$o->slug;?>/" class="bttn mb-0"><?=$this->translate('tl_zobacz_więcej');?></a>
                     </div>
                 </div>
             </div>

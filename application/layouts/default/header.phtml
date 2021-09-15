@@ -6,30 +6,42 @@
 					<div class="col-12">
 						<nav class="navbar">
 							<ul class="text-center list-unstyled m-0 d-block d-lg-flex w-100 justify-content-start justify-content-lg-center">
-								<li class="o-nas-li"><a href="<?=$this->baseUrl;?>/o-nas/" class="animate100<?=$this->activeMenu('o-nas', $this->menutag);?>">O NAS</a>
+								<li class="o-nas-li"><a href="<?=$this->baseUrl;?>/<?=$this->lang;?>/o-nas/" class="animate100<?=$this->activeMenu('o-nas', $this->menutag);?>"><?=$this->translate('tl_menu_onas');?></a>
                                     <ul class="submenu list-unstyled mb-0">
-                                        <li><a href="<?=$this->baseUrl;?>/zrownowazony-rozwoj/">ZRÓWNOWAŻONY ROZWÓJ</a></li>
+                                        <li><a href="<?=$this->baseUrl;?>/<?=$this->lang;?>/zrownowazony-rozwoj/"><?=$this->translate('tl_menu_rozwoj');?></a></li>
                                     </ul>
                                 </li>
-								<li><a href="<?=$this->baseUrl;?>/misja-i-wartosci/" class="animate100<?=$this->activeMenu('misja-i-wartosci', $this->menutag);?>">MISJA I WARTOŚCI</a></li>
-								<li><a href="<?=$this->baseUrl;?>/realizacje/" class="animate100<?=$this->activeMenu('realizacje', $this->menutag);?>">REALIZACJE</a></li>
-                                <li id="logo"><a href="<?=$this->baseUrl;?>/"><img src="<?=$this->gfxUrl();?>/logo.png" alt="<?= $this->header->nazwa; ?>"></a></li>
-								<li class="o-nas-li"><a href="<?=$this->baseUrl;?>/oferta/" class="animate100<?=$this->activeMenu('oferta', $this->menutag);?>">OFERTA</a>
+								<li><a href="<?=$this->baseUrl;?>/<?=$this->lang;?>/misja-i-wartosci/" class="animate100<?=$this->activeMenu('misja-i-wartosci', $this->menutag);?>"><?=$this->translate('tl_menu_misja');?></a></li>
+								<li><a href="<?=$this->baseUrl;?>/<?=$this->lang;?>/realizacje/" class="animate100<?=$this->activeMenu('realizacje', $this->menutag);?>"><?=$this->translate('tl_menu_realizacje');?></a></li>
+                                <li id="logo"><a href="<?=$this->baseUrl;?>/<?= ($this->lang == 'pl') ? '' : 'en/';?>"><img src="<?=$this->gfxUrl();?>/logo.png" alt="<?= $this->header->nazwa; ?>"></a>
+
+                                <div class="lang">
+                                    <ul class="d-flex lang-list list-unstyled">
+                                        <?php foreach($this->langs as $l) { ?>
+                                            <li<?php if($this->lang == $l['kod']){?> class="active"<?php } ?>>
+                                                <a href="<?php echo urldecode($this->switchLang($this->escape($l['kod'])));?>" id="<?= $this->escape($l['kod']);?>"><img src="<?=$this->baseUrl;?>/public/gfx/flags/<?= $l['kod'];?>.png" alt="<?= $l['nazwa'];?>"></a>
+                                            </li>
+                                        <?php } ?>
+                                    </ul>
+                                </div>
+
+                                </li>
+								<li class="o-nas-li"><a href="<?=$this->baseUrl;?>/<?=$this->lang;?>/oferta/" class="animate100<?=$this->activeMenu('oferta', $this->menutag);?>"><?=$this->translate('tl_menu_oferta');?></a>
                                     <ul class="submenu list-unstyled mb-0">
-                                        <li><a href="<?=$this->baseUrl;?>/oferta/giga-development/">GIGA DEVELOPMENT</a></li>
-                                        <li><a href="<?=$this->baseUrl;?>/oferta/giga-rental/">GIGA RENTAL</a></li>
-                                        <li><a href="<?=$this->baseUrl;?>/oferta/giga-construction/">GIGA CONSTRUCTION</a></li>
+                                        <li><a href="<?=$this->baseUrl;?>/<?=$this->lang;?>/oferta/giga-development/">GIGA DEVELOPMENT</a></li>
+                                        <li><a href="<?=$this->baseUrl;?>/<?=$this->lang;?>/oferta/giga-rental/">GIGA RENTAL</a></li>
+                                        <li><a href="<?=$this->baseUrl;?>/<?=$this->lang;?>/oferta/giga-construction/">GIGA CONSTRUCTION</a></li>
                                     </ul>
                                 </li>
 								<li>
-                                    <a href="<?=$this->baseUrl;?>/aktualnosci/" class="animate100<?=$this->activeMenu('aktualnosci', $this->menutag);?>">AKTUALNOŚCI</a>
+                                    <a href="<?=$this->baseUrl;?>/<?=$this->lang;?>/aktualnosci/" class="animate100<?=$this->activeMenu('aktualnosci', $this->menutag);?>"><?=$this->translate('tl_menu_aktualnosci');?></a>
                                     <ul class="submenu list-unstyled mb-0">
-                                        <li><a href="<?=$this->baseUrl;?>/reakcja-na-covid/">Reakcja na COVID</a></li>
+                                        <li><a href="<?=$this->baseUrl;?>/<?=$this->lang;?>/reakcja-na-covid/"><?=$this->translate('tl_menu_covid');?></a></li>
                                     </ul>
                                 </li>
-								<li><a href="<?=$this->baseUrl;?>/kontakt/" class="animate100<?=$this->activeMenu('kontakt', $this->menutag);?>">KONTAKT</a></li>
+								<li><a href="<?=$this->baseUrl;?>/<?=$this->lang;?>/kontakt/" class="animate100<?=$this->activeMenu('kontakt', $this->menutag);?>"><?=$this->translate('tl_menu_kontakt');?></a></li>
 							</ul>
-                            <?php $menu = Zend_Registry::get('querymenu'); //$menu->get_menu_html(0); ?>
+                            <?php $menu = Zend_Registry::get('mainmenu'); //$menu->get_menu_html(0); ?>
 						</nav>	
 						<div class="mobilemenu"><a href="#" id="triggermenu">MENU</a></div>
 					</div>

@@ -65,7 +65,7 @@ var hours=Digital.getHours()
 var minutes=Digital.getMinutes()
 var seconds=Digital.getSeconds()
 var dn=""
-if (hours==0)
+if (hours===0)
 hours=12
 if (minutes<=9)
 minutes="0"+minutes
@@ -87,7 +87,7 @@ window.onload=show5
  //-->
 </script> </li>
 				<li><?= $this->loggedInAs(); ?></li>
-<?php if($this->user->role == "admin") { ?><li><a title="Ustawienia" href="<?=$this->baseUrl;?>/admin/ustawienia/"><span class="fa u-ustawienia"></span> Ustawienia</a></li><?php } ?>
+                <li><a title="Ustawienia" href="<?=$this->baseUrl;?>/admin/ustawienia/"><span class="fa u-ustawienia"></span> Ustawienia</a></li>
 				<li><a title="Idź do strony" href="<?= $this->baseUrl;?>/" target="_blank"><span class="fa u-idzdo"></span> Idź do strony</a></li>
 				<li><a title="Wyloguj" href="<?= $this->baseUrl;?>/admin/wyloguj/"><span class="fa u-wyloguj"></span> Wyloguj</a></li>
 			</ul>

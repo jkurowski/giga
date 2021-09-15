@@ -10,12 +10,13 @@
 			<table width="100%" cellspacing="0" cellpadding="0" class="adm" id="sortable">
 				<thead>
 					<tr>
-						<th width="50%">Nazwa</th>
-						<th width="5%">Pozycja</th>
-						<th width="10%">Typ</th>
-						<th width="5%">Status</th>
-						<th width="20%">Data modyfikacji</th>
-						<th width="10%"></th>
+                        <th width="50%">Nazwa</th>
+                        <th width="5%" class="center">Pozycja</th>
+                        <th width="10%" class="center">Typ</th>
+                        <th width="5%" class="center">Status</th>
+                        <th width="10%" class="center">Data modyfikacji</th>
+                        <th width="10%"></th>
+                        <?php if($this->canbetranslate){?><th width="10%"></th><?php } ?>
 					</tr>
 				</thead>
 				<tbody class="content">

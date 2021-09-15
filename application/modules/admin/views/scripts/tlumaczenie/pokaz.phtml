@@ -1,0 +1,42 @@
+<div class="title"><h1><?=$this->controlname;?> - <?=$this->pagename;?></h1></div>
+<div class="row-fluid">
+	<div class="span12">
+		<div class="widget">
+			<div class="table-footer">
+				<a href="<?=$this->baseUrl();?>/admin/tlumaczenie/dodaj-wpis/lang/<?= $this->lang;?>/" class="button greyishBtn">Dodaj tłumacznie</a>
+				<a href="<?=$this->baseUrl();?>/admin/tlumaczenie/" class="button greyishBtn">Wróć do listy języków</a>
+			</div>
+			<div class="table-header"><form action="" id="filter-form">
+			<label>
+			<span>Szukaj:</span><input type="text" size="30" maxlength="30" value="" id="filter" name="filter" />
+			</label>
+			</form></div>
+			<table width="100%" cellspacing="0" cellpadding="0" class="tableStatic adm" id="sortable">
+				<thead>
+					<tr>
+						<th width="5%" style="text-align:center">ID</th>
+						<th width="20%">Tag</th>
+						<th width="70%">Tłumaczenie</th>
+						<th width="5%"></th>
+					</tr>
+				</thead>
+				<tbody class="content">
+			<?php foreach($this->slownik as $slownik) : ?>
+					<tr>
+					<td class="center"><?= $this->escape($slownik->id);?></td>
+					<td><?= $this->escape($slownik->keyword);?></td>
+					<td><?= $this->escape($slownik->word);?></td>
+					<td class="center">
+					<a href="<?=$this->baseUrl();?>/admin/tlumaczenie/edytuj-wpis/id/<?= $this->escape($slownik->id);?>/lang/<?= $this->lang;?>/" class="actionBtn tip btnEdit" title="Edytuj">
+					</td>
+					</tr>
+			<?php endforeach; ?>
+				</tbody>
+			</table>
+			<div class="table-footer">
+				<a href="<?=$this->baseUrl();?>/admin/tlumaczenie/dodaj-wpis/lang/<?= $this->lang;?>/" class="button greyishBtn">Dodaj tłumacznie</a>
+				<a href="<?=$this->baseUrl();?>/admin/tlumaczenie/" class="button greyishBtn">Wróć do listy języków</a>
+			</div>
+		</div>
+	</div>
+</div>

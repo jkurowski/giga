@@ -10,7 +10,7 @@ class Default_InlineController extends kCMS_Site
         $lang = $this->getRequest()->getParam('language');
 
         $inlineModel = new Model_InlineModel();
-        $inline = $inlineModel->get($id);
+        $inline = $inlineModel->getInlineItem($id);
 
         if(!$inline){
             $responseArray = array(

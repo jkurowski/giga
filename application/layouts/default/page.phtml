@@ -8,26 +8,26 @@
 <?php if($this->seo_tytul) {?>
 	<title><?= $this->seo_tytul; ?></title>
 <?php } else { ?>
-	<title><?= $this->header->nazwa; ?><?= $this->strona_tytul; ?></title>
+	<title><?= $this->header['nazwa']; ?><?= $this->strona_tytul; ?></title>
 <?php } ?>
 <?php if($this->seo_opis) {?>
 	<meta name="description" content="<?= $this->seo_opis; ?>">
 <?php } else { ?>
-	<meta name="description" content="<?= $this->header->opis; ?>">
+	<meta name="description" content="<?= $this->header['opis']; ?>">
 <?php } ?>
 <?php if($this->seo_slowa) {?>
 	<meta name="keywords" content="<?= $this->seo_slowa; ?>">
 <?php } else { ?>
-	<meta name="keywords" content="<?= $this->header->klucze; ?>">
+	<meta name="keywords" content="<?= $this->header['klucze']; ?>">
 <?php } ?>
-<?php if($this->header->autor){?>
-	<meta name="author" content="<?= $this->header->autor; ?>">
+<?php if($this->header['autor']){?>
+	<meta name="author" content="<?= $this->header['autor']; ?>">
 <?php } ?>
 <?php if($this->nofollow == 1) {?>
 	<meta name="robots" content="noindex, nofollow">
 	<!-- Wyłączone z akcji -->
 <?php } else { ?>
-	<meta name="robots" content="<?= $this->header->robots; ?>">
+	<meta name="robots" content="<?= $this->header['robots']; ?>">
 <?php } ?>
 <?php if($this->canonical) {?>
 	<meta name="canonical" content="<?=$this->canonical;?>">
@@ -61,7 +61,7 @@
 	<script src="<?=$this->baseUrl; ?>/public/js/bootstrap.min.js" charset="utf-8"></script>
     <script src="<?=$this->baseUrl; ?>/public/js/main.js" charset="utf-8"></script>
 	
-	<?php echo $this->header->head; ?>
+	<?php echo $this->header['head']; ?>
 
 	<?= getRecaptchaBody(); ?>
 </head>
@@ -81,11 +81,11 @@
                         <ul class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
                             <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
                                 <a itemprop="item" href="<?=$this->baseUrl;?>/">
-                                    <span itemprop="name">Strona główna</span>
+                                    <span itemprop="name"><?=$this->translate('tl_homepage');?></span>
                                 </a>
                                 <meta itemprop="position" content="1" /></li>
                             <li class="sep"></li>
-                            <?php $menu = Zend_Registry::get('querymenu'); if($this->breadcrumbs) {
+                            <?php $menu = Zend_Registry::get('mainmenu'); if($this->breadcrumbs) {
                                 echo $this->breadcrumbs;
                             } else {
                                 echo $menu->breadcrumbs($this->strona_id);
@@ -147,7 +147,7 @@
 	});
 	</script>
 
-	<?= $this->header->footer; ?>
+	<?= $this->header['footer']; ?>
 
     <?php if(Zend_Auth::getInstance()->hasIdentity()){?>
         <?=$this->render('inline/inline.phtml') ?>

@@ -1,0 +1,39 @@
+<div class="title"><h1><?=$this->controlname;?></h1></div>
+<div class="row-fluid">
+	<div class="span12">
+		<div class="widget">
+			<div class="table-header"><form action="" id="filter-form">
+			<label>
+			<span>Szukaj:</span><input type="text" size="30" maxlength="30" value="" id="filter" name="filter" />
+			</label>
+			</form></div>
+			<table width="100%" cellspacing="0" cellpadding="0" class="tableStatic adm" id="sortable">
+				<thead>
+					<tr>
+						<th width="5%" style="text-align:center">ID</th>
+						<th width="50%">Język</th>
+						<th width="10%">Kod ISO 639-1</th>
+						<th width="10%" style="text-align:center">Status</th>
+						<th width="15%"></th>
+					</tr>
+				</thead>
+				<tbody class="content">
+			<?php foreach($this->jezyk as $jezyk) : ?>
+					<tr>
+					<td class="center"><?= $this->escape($jezyk->id);?></td>
+					<td><?= $this->escape($jezyk->nazwa);?></td>
+					<td><?= $this->escape($jezyk->kod);?></td>
+					<td class="center"><?=status($jezyk->status);?></td>
+					<td class="right">
+					<a href="<?=$this->baseUrl();?>/admin/tlumaczenie/edytuj/id/<?= $this->escape($jezyk->id);?>/" class="actionBtn tip btnEdit" title="Edytuj"></a> <!--<a href="<?=$this->baseUrl();?>/admin/tlumaczenie/usun/id/<?= $this->escape($jezyk->id);?>/" class="actionBtn tip btnDelete confirm" title="Usuń"></a>--> <a href="<?=$this->baseUrl();?>/admin/tlumaczenie/pokaz/lang/<?= $this->escape($jezyk->kod);?>/" class="actionBtn tip btnCatalog" title="Pokaż słownik"></a>
+					</td>
+					</tr>
+			<?php endforeach; ?>
+				</tbody>
+			</table>
+			<!--<div class="table-footer">
+				<a href="<?=$this->baseUrl();?>/admin/tlumaczenie/dodaj/" class="button greyishBtn">Dodaj nowy język</a>
+			</div>-->
+		</div>
+	</div>
+</div>

@@ -13,10 +13,12 @@ class Default_IndexController extends kCMS_Site
         $db = Zend_Registry::get('db');
         $db->setFetchMode(Zend_Db::FETCH_OBJ);
 
-        $offer = $db->fetchAll($db->select()->from('oferta')->where('place_id =?', 1)->order('sort ASC'));
+        $offerModel = new Model_OfferModel();
+        $offer = $offerModel->getAll(1);
 
         $slider = $db->fetchAll($db->select()->from('slider')->order('sort ASC'));
         $slider_ustawienia = $db->fetchRow($db->select()->from('slider_ustawienia'));
+
         $array = array(
             'inline' => $this->inlineModel->getInlineList(1),
             'offer' => $offer,

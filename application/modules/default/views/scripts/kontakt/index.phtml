@@ -4,55 +4,55 @@
             <div class="row">
                 <div class="col-12 col-lg-4 col-text">
                     <h3 class="mt-0">Giga Sp. z o. o.</h3>
-                    <?=$this->strona->tekst;?>
+                    <?=$this->content; ?>
                 </div>
                 <div class="col-12 col-lg-8 col-form">
                     <div class="row">
                         <?php if($this->message == 1) :?>
                         <div id="formalert" class="col-12">
-                            <div class="sendok mb-4"><p>Twoja wiadomość została wysłana. W najbliższym czasie skontaktujemy się z Państwem celem omówienia szczegółów!</p></div>
+                            <div class="sendok mb-4"><p><?=$this->translate('tl_form_sendok');?></p></div>
                         </div>
                         <?php endif; ?>
                         <?php if($this->message == 2) :?>
                         <div id="formalert" class="col-12">
-                            <div class="senderror mb-4"><p>Uzupełnij wszystkie wymagane pola!</p></div>
+                            <div class="senderror mb-4"><p><?=$this->translate('tl_form_required');?></p></div>
                         </div>
                         <?php endif; ?>
                     </div>
                     <form method="post" action="" class="validateForm">
                         <div class="row">
                             <div class="col-12 col-md-4 col-input mt-4 mt-md-2">
-                                <label for="form_imie">Imię lub nazwa firmy</label>
+                                <label for="form_imie"><?=$this->translate('tl_form_imie');?></label>
                                 <input name="imie" id="form_imie" type="text" class="validate[required]" data-prompt-position="topLeft:0" required>
                             </div>
                             <div class="col-12 col-md-4 col-input mt-4 mt-md-2">
-                                <label for="form_email">E-mail</label>
+                                <label for="form_email"><?=$this->translate('tl_form_email');?></label>
                                 <input name="email" id="form_email" class="validate[required]" type="text" data-prompt-position="topLeft:0" required>
                             </div>
                             <div class="col-12 col-md-4 col-input mt-4 mt-md-2">
-                                <label for="form_telefon">Telefon</label>
+                                <label for="form_telefon"><?=$this->translate('tl_form_telefon');?></label>
                                 <input name="telefon" id="form_telefon" class="validate[required]" type="text" data-prompt-position="topLeft:0" required>
                             </div>
                             <div class="col-12 mt-4">
-                                <label for="form_wiadomosc">Treść wiadomości</label>
+                                <label for="form_wiadomosc"><?=$this->translate('tl_form_tresc');?></label>
                                 <textarea rows="1" cols="1" name="wiadomosc" id="form_wiadomosc"></textarea>
                             </div>
                             <div class="col-12 obowiazek">
-                                <?=$this->rodo->obowiazek;?>
+                                <?=$this->rodo['obowiazek'];?>
                             </div>
 
                             <div class="col-12">
-                                <?php foreach($this->regulki as $regulka){?>
+                                <?php foreach($this->rodo_rules as $regulka){?>
                                     <div class="regulki">
                                         <input
-                                        name="zgoda_<?=$regulka->id;?>"
-                                        id="zgoda_<?=$regulka->id;?>"
+                                        name="zgoda_<?=$regulka['id'];?>"
+                                        id="zgoda_<?=$regulka['id'];?>"
                                         value="1"
                                         type="checkbox"
-                                        <?php if($regulka->wymagane == 1){;?>class="validate[required]" required<?php } ?>
+                                        <?php if($regulka['wymagane'] == 1){;?>class="validate[required]" required<?php } ?>
                                         data-prompt-position="topLeft:0"
                                         >
-                                        <label for="zgoda_<?=$regulka->id;?>" class="rules-text"><?=$regulka->tresc;?></label>
+                                        <label for="zgoda_<?=$regulka['id'];?>" class="rules-text"><?=$regulka['tresc'];?></label>
                                     </div>
                                 <?php } ?>
                             </div>
@@ -62,7 +62,7 @@
                                 <div class="input">
                                     <?=getRecaptchaForm('kontakt');?>
                                     <script type="text/javascript">
-                                        document.write("<button type=\"submit\" class=\"bttn\">WYŚLIJ WIADOMOŚĆ</button>");
+                                        document.write("<button type=\"submit\" class=\"bttn\"><?=$this->translate('tl_form_wyslij');?></button>");
                                     </script>
                                     <noscript><p><b>Do poprawnego działania, Java musi być włączona.</b><p></noscript>
                                 </div>
@@ -74,4 +74,4 @@
         </div>
 	</div>
 </div>
-<div id="kontaktMap"><?= $this->header->kontakt_map; ?></div>
+<div id="kontaktMap"><?= $this->header['kontakt_map']; ?></div>

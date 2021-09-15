@@ -199,7 +199,7 @@ class Admin_SliderController extends kCMS_Admin
 				if ($form->isValid($formData)) {
 
                     $db->update('slider_ustawienia', $formData, 'id = 1');
-                    $this->_redirect('/admin/slider/ustawienia/');
+                    $this->redirect('/admin/slider/ustawienia/');
 
 				}
 

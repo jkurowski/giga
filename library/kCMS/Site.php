@@ -5,20 +5,56 @@ abstract class kCMS_Site extends Zend_Controller_Action {
     public function init() {
 		$front = Zend_Controller_Front::getInstance();
         $request = $front->getRequest();
-		$this->view->action = $request->getActionName();
-		$this->view->controller = $request->getControllerName();
-		$this->view->user = Zend_Auth::getInstance()->getIdentity();
-	
-        $this->view->baseUrl = $this->baseUrl = $this->_request->getBaseUrl();
-		$db = Zend_Registry::get('db');
 
-		$this->view->header = $db->fetchRow($db->select()->from('ustawienia'));
-				
-		$this->view->rodo = $db->fetchRow($db->select()->from('rodo_ustawienia')->where('id =?', 1));
-		$this->view->regulki = $db->fetchAll($db->select()->from('rodo_regulki')->order('sort ASC')->where('status = ?', 1));
+        try {
+            $db = Zend_Registry::get('db');
+        } catch (Zend_Exception $e) {
 
-		$menu = new kCMS_MenuBuilder();
-		Zend_Registry::set('querymenu', $menu);
+        }
+
+        $front = Zend_Controller_Front::getInstance();
+        $request = $front->getRequest();
+
+        $configApp = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'translated');
+        if($configApp->app->translate) {
+            $locale = Zend_Registry::get('Zend_Locale')->getLanguage();
+            $this->canbetranslate = 1;
+            Zend_Registry::set('canbetranslate', 1);
+        } else {
+            $locale = '';
+            $this->canbetranslate = 0;
+            Zend_Registry::set('canbetranslate', 0);
+        }
+
+        $mainmenu = new kCMS_MenuBuilder();
+        Zend_Registry::set('mainmenu', $mainmenu);
+
+        $header = $db->fetchRow($db->select()->from('ustawienia'));
+        $langs = $db->fetchAll($db->select()->from('tlumaczenie')->order( 'id ASC' )->where('status =?', 1));
+        $rodo = $db->fetchRow($db->select()->from('rodo_ustawienia')->where('id =?', 1));
+        $rodo_rules = $db->fetchAll($db->select()->from('rodo_regulki')->order('sort ASC')->where('status = ?', 1));
+
+        foreach($langs as $l) {
+            if($l['kod'] == $locale) {
+                $this->view->main_meta_tytul = $l['meta_tytul'];
+                $this->view->main_meta_slowa = $l['meta_slowa'];
+                $this->view->main_meta_opis = $l['meta_opis'];
+                $this->view->obowiazek = $l['obowiazek'];
+                $this->view->footer_about = $l['stopka'];
+            }
+        }
+
+        $sitearray = array(
+            'header' => $header,
+            'langs' => $langs,
+            'lang' => $locale,
+            'rodo' => $rodo,
+            'canbetranslate' => $this->canbetranslate,
+            'rodo_rules' => $rodo_rules,
+            'current_action' => $request->getActionName(),
+            'current_controller' => $request->getControllerName()
+        );
+        $this->view->assign($sitearray);
 
 		function zlotowka($value) {
 			$value = str_replace('zĹ‚', 'zł', trim($value));

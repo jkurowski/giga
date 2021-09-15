@@ -154,6 +154,65 @@ class Admin_BoksyController extends kCMS_Admin
         $this->_redirect('/admin/boksy/');
     }
 
+// Edytuj języki
+    public function tlumaczenieAction() {
+        $db = Zend_Registry::get('db');
+        $this->_helper->viewRenderer('form', null, true);
+
+        // Odczytanie id
+        $id = (int)$this->getRequest()->getParam('id');
+        $lang = $this->getRequest()->getParam('lang');
+        if(!$id || !$lang){
+            $this->redirect('/admin/boksy/');
+        }
+        $wpis = $db->fetchRow($db->select()->from('boksy')->where('id = ?', $id));
+
+        $tlumaczenieQuery = $db->select()
+            ->from('tlumaczenie_wpisy')
+            ->where('module = ?', 'boxes')
+            ->where('id_wpis = ?', $id)
+            ->where('lang = ?', $lang);
+        $tlumaczenie = $db->fetchRow($tlumaczenieQuery);
+
+        // Laduj form
+        $form = new Form_BoksForm();
+        $form->removeElement('obrazek');
+        $this->view->tinymce = "1";
+
+        $array = array(
+            'form' => $form,
+            'back' => '<div class="back"><a href="'.$this->view->baseUrl().'/admin/boksy/">Wróć do listy</a></div>',
+            'pagename' => ' - Edytuj tłumaczenie: '.$wpis->nazwa
+        );
+        $this->view->assign($array);
+
+        if($tlumaczenie) {
+            $array = json_decode($tlumaczenie->json, true);
+            $form->populate($array);
+        }
+
+        //Akcja po wcisnieciu Submita
+        if ($this->_request->getPost()) {
+
+            $formData = $this->_request->getPost();
+
+            //Sprawdzenie poprawnosci forma
+            if ($form->isValid($formData)) {
+
+                $translateModel = new Model_TranslateModel();
+                $translateModel->saveTranslate($formData, 'boxes', $wpis->id, $lang);
+                $this->redirect('/admin/boksy/');
+
+            } else {
+
+                //Wyswietl bledy
+                $this->view->message = '<div class="error">Formularz zawiera błędy</div>';
+                $form->populate($formData);
+
+            }
+        }
+    }
+
 // Ustaw kolejność
     public function ustawAction() {
         $db = Zend_Registry::get('db');

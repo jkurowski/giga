@@ -1,16 +1,16 @@
 <div class="container">
-    <?=replace($this->strona->tekst); ?>
+    <?= $this->content; ?>
 
     <?php foreach($this->inwestycje as $i) { ?>
     <div class="row pt-3 pt-md-5 mt-3 mt-md-5 giga-invest-row">
         <div class="col-12 col-lg-7 pr-3 pr-lg-4">
-            <img src="<?=$this->filesUrl();?>/inwestycje/<?=$this->escape($i->plik);?>" alt="<?=$this->escape($i->nazwa);?>">
+            <img src="<?=$this->filesUrl();?>/inwestycje/<?=$this->escape($i->plik);?>" alt="<?php echo (isset($i->nazwa)) ? $i->nazwa : json_decode($i->json)->nazwa;?>">
         </div>
         <div class="col-12 col-lg-5 d-flex align-items-center">
             <div class="giga-invest">
-                <h2><?=$this->escape($i->nazwa);?></h2>
-                <?=$i->tekst;?>
-                <a href="<?=$this->escape($i->link);?>" class="bttn mb-0 mt-3">ZOBACZ STRONĘ WWW</a>
+                <h2><?php echo (isset($i->nazwa)) ? $i->nazwa : json_decode($i->json)->nazwa;?></h2>
+                <?php echo (isset($i->tekst)) ? $i->tekst : json_decode($i->json)->tekst;?>
+                <a href="<?=$this->escape($i->link);?>" class="bttn mb-0 mt-3"><?=$this->translate('tl_zobacz_www');?></a>
             </div>
         </div>
     </div>

@@ -17,8 +17,9 @@
             <table width="100%" cellspacing="0" cellpadding="0" class="tableStatic adm" id="sortable">
                 <thead>
                 <tr>
-                    <th width="90%">Nazwa</th>
+                    <th width="80%">Nazwa</th>
                     <th width="10%"></th>
+                    <?php if($this->canbetranslate){?><th width="10%"></th><?php } ?>
                 </tr>
                 </thead>
                 <tbody class="content">
@@ -29,6 +30,13 @@
                             <a href="<?=$this->baseUrl;?>/admin/realizacje/edytuj/id/<?=$this->escape($news->id);?>/" class="actionBtn tip btnEdit" title="Edytuj wpis"></a>
                             <a href="<?=$this->baseUrl;?>/admin/realizacje/usun/id/<?=$this->escape($news->id);?>/" class="actionBtn tip btnDelete confirm" title="Usuń wpis"></a>
                         </td>
+                        <?php if($this->canbetranslate){?>
+                            <td class="right">
+                                <?php foreach($this->langs as $l) { ?>
+                                    <a href="<?=$this->baseUrl();?>/admin/realizacje/tlumaczenie/id/<?=$this->escape($news->id);?>/lang/<?=$this->escape($l->kod);?>/" class="actionBtn tip" title="Edytuj tłumaczenie: <?=$this->escape($l->nazwa);?>"><img src="<?=$this->baseUrl();?>/public/gfx/flags/<?=$this->escape($l->flaga);?>"></a>
+                                <?php } ?>
+                            </td>
+                        <?php } ?>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>

@@ -5,10 +5,13 @@ class Default_KonsorcjumController extends kCMS_Site
     private $page_class;
     private $page_id;
     private $inlineModel;
+    private $meta_title;
+    private $meta_slowa;
+    private $meta_opis;
 
     public function preDispatch() {
         $this->page_id = 6;
-        $this->page_class = '';
+        $this->page_class = 'konsorcjum';
         $this->inlineModel = new Model_InlineModel();
     }
 
@@ -23,17 +26,6 @@ class Default_KonsorcjumController extends kCMS_Site
             errorPage();
         } else {
 
-//            $array = array(
-//                'strona_nazwa' => $page->nazwa,
-//                'strona_h1' => $page->nazwa,
-//                'strona_tytul' => ' - '.$page->nazwa,
-//                'seo_tytul' => $page->meta_tytul,
-//                'seo_opis' => $page->meta_opis,
-//                'seo_slowa' => $page->meta_slowa,
-//                'strona_id' => $this->page_id,
-//                'strona' => $page,
-//                'pageclass' => $this->page_class
-//            );
             $array = array(
                 'inline' => $this->inlineModel->getInlineList(2),
                 'strona_nazwa' => 'GIGA Construction',

@@ -2,20 +2,16 @@
 
 class Default_KontaktController extends kCMS_Site
 {
-    /**
-     * @var string
-     */
-    private $page_class;
-    /**
-     * @var int
-     */
-    private $validation;
+
     private $page_id;
+    private $validation;
+    private $meta_title;
+    private $meta_slowa;
+    private $meta_opis;
 
     public function preDispatch() {
         $this->page_id = 1;
-        $this->page_class = ' contact-page';
-        $this->validation = 1;
+        $this->validation= 1;
     }
 
     public function indexAction() {
@@ -23,92 +19,97 @@ class Default_KontaktController extends kCMS_Site
         $db = Zend_Registry::get('db');
         $db->setFetchMode(Zend_Db::FETCH_OBJ);
 
-        $page = $this->view->strona = $db->fetchRow($db->select()->from('strony')->where('id = ?', $this->page_id));
+        $pageModel = new Model_MenuModel();
+        $page = $pageModel->getPageById($this->page_id);
 
         if(!$page) {
-            $request = Zend_Controller_Front::getInstance()->getRequest();
-            $request->setModuleName('default');
-            $request->setControllerName('error');
-            $request->setActionName('error');
-            $this->getResponse()->setHttpResponseCode(404)->setRawHeader('HTTP/1.1 404 Not Found');
-            $this->view->nofollow = 1;
-            $this->view->strona_nazwa = 'Błąd 404';
-            $this->view->seo_tytul = 'Strona nie została znaleziona - błąd 404';
+            errorPage();
         } else {
+            $pageName = (isset($page->nazwa)) ? $page->nazwa : json_decode($page->json)->nazwa;
+            $breadcrumbs = '<li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><b itemprop="item">'.$pageName .'</b><meta itemprop="position" content="2" /></li>';
 
-            $this->view->strona_nazwa = $page->nazwa;
-            $this->view->strona_h1 = $page->nazwa;
-            $this->view->strona_tytul = ' - '.$page->nazwa;
-            $this->view->seo_tytul = $page->meta_tytul;
-            $this->view->seo_opis = $page->meta_opis;
-            $this->view->seo_slowa = $page->meta_slowa;
+            if(isset($page->meta_tytul)) {
+                $this->meta_title = $page->meta_tytul;
+            } elseif (isset(json_decode($page->json)->meta_tytul)) {
+                $this->meta_title = json_decode($page->json)->meta_tytul;
+            }
+            if(isset($page->meta_slowa)) {
+                $this->meta_slowa = $page->meta_slowa;
+            } elseif (isset(json_decode($page->json)->meta_slowa)) {
+                $this->meta_slowa = json_decode($page->json)->meta_slowa;
+            }
+            if(isset($page->meta_opis)) {
+                $this->meta_opis = $page->meta_opis;
+            } elseif (isset(json_decode($page->json)->meta_opis)) {
+                $this->meta_opis = json_decode($page->json)->meta_opis;
+            }
 
-            $this->view->strona_id = $this->page_id;
-            $this->view->validation = $this->validation;
-            $this->view->pageclass = $this->page_class;
-            $this->view->nobottom = 1;
-            $this->view->notop = 1;
-            $this->view->menutag = 'kontakt';
+            $array = array(
+                'nobottom' => 1,
+                'pageclass' => ' kontakt-page',
+                'strona_id' => $this->page_id,
+                'strona_h1' => $pageName,
+                'strona_tytul' => ' - '.$pageName,
+                'seo_tytul' => $this->meta_title,
+                'seo_opis' => $this->meta_opis,
+                'seo_slowa' => $this->meta_slowa,
+                'content' => (isset($page->tekst)) ? $page->tekst : json_decode($page->json)->tekst,
+                'validation' => $this->validation,
+                'breadcrumbs' => $breadcrumbs
+            );
+            $this->view->assign($array);
 
             if ($this->_request->isPost()) {
 
                 $ip = $_SERVER['REMOTE_ADDR'];
                 $adresip = $db->fetchRow($db->select()->from('blokowanie')->where('ip = ?', $ip));
 
-                $formData = $this->_request->getPost();
                 $grecaptcha = $this->_request->getPost('g-recaptcha-response');
-                unset($formData['g-recaptcha-response']);
-                if(getRecaptchaCheck($grecaptcha) === true){
+                // unset($formData['g-recaptcha-response']);
+                //if(getRecaptchaCheck($grecaptcha) === true){
                     if(!$adresip) {
 
-                        if($formData['imie'] && $formData['email'] && $formData['telefon']) {
+                        $formData = $this->_request->getPost();
+                        if($formData['imie'] && $formData['email']) {
 
                             $imie = $this->_request->getPost('imie');
                             $email = $this->_request->getPost('email');
                             $telefon = $this->_request->getPost('telefon');
                             $wiadomosc = $this->_request->getPost('wiadomosc');
-                            $useremail = $this->_request->getPost('useremail');
                             $ip = $_SERVER['REMOTE_ADDR'];
-                            $datadodania = date("d.m.Y - H:i:s");
 
                             $ustawienia = $db->fetchRow($db->select()->from('ustawienia'));
 
-                            if(!$useremail) {
-                                $mail = new Zend_Mail('UTF-8');
-                                $mail
-                                    ->setFrom($ustawienia->email, 'Zapytanie ze strony www')
-                                    ->addTo($ustawienia->email, 'Adres odbiorcy')
-                                    ->setReplyTo($email, $imie)
-                                    ->setSubject($ustawienia->domena.' - Zapytanie ze strony www - Kontakt')
-                                    ->setBodyHTML('
-									<div style="width:550px;border:1px solid #ececec;padding:0 20px;margin:0 auto;font-family:Arial;font-size:14px;line-height:27px">
-									<p style="text-align:center">'.$ustawienia->nazwa.'</p>
-									<p><b>Wiadomość wysłana: '. $datadodania .'</b></p>
-									<hr style="border:0;border-bottom:1px solid #ececec" />
-									<p><b>Imię i nazwisko:</b> '.$imie.'<br />
-									<b>E-mail:</b> '. $email .'<br />
-									<b>Telefon:</b> '. $telefon .'<br />
-									<b>IP:</b> '. $ip .'<br /></p>
-									<hr style="border:0;border-bottom:1px solid #ececec" />
-									<p style="margin-top:0">'. $wiadomosc .'</p>
-									</div>')
-                                    ->setBodyText($ustawienia->nazwa.'
-									Wiadomość wysłana: '. $datadodania .'
-									Imię i nazwisko: '.$imie.'
-									E-mail: '. $email .'
-									Telefon: '. $telefon .'
-									IP: '. $ip .'
+                            $emailarray = array(
+                                'nazwa_strony' => $ustawienia->nazwa,
+                                'imie' => $imie,
+                                'email' => $email,
+                                'telefon' => $telefon,
+                                'wiadomosc' => $wiadomosc,
+                                'ip' => $ip
+                            );
 
-									'. $wiadomosc);
+                            $view = new Zend_View();
+                            $view->setScriptPath( APPLICATION_PATH . '/modules/default/views/scripts/email/' );
+                            $view->assign($emailarray);
 
-                                try {
-                                    $mail->send();
-                                } catch (Zend_Exception $e) {
-                                    //echo $e->getMessage();
-                                    exit;
-                                }
+                            $mail = new Zend_Mail('UTF-8');
+                            $mail
+                                ->setFrom($ustawienia->email, $imie)
+                                ->addTo($ustawienia->email, 'Adres odbiorcy')
+                                ->setReplyTo($email, $imie)
+                                ->setSubject($ustawienia->domena.' - Zapytanie ze strony www - Kontakt');
+                            $mail->setBodyHtml($view->render( 'kontakt.phtml'));
+                            $mail->setBodyText($view->render( 'kontakt-txt.phtml'));
+
+                            try {
+                                $mail->send();
+                            } catch (Zend_Exception $e) {
+                                //echo $e->getMessage();
+                                exit;
                             }
 
+                            //Zapisz statystyki
                             $stat = array(
                                 'akcja' => 1,
                                 'miejsce' => 4,
@@ -118,7 +119,6 @@ class Default_KontaktController extends kCMS_Site
                                 'dzien' => date("d"),
                                 'msc' => date("m"),
                                 'rok' => date("Y"),
-                                'imie' => $imie,
                                 'tekst' => $wiadomosc,
                                 'email' => $email,
                                 'telefon' => $telefon,
@@ -126,6 +126,7 @@ class Default_KontaktController extends kCMS_Site
                             );
                             $db->insert('statystyki', $stat);
 
+                            //Zapisz klienta
                             $formData = $this->_request->getPost();
                             $checkbox = preg_grep("/zgoda_([0-9])/i", array_keys($formData));
                             $przegladarka = $_SERVER['HTTP_USER_AGENT'];
@@ -137,7 +138,7 @@ class Default_KontaktController extends kCMS_Site
                             $this->view->message = 2;
                         }
                     }
-                }
+                //}
             }
         }
     }

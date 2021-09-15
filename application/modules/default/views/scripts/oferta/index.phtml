@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="col-12 pb-5">
-            <?=replace($this->strona->tekst); ?>
+            <?=$this->content; ?>
         </div>
     </div>
 </div>
@@ -12,12 +12,12 @@
             <div class="col-4">
                 <div class="apla d-flex align-items-center justify-content-center">
                     <div class="text-center">
-                        <h3 class="m-0"><?=$this->escape($o->nazwa);?></h3>
-                        <p><?=$this->escape($o->tekst);?></p>
-                        <a href="<?=$this->escape($o->link);?>" class="bttn mb-0">ZOBACZ WIĘCEJ</a>
+                        <h3 class="m-0"><?php echo (isset($o->nazwa)) ? $o->nazwa : json_decode($o->json)->nazwa;?></h3>
+                        <p><?php echo (isset($o->tekst)) ? $o->tekst : json_decode($o->json)->tekst;?></p>
+                        <a href="<?php echo (isset($o->link)) ? $o->link : json_decode($o->json)->link;?>" class="bttn mb-0"><?=$this->translate('tl_zobacz_więcej');?></a>
                     </div>
                 </div>
-                <img src="<?=$this->filesUrl();?>/oferta/<?=$this->escape($o->plik);?>" alt="<?=$this->escape($o->nazwa);?>">
+                <img src="<?=$this->filesUrl();?>/oferta/<?=$this->escape($o->plik);?>" alt="<?php echo (isset($o->nazwa)) ? $o->nazwa : json_decode($o->json)->nazwa;?>">
             </div>
 <?php } ?>
         </div>
@@ -26,7 +26,11 @@
 
 <div class="container mt-5">
     <div class="row">
+    <?php if($this->lang == 'pl') { ?>
         <div class="col-12 text-center"><p>GIGA może pochwalić się zdobyciem wyróżnienia przyznawanego przez Puls Biznesu dla najbardziej dynamicznych MŚP w Polsce</p></div>
+    <?php } else { ?>
+        <div class="col-12 text-center"><p>GIGA received the Puls Biznesu award for the most dynamic small and medium-sized company (MŚP) in Poland.</p></div>
+    <?php } ?>
         <img src="<?=$this->filesUrl();?>/upload/Gazele_Biznesu.png" alt="Gazele Biznesu" class="gazele-image">
     </div>
 </div>
