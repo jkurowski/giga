@@ -4,11 +4,15 @@
             <?php foreach($this->news as $wpis){?>
             <div class="col-12 col-md-6 mb-4 mb-sm-5 imagehover">
                 <div class="mainnews-entry">
-                    <a href="<?=$this->baseUrl;?>/aktualnosci/<?=$wpis->tag;?>/"><div class="image"><img src="<?=$this->filesUrl();?>/news/<?=$wpis->plik;?>" alt="<?=$wpis->tytul;?>"></div></a>
+                    <a href="<?=$this->baseUrl;?>/<?=$this->lang;?>/aktualnosci/<?=$wpis->tag;?>/"><div class="image"><img src="<?=$this->filesUrl();?>/news/<?=$wpis->plik;?>" alt="<?php echo (isset($wpis->tytul)) ? $wpis->tytul : json_decode($wpis->json)->tytul;?>"></div></a>
                     <div class="mainnews-entry-text">
-                        <h2><a href="<?=$this->baseUrl;?>/aktualnosci/<?=$wpis->tag;?>/"><?=$wpis->tytul;?></a></h2>
-                        <p><?=previewParser($wpis->wprowadzenie, 230);?></p>
-                        <a href="<?=$this->baseUrl;?>/aktualnosci/<?=$wpis->tag;?>/" class="bttn bttn-small">CZYTAJ WIĘCEJ</a>
+                        <h2>
+                            <a href="<?=$this->baseUrl;?>/<?=$this->lang;?>/aktualnosci/<?=$wpis->tag;?>/">
+                                <?php echo (isset($wpis->tytul)) ? $wpis->tytul : json_decode($wpis->json)->tytul;?>
+                            </a>
+                        </h2>
+                        <p><?php echo (isset($wpis->wprowadzenie)) ? previewParser($wpis->wprowadzenie, 230) : previewParser(json_decode($wpis->json)->wprowadzenie, 230);?></p>
+                        <a href="<?=$this->baseUrl;?>/<?=$this->lang;?>/aktualnosci/<?=$wpis->tag;?>/" class="bttn bttn-small"><?=$this->translate('tl_zobacz_więcej');?></a>
                     </div>
                 </div>
             </div>

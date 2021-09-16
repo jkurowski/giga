@@ -4,14 +4,14 @@
             <article id="post-<?=$this->news->id;?>" itemscope itemType="http://schema.org/BlogPosting">
             <?php if($this->news->plik){ ?>
                 <div class="news-post-img">
-                    <img src="<?=$this->filesUrl();?>/news/<?=$this->news->plik;?>" alt="<?=$this->news->tytul;?>" itemprop="image">
+                    <img src="<?=$this->filesUrl();?>/news/<?=$this->news->plik;?>" alt="<?php echo (isset($this->news->tytul)) ? $this->news->tytul : json_decode($this->news->json)->tytul;?>" itemprop="image">
                 </div>
             <?php } ?>
-                <h1 class="mt-4 mb-4"><a href="<?=$this->baseUrl;?>/aktualnosci/<?=$this->news->tag;?>/" title="<?=$this->news->tytul; ?>" itemprop="url"><span itemprop="name headline"><?=$this->news->tytul; ?></span></a></h1>
+                <h1 class="mt-4 mb-4"><a href="<?=$this->baseUrl;?>/<?=$this->lang;?>/aktualnosci/<?=$this->news->tag;?>/" title="<?php echo (isset($this->news->tytul)) ? $this->news->tytul : json_decode($this->news->json)->tytul;?>" itemprop="url"><span itemprop="name headline"><?php echo (isset($this->news->tytul)) ? $this->news->tytul : json_decode($this->news->json)->tytul;?></span></a></h1>
                 <div itemprop="articleBody">
-                    <p class="news-post-entry"><?=$this->news->wprowadzenie; ?></p>
+                    <p class="news-post-entry"><?php echo (isset($this->news->wprowadzenie)) ? $this->news->wprowadzenie : json_decode($this->news->json)->wprowadzenie;?></p>
                     <p>&nbsp;</p>
-                    <?=replace($this->news->tekst); ?>
+                    <?php echo (isset($this->news->tekst)) ? replace($this->news->tekst) : replace(json_decode($this->news->json)->tekst);?>
                 </div>
 
                 <meta itemprop="author" content="<?= $this->header->autor; ?>">

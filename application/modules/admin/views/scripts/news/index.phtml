@@ -10,10 +10,11 @@
 			<table width="100%" cellspacing="0" cellpadding="0" class="tableStatic adm" id="sortable">
 				<thead>
 					<tr>
-					<th width="75%">Tytuł</th>
+					<th width="65%">Tytuł</th>
 					<th width="5%" class="center">Status</th>
 					<th width="10%">Data</th>
 					<th width="10%"></th>
+                    <?php if($this->canbetranslate){?><th width="10%"></th><?php } ?>
 					</tr>
 				</thead>
 				<tbody class="content">
@@ -25,6 +26,13 @@
 				<td class="right">
 				<a href="<?=$this->baseUrl;?>/admin/news/edytuj/id/<?=$this->escape($news->id);?>/" class="actionBtn tip btnEdit" title="Edytuj wpis"></a> <a href="<?=$this->baseUrl;?>/admin/news/usun/id/<?=$this->escape($news->id);?>/" class="actionBtn tip btnDelete confirm" title="Usuń wpis"></a>
 				</td>
+                <?php if($this->canbetranslate){?>
+                    <td class="right">
+                        <?php foreach($this->langs as $l) { ?>
+                            <a href="<?=$this->baseUrl();?>/admin/news/tlumaczenie/id/<?=$this->escape($news->id);?>/lang/<?=$this->escape($l->kod);?>/" class="actionBtn tip" title="Edytuj tłumaczenie: <?=$this->escape($l->nazwa);?>"><img src="<?=$this->baseUrl();?>/public/gfx/flags/<?=$this->escape($l->flaga);?>"></a>
+                        <?php } ?>
+                    </td>
+                <?php } ?>
 				</tr>
 				<?php endforeach; ?>
 				</tbody>

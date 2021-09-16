@@ -208,50 +208,7 @@ class Admin_NewsController extends kCMS_Admin
 								$db->update('news', $dataImg, 'id = '.$id);
 								
 							}
-							
-							function pingomatic($title, $url, $service, $debug=false) {
-								$content='<?xml version="1.0"?>'.
-									'<methodCall>'.
-									' <methodName>weblogUpdates.ping</methodName>'.
-									'  <params>'.
-									'   <param>'.
-									'    <value>'.$title.'</value>'.
-									'   </param>'.
-									'  <param>'.
-									'   <value>'.$url.'</value>'.
-									'  </param>'.
-									' </params>'.
-									'</methodCall>';
-							 
-								$headers="POST / HTTP/1.0\r\n".
-								"User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.1) Gecko/20090624 Firefox/3.5 (.NET CLR 3.5.30729)\r\n".
-								"Host: ".$service."\r\n".
-								"Content-Type: text/xml\r\n".
-								"Content-length: ".strlen($content);
-							 
-								if ($debug) nl2br($headers);
-							 
-								$request=$headers."\r\n\r\n".$content;
-								$response = "";
-								$fs=fsockopen($service, 80, $errno, $errstr);
-								if ($fs) { 
-									fwrite ($fs, $request); 
-									while (!feof($fs)) $response .= fgets($fs); 
-									if ($debug) echo "<xmp>".$response."</xmp>";
-									fclose ($fs);
-									preg_match_all("/<(name|value|boolean|string)>(.*)<\/(name|value|boolean|string)>/U",$response,$ar, PREG_PATTERN_ORDER);
-									for($i=0;$i<count($ar[2]);$i++) $ar[2][$i]= strip_tags($ar[2][$i]);
-									return array('status'=> ( $ar[2][1]==1 ? 'ko' : 'ok' ), 'msg'=>$ar[2][3] );
-								} else { 
-									if ($debug) echo "<xmp>".$errstr." (".$errno.")</xmp>"; 
-									return array('status'=>'ko', 'msg'=>$errstr." (".$errno.")");
-								} 
-							}
-							
-							pingomatic($tytul, 'http://testy.4dl.pl/melia/aktualnosci/'.$tag.'/', 'rpc.pingomatic.com', true);
-							//pingomatic($tytul, 'http://testy.4dl.pl/melia/aktualnosci/'.$tag.'/', 'ping.feedburner.com', true);
-							
-							// $this->_redirect('/admin/news/');
+							$this->redirect('/admin/news/');
 
 						} else {
 											
@@ -331,6 +288,67 @@ class Admin_NewsController extends kCMS_Admin
 			}
 		}
 
+// Edytuj języki
+    public function tlumaczenieAction() {
+        $db = Zend_Registry::get('db');
+        $this->_helper->viewRenderer('form', null, true);
+
+        // Odczytanie id
+        $id = (int)$this->getRequest()->getParam('id');
+        $lang = $this->getRequest()->getParam('lang');
+        if(!$id || !$lang){
+            $this->redirect('/admin/news/');
+        }
+        $wpis = $db->fetchRow($db->select()->from('news')->where('id = ?', $id));
+
+        $tlumaczenieQuery = $db->select()
+            ->from('tlumaczenie_wpisy')
+            ->where('module = ?', 'news')
+            ->where('id_wpis = ?', $id)
+            ->where('lang = ?', $lang);
+        $tlumaczenie = $db->fetchRow($tlumaczenieQuery);
+
+        // Laduj form
+        $form = new Form_NewsForm();
+        $this->view->tinymce = "1";
+        $form->removeElement('obrazek');
+        $form->removeElement('status');
+        $form->removeElement('data');
+
+        $array = array(
+            'form' => $form,
+            'back' => '<div class="back"><a href="'.$this->view->baseUrl().'/admin/news/">Wróć do listy</a></div>',
+            'pagename' => ' - Edytuj tłumaczenie: '.$wpis->tytul
+        );
+        $this->view->assign($array);
+
+        if($tlumaczenie) {
+            $array = json_decode($tlumaczenie->json, true);
+            $form->populate($array);
+        }
+
+        //Akcja po wcisnieciu Submita
+        if ($this->_request->getPost()) {
+
+            $formData = $this->_request->getPost();
+
+            //Sprawdzenie poprawnosci forma
+            if ($form->isValid($formData)) {
+
+                $translateModel = new Model_TranslateModel();
+                $translateModel->saveTranslate($formData, 'news', $wpis->id, $lang);
+                $this->redirect('/admin/news/');
+
+            } else {
+
+                //Wyswietl bledy
+                $this->view->message = '<div class="error">Formularz zawiera błędy</div>';
+                $form->populate($formData);
+
+            }
+        }
+    }
+
 // Usun wpis
 		public function usunAction() {
 			$db = Zend_Registry::get('db');
@@ -342,7 +360,7 @@ class Admin_NewsController extends kCMS_Admin
 			unlink(FILES_PATH."/news/share/".$wpis->plik);
 			
 			$db->delete('news', 'id = '.$id);
-			$this->_redirect('/admin/news/');
+			$this->redirect('/admin/news/');
 		}
 // Usun obrazek do newsa
 		public function usunobrazekAction() {
@@ -356,6 +374,6 @@ class Admin_NewsController extends kCMS_Admin
 			$data = array('plik' => '');
 			$db->update('news', $data, 'id = '.$id);
 
-			$this->_redirect('/admin/news/');
+			$this->redirect('/admin/news/');
 		}
 }
