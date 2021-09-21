@@ -1,29 +1,29 @@
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <ul class="list-unstyled">
-                <li><a href="<?=$this->baseUrl;?>/">Strona główna</a>
-                <li><a href="<?=$this->baseUrl;?>/o-nas/">O nas</a>
+            <ul class="list-unstyled sitemap">
+                <li><a href="<?=$this->baseUrl;?>/<?= ($this->lang == 'pl') ? '' : 'en/';?>"><?=$this->translate('tl_homepage');?></a>
+                <li><a href="<?=$this->baseUrl;?>/<?=$this->lang;?>/o-nas/"><?=$this->translate('tl_menu_onas');?></a>
                     <ul>
-                        <li><a href="<?=$this->baseUrl;?>/zrownowazony-rozwoj/">Zrównoważony rozwój</a></li>
+                        <li><a href="<?=$this->baseUrl;?>/<?=$this->lang;?>/zrownowazony-rozwoj/"><?=$this->translate('tl_menu_rozwoj');?></a></li>
                     </ul>
                 </li>
-                <li><a href="<?=$this->baseUrl;?>/misja-i-wartosci/">Misja i wartości</a></li>
-                <li><a href="<?=$this->baseUrl;?>/realizacje/">Realizacje</a></li>
-                <li><a href="<?=$this->baseUrl;?>/oferta/">Oferta</a>
+                <li><a href="<?=$this->baseUrl;?>/<?=$this->lang;?>/misja-i-wartosci/"><?=$this->translate('tl_menu_misja');?></a></li>
+                <li><a href="<?=$this->baseUrl;?>/<?=$this->lang;?>/realizacje/"><?=$this->translate('tl_menu_realizacje');?></a></li>
+                <li><a href="<?=$this->baseUrl;?>/<?=$this->lang;?>/oferta/"><?=$this->translate('tl_menu_oferta');?></a>
                     <ul>
-                        <li><a href="<?=$this->baseUrl;?>/oferta/giga-development/">GIGA Development</a></li>
-                        <li><a href="<?=$this->baseUrl;?>/oferta/giga-rental/">GIGA Rental</a></li>
-                        <li><a href="<?=$this->baseUrl;?>/oferta/giga-konsorcjum/">GIGA Konsorcjum</a></li>
+                        <li><a href="<?=$this->baseUrl;?>/<?=$this->lang;?>/oferta/giga-development/">GIGA Development</a></li>
+                        <li><a href="<?=$this->baseUrl;?>/<?=$this->lang;?>/oferta/giga-rental/">GIGA Rental</a></li>
+                        <li><a href="<?=$this->baseUrl;?>/<?=$this->lang;?>/oferta/giga-construction/">GIGA Construction</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="<?=$this->baseUrl;?>/aktualnosci/">Aktualności</a>
+                    <a href="<?=$this->baseUrl;?>/<?=$this->lang;?>/aktualnosci/"><?=$this->translate('tl_menu_aktualnosci');?></a>
                     <ul>
-                        <li><a href="<?=$this->baseUrl;?>/reakcja-na-covid/">Reakcja na COVID</a></li>
+                        <li><a href="<?=$this->baseUrl;?>/<?=$this->lang;?>/reakcja-na-covid/"><?=$this->translate('tl_menu_covid');?></a></li>
                     </ul>
                 </li>
-                <li><a href="<?=$this->baseUrl;?>/kontakt/">Kontakt</a></li>
+                <li><a href="<?=$this->baseUrl;?>/<?=$this->lang;?>/kontakt/"><?=$this->translate('tl_menu_kontakt');?></a></li>
             </ul>
         </div>
     </div>

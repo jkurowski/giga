@@ -57,7 +57,7 @@ class Admin_SliderController extends kCMS_Admin
 							$db->update('slider', $dataImg, 'id = ' . $lastId);
 						}
 
-					$this->_redirect('/admin/slider/');
+					$this->redirect('/admin/slider/');
 				} else {
 						
 					//Wyswietl bledy	
@@ -123,7 +123,7 @@ class Admin_SliderController extends kCMS_Admin
 							$db->update('slider', $dataImg, 'id = ' . $id);
 						}
 
-						$this->_redirect('/admin/slider/');
+						$this->redirect('/admin/slider/');
 				} else {
 
 					//Wyswietl bledy    
@@ -145,7 +145,7 @@ class Admin_SliderController extends kCMS_Admin
 			$where = $db->quoteInto('id = ?', $id);
 			$db->delete('slider', $where);
 
-			$this->_redirect('/admin/slider/');
+			$this->redirect('/admin/slider/');
 		}
 // Ustaw kolejność
 		public function ustawAction() {
@@ -172,9 +172,68 @@ class Admin_SliderController extends kCMS_Admin
 							
 				$db->delete('slider', $where);
 			}
-			$this->_redirect('/admin/slider/');
+			$this->redirect('/admin/slider/');
 	}
-	
+
+// Edytuj języki
+    public function tlumaczenieAction() {
+        $db = Zend_Registry::get('db');
+        $this->_helper->viewRenderer('form', null, true);
+
+        // Odczytanie id
+        $id = (int)$this->getRequest()->getParam('id');
+        $lang = $this->getRequest()->getParam('lang');
+        if(!$id || !$lang){
+            $this->redirect('/admin/slider/');
+        }
+        $wpis = $db->fetchRow($db->select()->from('slider')->where('id = ?', $id));
+
+        $tlumaczenieQuery = $db->select()
+            ->from('tlumaczenie_wpisy')
+            ->where('module = ?', 'slider')
+            ->where('id_wpis = ?', $id)
+            ->where('lang = ?', $lang);
+        $tlumaczenie = $db->fetchRow($tlumaczenieQuery);
+
+        // Laduj form
+        $form = new Form_SliderForm();
+        $form->removeElement('obrazek');
+        $form->removeElement('opacity');
+
+        $array = array(
+            'form' => $form,
+            'back' => '<div class="back"><a href="'.$this->view->baseUrl().'/admin/slider/">Wróć do listy</a></div>',
+            'pagename' => ' - Edytuj tłumaczenie: '.$wpis->tytul
+        );
+        $this->view->assign($array);
+
+        if($tlumaczenie) {
+            $array = json_decode($tlumaczenie->json, true);
+            $form->populate($array);
+        }
+
+        //Akcja po wcisnieciu Submita
+        if ($this->_request->getPost()) {
+
+            $formData = $this->_request->getPost();
+
+            //Sprawdzenie poprawnosci forma
+            if ($form->isValid($formData)) {
+
+                $translateModel = new Model_TranslateModel();
+                $translateModel->saveTranslate($formData, 'slider', $wpis->id, $lang);
+                $this->redirect('/admin/slider/');
+
+            } else {
+
+                //Wyswietl bledy
+                $this->view->message = '<div class="error">Formularz zawiera błędy</div>';
+                $form->populate($formData);
+
+            }
+        }
+    }
+
 // Ustawienia slidera
 	public function ustawieniaAction() {
 			$db = Zend_Registry::get('db');

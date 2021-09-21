@@ -16,7 +16,9 @@ class Default_IndexController extends kCMS_Site
         $offerModel = new Model_OfferModel();
         $offer = $offerModel->getAll(1);
 
-        $slider = $db->fetchAll($db->select()->from('slider')->order('sort ASC'));
+        $sliderModel = new Model_SliderModel();
+        $slider = $sliderModel->getAll();
+
         $slider_ustawienia = $db->fetchRow($db->select()->from('slider_ustawienia'));
 
         $array = array(

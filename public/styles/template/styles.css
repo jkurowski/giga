@@ -679,6 +679,14 @@ hr:before {
 	transform: rotate(-124deg);
 	left: -251px;
 }
+.sitemap a {
+	text-transform: lowercase;
+	display: block
+}
+.sitemap a::first-letter {
+	text-transform: uppercase !important;
+}
+
 
 /* Giga development
 ================================================== */

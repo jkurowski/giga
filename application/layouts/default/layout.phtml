@@ -45,12 +45,12 @@
             <li>
                 <div class="apla">
                     <div>
-                        <h3><?=$panel->tekst;?></h3>
-                        <h1><?=$panel->tytul;?></h1>
+                        <h3><?php echo (isset($panel->tytul)) ? $panel->tytul : json_decode($panel->json)->tytul;?></h3>
+                        <h1><?php echo (isset($panel->tekst)) ? $panel->tekst : json_decode($panel->json)->tekst;?></h1>
                     </div>
                 </div>
                 <div class="opacity" style="background: rgb(0, 0, 0, <?=$panel->opacity;?>)"></div>
-                <img src="<?=$this->filesUrl();?>/slider/<?=$panel->plik;?>" alt="<?=$panel->tytul;?>">
+                <img src="<?=$this->filesUrl();?>/slider/<?=$panel->plik;?>" alt="<?=$panel->tytul;?><?php echo (isset($panel->tytul)) ? $panel->tytul : json_decode($panel->json)->tytul;?>">
             </li>
         <?php } ?>
     </ul>
