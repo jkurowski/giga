@@ -18,7 +18,7 @@
                 <tbody class="content">
                 <?php foreach($this->lista as $pozycja) : ?>
                     <tr id="recordsArray_<?=$this->escape($pozycja->id);?>">
-                        <td><?=$this->escape($pozycja->tytul);?></td>
+                        <td><?=$this->escape($pozycja->tytul);?> <?=$this->escape($pozycja->tekst);?></td>
                         <td><img src="<?=$this->baseUrl;?>/files/slider/thumbs/<?=$this->escape($pozycja->plik);?>" alt=""></td>
                         <td class="right">
                             <a href="<?=$this->baseUrl;?>/admin/slider/edytuj/id/<?=$this->escape($pozycja->id);?>/" class="actionBtn tip btnEdit" title="Edytuj"></a>
