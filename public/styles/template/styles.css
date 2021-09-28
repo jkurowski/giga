@@ -157,6 +157,28 @@ blockquote:before {
 	line-height: 22px;
 }
 
+.about-blockquote .blockquote {
+	font-size: 17px;
+	line-height: 23px;
+	font-style: italic;
+	background: #f1f1f1;
+	margin: 0;
+}
+.about-blockquote blockquote:before, .about-blockquote blockquote:after {display: none}
+.blockquote-text {
+	padding: 30px;
+}
+.blockquote-text h3 {
+	margin-bottom: 5px;
+}
+.blockquote-text .small {
+	line-height: 22px;
+	font-size: 13px;
+}
+.blockquote-text p {
+	font-size: 17px;
+	line-height: 24px;
+}
 .image-border {
 	padding: 20px;
 	background-image: url("../../gfx/template/borders.png"), url("../../gfx/template/borders.png");
@@ -1417,6 +1439,21 @@ html.swipebox-html.swipebox-touch{overflow:hidden!important}#swipebox-overlay im
 	display: block
 }
 
+#backtotop {
+	width: 60px;
+	height: 60px;
+	background: #2b2b2b;
+	position: fixed;
+	right: 20px;
+	bottom: 20px;
+	cursor: pointer;
+	display: none;
+}
+#backtotop i {
+	color: #e25625;
+	font-size: 62px;
+}
+
 /* RWD
 ================================================== */
 @media (max-width: 1930px) {
@@ -1545,6 +1582,25 @@ html.swipebox-html.swipebox-touch{overflow:hidden!important}#swipebox-overlay im
 	#mainpage header.fixed nav a,
 	#mainpage header nav .submenu a {
 		padding: 5px 15px;
+	}
+
+	.about-blockquote .blockquote-text {
+		padding: 22px;
+	}
+	.about-blockquote .blockquote-text p {
+		font-size: 15px;
+		line-height: 22px;
+	}
+	.about-blockquote .blockquote-text h3 {
+		margin-bottom: 0;
+		font-size: 26px;
+	}
+	.about-blockquote .blockquote-text .small {
+		line-height: 15px;
+		font-size: 11px;
+	}
+	.blockquote-photo {
+		background: #e25625;
 	}
 }
 
@@ -1952,6 +2008,15 @@ html.swipebox-html.swipebox-touch{overflow:hidden!important}#swipebox-overlay im
 	#slider .apla h1 {
 		font-size: 29px;
 		text-align: center;
+	}
+	#backtotop {
+		width: 50px;
+		height: 50px;
+		right: 10px;
+		bottom: 10px
+	}
+	#backtotop i {
+		font-size: 51px
 	}
 }
 

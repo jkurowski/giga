@@ -17,7 +17,8 @@
             <table width="100%" cellspacing="0" cellpadding="0" class="tableStatic adm" id="sortable">
                 <thead>
                 <tr>
-                    <th width="80%">Nazwa</th>
+                    <th width="70%">Nazwa</th>
+                    <th width="10%">Status</th>
                     <th width="10%"></th>
                     <?php if($this->canbetranslate){?><th width="10%"></th><?php } ?>
                 </tr>
@@ -26,6 +27,7 @@
                 <?php foreach($this->lista as $news) : ?>
                     <tr id="recordsArray_<?= $this->escape($news->id);?>">
                         <td><?=$this->escape($news->nazwa);?></td>
+                        <td><?=status($news->status);?></td>
                         <td class="right">
                             <a href="<?=$this->baseUrl;?>/admin/realizacje/edytuj/id/<?=$this->escape($news->id);?>/" class="actionBtn tip btnEdit" title="Edytuj wpis"></a>
                             <a href="<?=$this->baseUrl;?>/admin/realizacje/usun/id/<?=$this->escape($news->id);?>/" class="actionBtn tip btnDelete confirm" title="Usuń wpis"></a>

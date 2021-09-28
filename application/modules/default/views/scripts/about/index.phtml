@@ -112,20 +112,35 @@
         </div>
     </div>
 </div>
-<div id="carousel" class="container mt-0 mt-lg-5 pt-5">
-    <?php foreach($this->opinie as $o){?>
+<div class="about-blockquote container mt-0 mt-lg-5 pt-5">
         <div class="row">
-            <div class="col-12">
-                <blockquote><?php echo (isset($o->tekst)) ? $o->tekst : json_decode($o->json)->tekst;?></blockquote>
-                <div class="blockquote-person text-center">
-                    <?php if($o->plik) {?><img src="<?=$this->baseUrl;?>/files/opinie/<?=$this->escape($o->plik);?>" alt="<?php echo (isset($o->imie)) ? $o->imie : json_decode($o->json)->imie;?> - <?php echo (isset($o->stanowisko)) ? $o->stanowisko : json_decode($o->json)->stanowisko;?>"><?php } ?>
-                    <h3><?php echo (isset($o->imie)) ? $o->imie : json_decode($o->json)->imie;?></h3>
-                    <p class="mb-3"><i><?php echo (isset($o->stanowisko)) ? $o->stanowisko : json_decode($o->json)->stanowisko;?></i></p>
-                    <p class="small"><?php echo (isset($o->dodatkowe)) ? $o->dodatkowe : json_decode($o->json)->dodatkowe;?></p>
+            <div class="col-4 p-0 blockquote-photo">
+                <img src="/files/upload/prezes.jpg" alt="Robert Dąbrowski - Prezes Zarządu">
+            </div>
+            <?php if($this->lang == 'pl') { ?>
+            <div class="col-8 pl-0 blockquote">
+                <div class="blockquote-text">
+                    <p>Jestem niezmiernie dumny z postępu jaki wykonała firma GIGA w ciągu ponad 20-letnigo istnienia. Niezwykle ważny jest dla mnie fakt, iż GIGA pozostała wierna swoim ideałom założycielskim, które opierają się na rozwoju pracowników oraz wzroście organicznym. Na każdym kroku spotykam ludzi, którzy wykazują się odpowiedzialną postawą w życiu zawodowym oraz prywatnym – jest to sukces związany z pozytywnym wpływem kultury organizacyjnej kreowanej wewnątrz naszej firmy.</p>
+                    <div class="blockquote-person">
+                        <h3>Robert Dąbrowski</h3>
+                        <p class="mb-3"><i>Prezes Zarządu</i></p>
+                        <p class="small">Absolwent Wydziału Elektrycznego Politechniki Warszawskiej o specjalności Maszyny Elektryczne | MBA na Koźmiński Business School</p>
+                    </div>
                 </div>
             </div>
+            <?php } else { ?>
+                <div class="col-8 pl-0 blockquote">
+                    <div class="blockquote-text">
+                        <p>I am more than proud of the progress made by GIGA for over 20 years of its operations. It is really important to me that GIGA remained faithful to its establishment ideals which are based on its employees’ development and organic growth. At every step I have to do with people which demonstrate a responsible approach in their professional and private lives - it is a success connected with the positive impact of the organisational culture created inside our Company.</p>
+                        <div class="blockquote-person">
+                            <h3>Robert Dąbrowski</h3>
+                            <p class="mb-3"><i>President of the Management Board</i></p>
+                            <p class="small">A graduate of the Faculty of Electricity at Warsaw University of Technology, major in Electrical Machines | MBA at Koźmiński Business School</p>
+                        </div>
+                    </div>
+                </div>
+            <?php } ?>
         </div>
-    <?php } ?>
 </div>
 <script type="text/javascript">
     AOS.init();

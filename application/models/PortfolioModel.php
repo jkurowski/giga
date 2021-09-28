@@ -35,6 +35,7 @@ class Model_PortfolioModel  extends Zend_Db_Table_Abstract
         if($this->_locale == 'pl') {
             $query = $this->_db_table->select()
                 ->from($this->_name)
+                ->where('status =?', 1)
                 ->order('sort ASC');
 
             if($tag) {
@@ -47,8 +48,10 @@ class Model_PortfolioModel  extends Zend_Db_Table_Abstract
                 ->from(array('t' => 'tlumaczenie_wpisy'))
                 ->join(array('tl' => $this->_name), 't.id_wpis = tl.id', array(
                     'obrazek',
-                    'slug'
+                    'slug',
+                    'status'
                 ))
+                ->where('status =?', 1)
                 ->where('module = ?', $this->_module)
                 ->where('lang = ?', $this->_locale)
                 ->order('sort ASC');

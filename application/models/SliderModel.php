@@ -41,7 +41,8 @@ class Model_SliderModel  extends Zend_Db_Table_Abstract
             $translatedQuery = $this->_db_table->select()
                 ->from(array('t' => 'tlumaczenie_wpisy'))
                 ->join(array('tl' => $this->_name), 't.id_wpis = tl.id', array(
-                    'plik'
+                    'plik',
+                    'opacity'
                 ))
                 ->where('module = ?', $this->_module)
                 ->where('lang = ?', $this->_locale)

@@ -110,7 +110,7 @@ $(function() {
 	});
 });
 	
-	makeWidget();
+	//makeWidget();
 	
 $(document).ready(function(){
 	$('#grid').click(function() {
@@ -122,8 +122,21 @@ $(document).ready(function(){
 		});
 		return false;
 	});
-	
 
+	var btn = $('#backtotop');
+
+	$(window).scroll(function() {
+		if ($(window).scrollTop() > 600) {
+			btn.fadeIn();
+		} else {
+			btn.fadeOut();
+		}
+	});
+
+	btn.on('click', function(e) {
+		e.preventDefault();
+		$('html, body').animate({scrollTop:0}, '300');
+	});
 	
 	$('#list').click(function() {
 		$('#offerList').fadeOut(300, function() {
