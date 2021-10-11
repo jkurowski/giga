@@ -1612,6 +1612,9 @@ html.swipebox-html.swipebox-touch{overflow:hidden!important}#swipebox-overlay im
 		padding: 0 15px;
 		line-height: 15px;
 	}
+	header nav #logo a, #mainpage header.fixed nav #logo a {
+		padding: 0;
+	}
 	.header-holder, header nav a.animate100,
 	.fixed nav a.animate100 {
 		height: 65px;
@@ -1824,6 +1827,9 @@ html.swipebox-html.swipebox-touch{overflow:hidden!important}#swipebox-overlay im
 	}
 	header .lang a {
 		color: #585858;
+	}
+	header .lang a:hover {
+		color: #fff;
 	}
 }
 
