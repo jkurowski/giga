@@ -1,6 +1,24 @@
 <header class="clearfix">
 	<div class="header-holder">
 		<div id="header">
+            <div class="top">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 d-flex justify-content-end">
+                            <div class="lang">
+                                <ul class="d-flex lang-list list-unstyled m-0">
+                                    <?php foreach($this->langs as $l) { ?>
+                                        <li<?php if($this->lang == $l['kod']){?> class="active"<?php } ?>>
+                                            <a href="<?php echo urldecode($this->switchLang($this->escape($l['kod'])));?>" id="<?= $this->escape($l['kod']);?>"><img src="<?=$this->baseUrl;?>/public/gfx/flags/<?= $l['kod'];?>.png" alt="<?= $l['nazwa'];?>"> <?= $this->escape($l['kod']);?></a>
+                                        </li>
+                                    <?php } ?>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
 			<div class="container-fluid p-0">
 				<div class="row no-gutters">
 					<div class="col-12">
@@ -13,18 +31,8 @@
                                 </li>
 								<li><a href="<?=$this->baseUrl;?>/<?=$this->lang;?>/misja-i-wartosci/" class="animate100<?=$this->activeMenu('misja-i-wartosci', $this->menutag);?>"><?=$this->translate('tl_menu_misja');?></a></li>
 								<li><a href="<?=$this->baseUrl;?>/<?=$this->lang;?>/realizacje/" class="animate100<?=$this->activeMenu('realizacje', $this->menutag);?>"><?=$this->translate('tl_menu_realizacje');?></a></li>
-                                <li id="logo"><a href="<?=$this->baseUrl;?>/<?= ($this->lang == 'pl') ? '' : 'en/';?>"><img src="<?=$this->gfxUrl();?>/logo.png" alt="<?= $this->header->nazwa; ?>"></a>
-
-                                <div class="lang">
-                                    <ul class="d-flex lang-list list-unstyled">
-                                        <?php foreach($this->langs as $l) { ?>
-                                            <li<?php if($this->lang == $l['kod']){?> class="active"<?php } ?>>
-                                                <a href="<?php echo urldecode($this->switchLang($this->escape($l['kod'])));?>" id="<?= $this->escape($l['kod']);?>"><img src="<?=$this->baseUrl;?>/public/gfx/flags/<?= $l['kod'];?>.png" alt="<?= $l['nazwa'];?>"></a>
-                                            </li>
-                                        <?php } ?>
-                                    </ul>
-                                </div>
-
+                                <li id="logo">
+                                    <a href="<?=$this->baseUrl;?>/<?= ($this->lang == 'pl') ? '' : 'en/';?>"><img src="<?=$this->gfxUrl();?>/logo.png" alt="<?= $this->header->nazwa; ?>"></a>
                                 </li>
 								<li class="o-nas-li"><a href="<?=$this->baseUrl;?>/<?=$this->lang;?>/oferta/" class="animate100<?=$this->activeMenu('oferta', $this->menutag);?>"><?=$this->translate('tl_menu_oferta');?></a>
                                     <ul class="submenu list-unstyled mb-0">
@@ -39,7 +47,8 @@
                                         <li><a href="<?=$this->baseUrl;?>/<?=$this->lang;?>/reakcja-na-covid/"><?=$this->translate('tl_menu_covid');?></a></li>
                                     </ul>
                                 </li>
-								<li><a href="<?=$this->baseUrl;?>/<?=$this->lang;?>/kontakt/" class="animate100<?=$this->activeMenu('kontakt', $this->menutag);?>"><?=$this->translate('tl_menu_kontakt');?></a></li>
+								<li>
+                                    <a href="<?=$this->baseUrl;?>/<?=$this->lang;?>/kontakt/" class="animate100<?=$this->activeMenu('kontakt', $this->menutag);?>"><?=$this->translate('tl_menu_kontakt');?></a></li>
 							</ul>
                             <?php $menu = Zend_Registry::get('mainmenu'); //$menu->get_menu_html(0); ?>
 						</nav>	

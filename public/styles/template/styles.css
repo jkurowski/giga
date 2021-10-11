@@ -298,29 +298,47 @@ header nav li.o-nas-li ul {
 	width: 275px
 }
 
-header nav .lang {
-	position: absolute;
-	top: 15px;
-	right: 0;
+.top {
+	border-bottom: 1px solid rgba(255,255,255,0.4);
 }
-header nav .lang ul {
-	background: none;
-	position: static;
+
+header .lang {
+	position: relative;
+	right: -171px;
+	-webkit-transition:all 200ms linear;
+	-moz-transition:all 200ms linear;
+	-o-transition:all 200ms linear;
+	transition:all 200ms linear
 }
-header nav .lang li {
-	padding-right: 10px;
+header .lang li {
+	margin-left: 10px;
 }
-header nav .lang ul a {
-	padding: 0;
+header .lang a {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: white;
+	font-weight: 500;
+	text-transform: uppercase;
+	font-size: 16px;
+	padding: 0 10px;
 }
-header nav .lang li img {
-	opacity: 0.4;
+header .lang a:hover {
+	background: #e25625;
 }
-header nav .lang li.active img, header nav .lang li:hover img {
-	opacity: 1;
+header .lang img {
+	margin-right: 9px;
+	border:1px solid white
 }
-header.fixed nav .lang {
-	top: 4px
+
+header.fixed .lang {
+	right: -115px;
+}
+header.fixed .lang a, #pagebody header .lang a {
+	color: #585858;
+}
+header.fixed .lang a:hover, #pagebody header .lang a:hover {
+	color: #fff;
 }
 
 header .text-center > li {
@@ -1506,6 +1524,18 @@ html.swipebox-html.swipebox-touch{overflow:hidden!important}#swipebox-overlay im
 	}
 }
 
+@media (max-width: 1540px) {
+	header .top .col-12,
+	header .top .container
+	{
+		max-width: 100%;
+	}
+
+	header .lang, header.fixed .lang {
+		right: 0;
+		z-index: 900;
+	}
+}
 @media (max-width: 1430px) {
 	.offerbox .container-fluid {
 		max-width: 1140px;
@@ -1791,6 +1821,9 @@ html.swipebox-html.swipebox-touch{overflow:hidden!important}#swipebox-overlay im
 	}
 	header.fixed nav li ul {
 		background: white;
+	}
+	header .lang a {
+		color: #585858;
 	}
 }
 
