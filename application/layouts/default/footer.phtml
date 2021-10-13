@@ -2,12 +2,27 @@
 	<div id="footer">
 		<div class="container-fluid">
 			<div class="row">
-				<div class="col-12 col-sm-6 d-flex align-items-center justify-content-center justify-content-sm-start">
+				<div class="col-12 col-sm-8 d-flex align-items-center justify-content-center justify-content-sm-start">
                     <div id="flogo">
                         <a href="<?=$this->baseUrl;?>/"><img src="<?=$this->gfxUrl();?>/flogo.png" alt="<?= $this->header['nazwa']; ?>"></a>
                     </div>
+                    <div class="fcontact">
+                        <p>ul. Cieślewskich 35 K</p>
+                        <p>03-017 Warszawa</p>
+                        <p>NIP: 113-23-50-424</p>
+                        <p>REGON: 017520947</p>
+                    </div>
+                    <div class="fcontact">
+                        <p><a href="tel:+48226145711">22 614 57 11</a></p>
+                        <p><a href="tel:+48228118225">22 811 82 25</a></p>
+                        <p>22 614 57 11 (wew. 102)</p>
+                        <p><a href="mailto:sekretariat@giga.waw.pl">sekretariat@giga.waw.pl</a></p>
+                    </div>
+                    <div class="fcontact fsocial">
+                        <p><a href="https://www.facebook.com/GIGAwaw" target="_blank"><i class="lab la-facebook-square"></i></a></p>
+                    </div>
                 </div>
-                <div class="col-12 col-sm-6 text-center text-sm-right d-flex align-items-center justify-content-center justify-content-sm-end">
+                <div class="col-12 col-sm-4 text-center text-sm-right d-flex align-items-center justify-content-center justify-content-sm-end">
                     <div>
                         <p><a href="<?=$this->baseUrl;?>/<?=$this->lang;?>/mapa-strony/"><?=$this->translate('tl_footer_sitemap');?></a></p>
                         <p><?=$this->translate('tl_footer_realizacja');?>: <a href="https://www.4dl.pl/" target="_blank">4DL.pl</a></p>

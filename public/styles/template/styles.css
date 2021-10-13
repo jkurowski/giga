@@ -190,6 +190,10 @@ blockquote:before {
 	margin: 40px auto 0
 }
 
+#widget{position:fixed;bottom:470px;z-index:100;right:0}#widget ul{list-style:none outside none;margin:0;padding:0}#widget li{margin-top:1px}#widget a{color:#fff;display:block;font-size:28px;height:55px;line-height:56px;position:relative;text-align:center;width:55px}#widget a:hover{color:#fff}#widget a:before{font-family:"FontAwesome";font-style:normal;font-variant:normal;font-weight:normal;line-height:1;text-align:center;text-transform:none}#widget a span{right:-600%;font-size:15px;height:inherit;line-height:35px;margin-left:-5px;min-width:146px;width:auto}#widget a span:before{right:-4px}#widget a span{width:0;-webkit-transition:opacity .3s,left .4s,right .4s,top .4s,bottom .4s;-moz-transition:opacity .3s,left .4s,right .4s,top .4s,bottom .4s;-o-transition:opacity .3s,left .4s,right .4s,top .4s,bottom .4s;transition:opacity .3s,left .4s,right .4s,top .4s,bottom .4s,width .4s;-ms-filter:"alpha(opacity=0)";filter:alpha(opacity=0);white-space:nowrap;opacity:0;position:absolute;z-index:-1;color:white;font-size:15px;line-height:56px}#widget a:hover span{right:100%;opacity:1;-ms-filter:"alpha(opacity=1)";filter:alpha(opacity=1);margin-right:-5px;padding:0 13px 0 15px;-webkit-border-radius:5px 0 0 5px;-moz-border-radius:5px 0 0 5px;border-radius:5px 0 0 5px}
+.Facebook,.Facebook span{background:#234999}
+.Facebook:before{content:"\f09a"}
+
 /* Informacja o ciasteczkach
 ================================================== */
 #cookies {position:fixed;width:100%;bottom:0;background:white;z-index:9999;border-top:1px solid #ddd;display:none;padding:10px 0}
@@ -1476,6 +1480,21 @@ html.swipebox-html.swipebox-touch{overflow:hidden!important}#swipebox-overlay im
 #backtotop i {
 	color: #e25625;
 	font-size: 62px;
+}
+
+.fcontact {
+	padding-left: 20px;
+	border-left: 1px solid #e3e3e3;
+	margin-left: 20px;
+}
+.fsocial {
+	padding-left: 40px;
+	display: flex;
+	align-items: start;
+	height: 100%;
+}
+.fsocial i {
+	font-size: 32px;
 }
 
 /* RWD
